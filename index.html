@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nena Adom - Aide à domicile</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<style>
+/* ====== Variables couleurs Nena Adom ====== */
+:root{
+  --na-blue: #004AAD;
+  --na-yellow: #FFEBA4; /* jaune pastel */
+}
+
+/* ====== Base existante ====== */
+
+
+header h1 {
+  font-size: 2em;
+  margin: 0;
+  font-weight: normal;
+  font-family: Arimo;
+}
+
+header h2 {
+  font-size: 1.7em;
+  font-weight: normal;
+  margin: 0;
+}
+
+.main-section {
+  display: flex;
+  align-items: stretch;
+  background-color: #fafafa;
+  margin-bottom: 30px;
+  margin-top: 20px;
+  overflow: hidden;
+  margin-right:60px;
+  margin-left:60px;
+  position: relative;           /* ← nécessaire pour les formes */
+  isolation: isolate;           /* empêche les z-index de fuir */
+}
+
+.main-section img {
+  width: 70%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  position: relative;           /* passe au-dessus des blobs */
+  z-index: 1;
+}
+
+.main-text {
+  width: 100%;
+  padding: 40px;
+  text-align: justify;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;           /* passe au-dessus des blobs */
+  z-index: 1;
+}
+
+.main-text h3 {
+  font-size: 2em;
+  font-weight: normal;
+  margin-bottom: 10px;
+  align-items: center;
+  text-align: center;
+  line-height: 1.2; /* Espacement entre les lignes */
+  justify-content: center;
+  font-family: Arimo;
+  margin-top: 10px;
+}
+
+.main-text h2 {
+  text-align : center;
+  font-size: 1em;
+  font-weight: normal;
+  margin: 0;
+}
+
+.main-text p {
+  line-height: 1.5em;
+  margin-left: 28px;
+  margin-right: 28px;
+}
+
+/* ====== Blobs décoratifs sur toute la page ====== */
+/* 1) Blob HÉRO : gros ovale bleu + pastille jaune */
+.main-section::before{
+  content:"";
+  position:absolute;
+  left:-22vw;
+  top:-12vw;
+  width:65vw;
+  height:65vw;
+  max-width:920px;
+  max-height:920px;
+  background: var(--na-blue);
+  opacity:.08;                  /* douceur */
+  border-radius: 50% 45% 55% 50% / 55% 50% 45% 50%;
+  transform: rotate(-12deg);
+  z-index:0;
+  pointer-events:none;
+  filter: drop-shadow(0 10px 30px rgba(0,0,0,.06));
+}
+
+.main-section::after{
+  content:"";
+  position:absolute;
+  right:-8vw;
+  bottom:-6vw;
+  width:18vw;
+  height:18vw;
+  max-width:260px;
+  max-height:260px;
+  background: var(--na-yellow);
+  opacity:.35;
+  border-radius:50%;
+  transform: rotate(8deg);
+  z-index:0;
+  pointer-events:none;
+  filter: drop-shadow(0 8px 22px rgba(0,0,0,.06));
+}
+
+/* 2) SECTION “DE QUOI AVEZ-VOUS BESOIN ?” / grille des services */
+.services-grid{
+  position:relative;
+  isolation:isolate;
+}
+
+
+
+/* 3) Barre de recherche – petit accent jaune derrière le titre */
+.search-section{
+  position:relative;
+  isolation:isolate;
+}
+.search-section::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:-14px;
+  transform:translateX(-50%) rotate(-3deg);
+  width:280px;
+  height:28px;
+  background: var(--na-yellow);
+  opacity:.35;
+  border-radius: 999px;
+  z-index:0;
+  pointer-events:none;
+}
+
+/* 4) Section contact – grand ruban bleu en arrière-plan */
+.contact-section{
+  position:relative;
+  isolation:isolate;
+  overflow: hidden;
+}
+.contact-section::before{
+  content:"";
+  position:absolute;
+  right:-25vw;
+  top:-8vw;
+  width:58vw;
+  height:58vw;
+  max-width:900px;
+  max-height:900px;
+  background: var(--na-blue);
+  opacity:.07;
+  border-radius: 46% 54% 50% 50% / 54% 46% 50% 50%;
+  transform: rotate(14deg);
+  z-index:0;
+  pointer-events:none;
+}
+
+/* 5) Section partenaires – halo bicolore doux */
+.partners-section{
+  position:relative;
+  isolation:isolate;
+}
+.partners-section::before{
+  content:"";
+  position:absolute;
+  left:-10vw;
+  bottom:-6vw;
+  width:40vw;
+  height:40vw;
+  max-width:520px;
+  max-height:520px;
+  background: radial-gradient(100% 100% at 50% 50%, rgba(0,74,173,.12) 0%, rgba(0,74,173,0) 70%),
+              radial-gradient(100% 100% at 70% 30%, rgba(255,235,164,.45) 0%, rgba(255,235,164,0) 70%);
+  border-radius:50%;
+  z-index:0;
+  pointer-events:none;
+}
+
+/* 6) Carte – petite pastille bleue pour rappeler la charte */
+.map-section{
+  position:relative;
+  isolation:isolate;
+}
+.map-section::after{
+  content:"";
+  position:absolute;
+  right:6vw;
+  top:-24px;
+  width:120px;
+  height:120px;
+  background: var(--na-blue);
+  opacity:.08;
+  border-radius:50%;
+  z-index:0;
+  pointer-events:none;
+}
+
+/* ====== Couche décor FIXE (figée au scroll) ====== */
+.na-fixed-decor{
+  position: fixed;
+  inset: 0;
+  z-index: 0;            /* sous le contenu */
+  pointer-events: none;  /* jamais cliquable */
+}
+
+.na-fixed-decor .blob{
+  position: absolute;
+  will-change: transform;
+  filter: drop-shadow(0 10px 30px rgba(0,0,0,.06));
+}
+
+/* GROSSE TACHE BLEUE EN HAUT-GAUCHE */
+.blob--tl{
+  width: 48vw; height: 48vw;
+  left: -18vw; top: -12vw;
+  background: var(--na-blue);
+  opacity: .085;
+  border-radius: 52% 48% 57% 43% / 53% 47% 52% 48%;
+  transform: rotate(-12deg);
+}
+
+/* PASTILLE JAUNE EN HAUT-DROITE */
+.blob--tr{
+  width: 24vw; height: 24vw;
+  right: -10vw; top: 8vh;
+  background: var(--na-yellow);
+  opacity: .35;
+  border-radius: 50%;
+  transform: rotate(6deg);
+  filter: drop-shadow(0 8px 22px rgba(0,0,0,.06));
+}
+
+/* GRAND VOILE BLEU FAIBLE OPACITÉ (CENTRE) */
+.blob--c1{
+  width: 60vw; height: 60vw;
+  left: 18vw; top: 42vh;
+  background: var(--na-blue);
+  opacity: .06;
+  border-radius: 46% 54% 50% 50% / 54% 46% 50% 50%;
+  transform: rotate(14deg);
+}
+
+/* BLOB BLEU EN BAS-DROITE */
+.blob--br{
+  width: 36vw; height: 36vw;
+  right: -12vw; bottom: -8vw;
+  background: var(--na-blue);
+  opacity: .09;
+  border-radius: 55% 45% 50% 50% / 44% 56% 50% 50%;
+  transform: rotate(-8deg);
+}
+
+/* PASTILLE JAUNE EN BAS-GAUCHE */
+.blob--bl{
+  width: 20vw; height: 20vw;
+  left: 6vw; bottom: 18vh;
+  background: var(--na-yellow);
+  opacity: .4;
+  border-radius: 50%;
+  transform: rotate(8deg);
+  filter: drop-shadow(0 8px 22px rgba(0,0,0,.06));
+}
+
+/* Le contenu passe AU-DESSUS des blobs */
+.container,
+.contact-section,
+.partners-section,
+.map-section,
+footer{
+  position: relative;
+  z-index: 1;
+}
+
+/* ====== Responsive : on allège les formes sur mobile ====== */
+@media (max-width: 768px){
+  .center-header {
+    margin-top:5px;
+    margin-bottom:5px;
+  }
+
+  .center-header h2{
+    margin-bottom: 0;
+  }
+  .main-section{
+    margin-top:0;
+    margin-left:16px;
+    margin-right:16px;
+  }
+  .main-section::before{
+    left:-40vw;
+    top:-24vw;
+    width:120vw;
+    height:120vw;
+    opacity:.09;
+  }
+  .main-section::after{
+    right:-18vw;
+    bottom:-12vw;
+    width:36vw;
+    height:36vw;
+    opacity:.35;
+  }
+  .services-grid::before{
+    width:92vw;
+    height:260px;
+    top:-30px;
+    opacity:1;
+  }
+  .contact-section::before{
+    right:-40vw;
+    top:-20vw;
+    width:100vw;
+    height:100vw;
+    opacity:.08;
+  }
+  .map-section::after{
+    width:80px; height:80px;
+    right:4vw; top:-14px;
+  }
+
+  .phone-call-button {
+    width: 45vw;
+  }
+
+  .contact-right {
+    margin-top:0px;
+  }
+  /* Déco fixe – version mobile */
+  .na-fixed-decor .blob{ opacity: .09; } /* un chouïa plus visible sur petit écran */
+
+  .blob--tl{
+    width: 55vw; height: 110vw;
+    left: -45vw; top: 32vw;
+  }
+
+  .blob--tr{
+    width: 36vw; height: 36vw;
+    right: -16vw; top: 10vh;
+  }
+
+  .blob--c1{ display: none; } /* on allège pour perf/lecture */
+
+  .blob--br{
+    width: 70vw; height: 70vw;
+    right: -40vw; bottom: -26vw;
+  }
+
+  .blob--bl{
+    width: 44vw; height: 44vw;
+    left: -12vw; bottom: 18vh;
+  }
+
+}
+
+
+
+/* ====== Bouton Appel ====== */
+.phone-call-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background-color: #28a745; /* vert bouton */
+  color: white;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.phone-call-button:hover {
+  background-color: #218838; /* vert foncé au survol */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+.phone-call-button svg {
+  width: 22px;
+  height: 22px;
+  fill: white;
+}
+/* On coupe les anciens pseudo-éléments décoratifs */
+.main-section::before,
+.main-section::after,
+.search-section::before,
+.contact-section::before,
+.partners-section::before,
+.map-section::after{
+  content: none !important;
+}
+
+
+</style>
+
+<body>
+
+  <!-- DÉCOR FIXE (ne bouge pas au scroll) -->
+  <div class="na-fixed-decor" aria-hidden="true">
+    <span class="blob blob--c1"></span>
+    <span class="blob blob--br"></span>
+    <span class="blob blob--bl"></span>
+  </div>
+
+  <div class="container">
+    <header class="center-header">
+      <h1>NENA ADOM</h1>
+      <h2>SERVICES D’AIDE À DOMICILE</h2>
+    </header>
+
+    <section class="main-section">
+      <img src="images/accueil/slogan-accueil.jpg" alt="Photo d'une dame âgée et d'une jeune femme souriante">
+      <div class="main-text">
+        <h2>PARIS</h2>
+        <h3>Offrez le meilleur<br> accompagnement à vos proches</h3>
+        <p>
+        Découvrez nos services personnalisés d'aide à domicile, conçus pour répondre précisément aux besoins uniques de chaque personne âgée.
+        </p>
+      </div>
+    </section>
+
+    <div class="section-title center-title">DE QUOI AVEZ-VOUS BESOIN ?</div>
+
+    <section class="services-grid">
+
+        <div class="service-cell">
+          <div class="service-title-box">
+            <h2>Aide à domicile aux personnes âgées</h2>
+          </div>
+          <a href="pages/services.html" class="service-link">
+            <div class="service-content-box">
+              <img src="images/accueil/services.png" alt="Aide à domicile">
+              <div class="service-text">
+                Afin d'assurer leur autonomie et leur dignité et d’offrir une tranquillité d'esprit totale aux proches aidants, nous proposons une gamme de services complète pour les tâches quotidiennes, y compris la toilette, l'aide au lever et au coucher, courses et préparation des repas, le ménage et le repassage.
+                <br><button class="read-more-btn" onclick="expandFirstQuestion()">En savoir plus</button>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="service-cell">
+          <div class="service-title-box">
+            <h2>S’informer sur les aides financières </h2>
+          </div>
+          <a href="pages/aides.html" class="service-link">
+            <div class="service-content-box">
+              <img src="images/accueil/aides.png" alt="Aides financières">
+              <div class="service-text">
+                Différentes aides financières existent pour rendre les services d’aide à domicile accessibles et offrir aux personnes âgées la possibilité de continuer à vivre chez elles malgré une perte
+                d'autonomie. Notre équipe vous accompagne afin que vous puissiez bénéficier pleinement de vos droits. 
+                <br><button class="read-more-btn" onclick="expandFirstQuestion()">En savoir plus</button>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="service-cell">
+          <div class="service-title-box">
+            <h2> Accompagnement après une hospitalisation</h2>
+          </div>
+          <a href="pages/hospitalisation.html" class="service-link">
+            <div class="service-content-box">
+              <img src="images/accueil/hopital.png" alt="Hospitalisation">
+              <div class="service-text">
+                Notre objectif est de favoriser le retour à domicile des patients. Notre équipe pluridisciplinaire prend entièrement en charge le patient, créant un environnement calme et adapté à ses besoins uniques. Facilitant également la logistique, Nena Adom s'occupe de la livraison du matériel médical. 
+                <br><button class="read-more-btn" onclick="expandFirstQuestion()">En savoir plus</button>              
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="service-cell">
+          <div class="service-title-box">
+            <h2>Mieux comprendre ma pathologie</h2>
+          </div>
+          <a href="pages/pathologie.html" class="service-link">
+            <div class="service-content-box">
+              <img src="images/accueil/pathologie.png" alt="Pathologie">
+              <div class="service-text">
+                Pour les patients tout comme leurs proches aidants, bien vivre avec la maladie, passe avant tout par une bonne compréhension, vous trouverez ici à votre disposition des ressources claires et accessibles sur les pathologies les plus courantes chez les personnes âgées (Parkinson, Alzheimer…) 
+                <br><button class="read-more-btn" onclick="expandFirstQuestion()">En savoir plus</button>
+              </div>
+            </div>
+          </a>
+        </div>
+
+    </section>
+
+<!-- Barre de recherche -->
+  <section class="search-section center-title" style="margin-top:40px; text-align: center;">
+    <h2 class="center-title">BESOIN D'UN RENSEIGNEMENT PRÉCIS ?</h2>
+      <input type="text" id="searchInput" placeholder="Tapez un mot-clé..." style="padding:10px; width:60%; max-width:400px; border-radius:8px; border:1px solid #ccc; margin:10px auto;">
+      <button onclick="searchSite()" style="padding:10px 20px; border-radius:8px; background-color:#004aad; color:white; border:none;">Rechercher</button>
+      <ul id="results" style="margin-top:15px; list-style:none; padding-left:0;"></ul>
+  </section>
+
+  </div>
+
+  <section class="contact-section">
+  <div class="contact-right">
+    <p class="contact-text">
+      Contactez-nous dès aujourd'hui pour discuter de la manière dont nous pouvons améliorer la qualité de vie de vos proches grâce à nos services d'aide à domicile.
+    </p>
+
+    <p>Prenez rendez-vous dès aujourd’hui par téléphone :</p>
+
+    <a href="tel:0605873735" class="phone-call-button">
+      <!-- Icône téléphone -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 
+                1 0 011.11-.21c1.21.49 2.54.76 3.93.76a1 
+                1 0 011 1v3.5a1 1 0 01-1 1C10.61 
+                22.5 1.5 13.39 1.5 2.5a1 1 0 
+                011-1H6a1 1 0 011 1c0 1.39.26 
+                2.72.76 3.93a1 1 0 01-.21 1.11l-2.2 2.2z"/>
+      </svg>
+      +33 6 05 87 37 35
+    </a>
+
+
+    <p class="contact-text-1">Chez Nena Adom, nous nous engageons à fournir un service d'accompagnement de fin de vie exceptionnel, apportant soutien, confort, et compassion à chaque étape du chemin. Faites le choix de la tranquillité d'esprit en nous choisissant comme partenaire dans cette étape délicate de la vie. Contactez-nous dès aujourd'hui pour en savoir plus sur nos services et comment nous pouvons accompagner vos proches.</p>
+  </div>
+
+  <div class="contact-left">
+    <h2 class="contact-title">ENVIE D’ÉCHANGER ?</h2>
+    <img src="images/accueil/cta-picture.png" alt="Illustration échange téléphone">
+  </div>
+</section>
+
+<section class="partners-section">
+  <h2>NOS PARTENAIRES</h2>
+  <div class="partners-track">
+      <div class="partner-tooltipv2">
+          <a href="tel:0698332521" target="_blank">
+              <img src="images/partenaires/sosmedecins.png" alt="Médecin Partenaire">
+          </a>
+          <div class="tooltip-textv2">
+              En cas d'imprévu ou d'un pépin physique, appelez notre médecin partenaire, qui saura vous guider et vous permettre d'adopter les bons gestes dans les meilleurs délais.
+          </div>
+      </div>
+
+      <div class="partner-tooltipv2">
+          <a href="tel:0665957019" target="_blank">
+              <img src="images/partenaires/taxi.png" alt="Jek Services">
+          </a>
+          <div class="tooltip-textv2">
+              Avec nous, vous disposez d'un chauffeur expérimenté privé pour vous amener partout ou vous le souhaitez, que ce soit pour des rendez-vous médicaux ou pour tout autre sortie.        
+          </div>
+      </div>
+
+      <div class="partner-tooltipv2">
+          <a href="tel:0605873735" target="_blank">
+              <img src="images/partenaires/audition.png" alt="Prothèse auditive">
+          </a>
+          <div class="tooltip-textv2">
+              En cas de soucis auditif appuyez sur l'icone pour prendre contact avec notre partenaire
+          </div>
+      </div>
+
+      <div class="partner-tooltipv2">
+          <a href="tel:0605873735" target="_blank">
+              <img src="images/partenaires/kiné.png" alt="Kinésithérapeute">
+          </a>
+          <div class="tooltip-textv2">
+              Messages Messages Messages Messages Messages Messages Messages Messages
+          </div>
+      </div>
+
+      <div class="partner-tooltipv2">
+          <a href="tel:0605873735" target="_blank">
+              <img src="images/partenaires/pharmacie.png" alt="Pharmacie">
+          </a>
+          <div class="tooltip-textv2">
+              Messages Messages Messages Messages Messages Messages Messages Messages
+          </div>
+      </div>
+
+  </div>
+</section>
+
+<section class="map-section">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.7243927791994!2d2.300351115673216!3d48.86986757928898!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66fc731d81b7d%3A0x9db9c7d6b73d8351!2s92%20Av.%20des%20Champs-%C3%89lys%C3%A9es%2C%2075018%20Paris!5e0!3m2!1sfr!2sfr!4v1718796584436!5m2!1sfr!2sfr"
+    width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</section>
+
+<footer style="background-color: #ffffff; padding: 20px 0; text-align: center; font-size: 14px; color: #000000; border-top: 1px solid #ddd;">
+  <p>© 2025 Nena Adom – Tous droits réservés</p>
+  <p>
+    SIRET : 95102803400019 – Site sans collecte de données<br>
+    Hébergement : IONOS – 7 Place de la Gare, 57200 Sarreguemines, France
+  </p>
+  <p>
+    <a href="mailto:contact@nenaadom.fr" style="color: #000000; text-decoration: underline;">contact@nenaadom.fr</a> |
+    <a href="pages/mentions-legales.html" style="color: #000000; text-decoration: underline;">Mentions légales</a> |
+    <a href="pages/faq.html" style="color: #000000; text-decoration: underline;">FAQ</a>
+  </p>
+</footer>
+
+<script>
+const pagesToSearch = [
+  { title: "Aides financières", url: "pages/aides.html" },
+  { title: "Services à domicile", url: "pages/services.html" },
+  { title: "Hospitalisation", url: "pages/hospitalisation.html" },
+  { title: "Pathologies", url: "pages/pathologie.html" },
+  { title: "FAQ", url: "pages/faq.html" }
+];
+
+function searchSite() {
+  const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
+  const resultsList = document.getElementById("results");
+  if (!keyword) {
+    resultsList.innerHTML = "<li>Veuillez entrer un mot-clé.</li>";
+    return;
+  }
+
+  resultsList.innerHTML = "Recherche en cours...";
+
+  const promises = pagesToSearch.map(page =>
+    fetch(page.url)
+      .then(res => res.text())
+      .then(html => ({
+        title: page.title,
+        url: page.url,
+        found: html.toLowerCase().includes(keyword)
+      }))
+      .catch(() => ({ title: page.title, url: page.url, found: false }))
+  );
+
+  Promise.all(promises).then(results => {
+    const filtered = results.filter(r => r.found);
+    if (filtered.length === 0) {
+      resultsList.innerHTML = "<li>Aucun résultat trouvé</li>";
+    } else {
+      resultsList.innerHTML = filtered
+        .map(r => `<li><a href="${r.url}?q=${encodeURIComponent(keyword)}">${r.title}</a></li>`)
+        .join("");
+    }
+  });
+}
+
+document.getElementById("searchInput").addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    searchSite();
+  }
+});
+</script>
+
+<script>
+(function(){
+  const track = document.querySelector('.partners-track');
+  if (!track) return;
+
+  const mq = window.matchMedia('(max-width: 768px)');
+  let running = false, rafId = null, lastTs = 0;
+  const SPEED = 40; // px/s (ajuste si besoin)
+  let cycle = 0;    // distance avant que le motif se répète (début du 1er clone)
+
+  function rebuild() {
+    // 1) nettoyer d'anciens clones
+    track.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
+
+    // 2) dupliquer tous les items une fois
+    const originals = Array.from(track.children);
+    originals.forEach(el => {
+      const clone = el.cloneNode(true);
+      clone.setAttribute('data-clone', '1');
+      track.appendChild(clone);
+    });
+
+    // 3) forcer un reflow puis mesurer le point de boucle
+    void track.offsetWidth;
+    const firstClone = track.querySelector('[data-clone="1"]');
+    cycle = firstClone ? Math.round(firstClone.offsetLeft) : 0;
+
+    // 4) se replacer proprement dans le cycle (utile après resize/orientation)
+    if (cycle > 0) track.scrollLeft = track.scrollLeft % cycle;
+  }
+
+  function shouldRun(){
+    return mq.matches && track.scrollWidth > track.clientWidth;
+  }
+
+  function step(ts){
+    if (!running) return;
+    if (!lastTs) lastTs = ts;
+    const dt = (ts - lastTs) / 1000;
+    lastTs = ts;
+
+    track.scrollLeft += SPEED * dt;
+
+    // Boucle continue sans “reset visible”
+    if (cycle > 0 && track.scrollLeft >= cycle) {
+      track.scrollLeft -= cycle;
+    }
+
+    rafId = requestAnimationFrame(step);
+  }
+
+  function start(){
+    if (running) return;
+    if (!shouldRun()) { stop(); return; }
+    track.style.scrollBehavior = 'auto'; // on s'assure d'aucune inertie CSS
+    rebuild();
+    running = true;
+    lastTs = 0;
+    rafId = requestAnimationFrame(step);
+  }
+
+  function stop(){
+    running = false;
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = null;
+  }
+
+  // Pause pendant interaction tactile, reprise ensuite
+  let touchTimer = null;
+  track.addEventListener('touchstart', () => {
+    if (touchTimer) clearTimeout(touchTimer);
+    stop();
+  }, {passive:true});
+  track.addEventListener('touchend', () => {
+    if (touchTimer) clearTimeout(touchTimer);
+    touchTimer = setTimeout(() => start(), 600);
+  }, {passive:true});
+
+  // Tab caché → pause / retour → reprise
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stop(); else start();
+  });
+
+  // Changement viewport/orientation
+  if (mq.addEventListener) {
+    mq.addEventListener('change', () => { stop(); track.scrollLeft = 0; start(); });
+  } else {
+    // fallback
+    window.addEventListener('resize', () => { stop(); track.scrollLeft = 0; start(); });
+  }
+
+  // Go
+  start();
+})();
+</script>
+
+</body>
+</html>

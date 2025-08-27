@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <title>FAQ - Nena Adom</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+  h2 {
+    font-family: 'Comfortaa', sans-serif;
+  }
+  
+  </style>
+</head>
+<body>
+
+<!-- HEADER MOBILE (affiché uniquement sur mobile) -->
+<header class="mobile-header">
+  <button class="mobile-menu-btn" aria-label="Ouvrir le menu">&#9776;</button>
+  <a href="../index.html" class="mobile-logo">
+    <img src="../images/logo.png" alt="Nena Adom logo">
+  </a>
+  <form class="mobile-search-bar" action="" method="get" style="position:relative;">
+    <input type="text" id="mobileSearchInput" name="q" placeholder="Rechercher..." style="display:none; position:absolute; right:40px; top:50%; transform:translateY(-50%); width:140px; border-radius:20px; border:1px solid #ccc; padding:4px 10px; font-size:15px;">
+    <button type="button" class="mobile-search-btn" aria-label="Recherche" style="background:none; border:none;">
+      <img src="../images/search.png" alt="Recherche" style="width:28px;height:28px;">
+    </button>
+  </form>
+</header>
+
+<!-- MENU LATERAL MOBILE -->
+<nav class="mobile-side-menu" id="mobileSideMenu">
+  <button class="mobile-close-btn" aria-label="Fermer le menu">&times;</button>
+  <ul>
+    <li><a href="services.html">NOS SERVICES</a></li>
+    <li><a href="hospitalisation.html">MON SUIVI APRÈS UNE HOSPITALISATION</a></li>
+    <li><a href="pathologie.html">COMPRENDRE MA PATHOLOGIE</a></li>
+    <li><a href="aides.html">AIDES FINANCIÈRES</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="tel:0605873735" class="mobile-call-link">06.05.87.37.35</a></li>
+  </ul>
+</nav>
+
+  <!-- HEADER ORDINATEUR-->
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <img src="../images/logo.png" alt="Nena Adom logo">
+    </a>
+
+    <nav class="nav-links">
+      <a href="aides.html">Aides Disponibles</a>
+      <form class="search-bar" action="" method="get">
+        <input type="text" id="searchInput" name="q" placeholder="Rechercher...">
+        <button type="submit">🔍</button>
+      </form>
+      <a href="faq.html">FAQ</a>
+    </nav>
+
+    <a href="tel:0605873735" class="phone-number">
+      06.05.87.37.35
+    </a>
+  </header>
+
+  <!-- INTRO -->
+  <div class="container">
+    <header class="center-header">
+      <h1>LA RÉPONSE À TOUTES VOS QUESTIONS</h1>
+      <h2>CONCERNANT L'AIDE À DOMICILE</h2>
+    </header>
+
+    <section class="main-section">
+      <img src="../images/faq/faq-slogan.png" alt="Photo d'un soignant accompagnant un patient sur ses questions">
+      <div class="main-text">
+        <p>
+          Chez Nena Adom, nous savons que faire appel à une aide à domicile soulève souvent de nombreuses interrogations : démarches, coûts, services proposés, prise en charge médicale, aides financières, etc.<br><br>
+          Cette page a été conçue pour vous apporter des réponses claires, simples et accessibles, que vous soyez une personne concernée, un proche aidant ou un professionnel de santé.<br><br>
+          Vous trouverez ici l'essentiel pour avancer sereinement dans votre projet d'accompagnement à domicile.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <!-- FAQ -->
+<section class="faq-section">
+  <!-- Illustration 1 -->
+  <div class="faq-illustration left">
+    <img src="../images/faq/illustration1.jpg" alt="Illustration implication famille">
+  </div>
+  
+  <div class="faq-container">
+    <div class="faq-item first-item">
+      <div class="faq-question">
+        <h2>Suis-je impliqué dans la mise en place de l'accompagnement de mon proche ?</h2>
+        <span class="arrow">▾</span>
+      </div>
+      
+      <!-- Aperçu visible par défaut -->
+      <div class="faq-preview">
+        <div class="faq-preview-text">
+          Absolument, votre implication est essentielle.<br><br>
+          Nous travaillons en étroite collaboration avec vous et votre proche pour bien comprendre ses besoins, ses habitudes et ses attentes.
+        </div>
+        <button class="read-more-btn" onclick="expandFirstQuestion()">Lire plus...</button>
+      </div>
+      
+      <!-- Réponse complète cachée -->
+      <div class="faq-answer">
+        <p>
+          Absolument, votre implication est essentielle.<br><br>
+          Nous travaillons en étroite collaboration avec vous et votre proche pour bien comprendre ses besoins, ses habitudes et ses attentes. Cela nous permet de personnaliser l'accompagnement et de garantir un service adapté et respectueux.<br><br>
+          Vous participez activement à l'élaboration du plan d'aide, à la sélection des intervenants, et vous êtes informé régulièrement de l'évolution des prestations.<br><br>
+          Notre objectif est de créer un vrai partenariat avec vous, pour assurer le bien-être et la sécurité de votre proche.
+        </p>
+      </div>
+    </div>
+
+    <!-- Illustration 2 -->
+    <div class="faq-illustration right">
+      <img src="../images/faq/illustration2.jpg" alt="Illustration matériel médical">
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question">
+        <h2>Faut-il fournir du matériel ou des produits pour les interventions ?</h2>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="faq-answer">
+        <p>
+          Dans la plupart des cas, nous utilisons le matériel et les produits déjà disponibles au domicile de la personne aidée, afin de garantir son confort et son environnement habituel.<br><br>
+          Cependant, selon la nature des prestations, il peut être utile ou nécessaire de prévoir certains produits spécifiques (produits d'entretien, protections, équipements médicaux légers, etc.).<br><br>
+          Nous vous accompagnons pour vous conseiller sur le matériel adapté si besoin, et nous nous adaptons toujours à votre situation.
+        </p>
+      </div>
+    </div>
+
+    <!-- Illustration 3 -->
+    <div class="faq-illustration left">
+      <img src="../images/faq/illustration3.jpg" alt="Illustration services combinés">
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question">
+        <h2>Est-il possible de combiner plusieurs types de services (ménage + aide à la toilette, par exemple) ?</h2>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="faq-answer">
+        <p>
+          Oui, tout à fait !<br><br>
+          Nous proposons des services entièrement personnalisables pour répondre au mieux aux besoins de la personne aidée. Vous pouvez combiner différentes prestations comme le ménage, l'aide à la toilette, la préparation des repas, les courses, ou l'accompagnement lors de sorties.<br><br>
+          Cette flexibilité permet de créer un accompagnement global, adapté à chaque situation, et d'assurer un confort optimal au quotidien.<br><br>
+          N'hésitez pas à nous consulter pour établir ensemble un plan d'aide sur-mesure.
+        </p>
+      </div>
+    </div>
+
+    <!-- Illustration 4 -->
+    <div class="faq-illustration right">
+      <img src="../images/faq/illustration4.jpg" alt="Illustration sécurité">
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question">
+        <h2>Comment garantir la sécurité de mon proche avec un intervenant extérieur ?</h2>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="faq-answer">
+        <p>
+          La sécurité de votre proche est notre priorité absolue.<br><br>
+          Chaque auxiliaire de vie bénéficie d'une formation continue, notamment sur les bonnes pratiques de sécurité et le respect de la confidentialité.<br><br>
+          De plus, nous assurons un suivi régulier des interventions grâce à des outils de contrôle (feuilles de présence, pointage téléphonique) et un contact permanent avec les familles.<br><br>
+          Enfin, nous restons disponibles 24h/24 pour répondre à vos questions ou intervenir rapidement en cas de besoin.
+        </p>
+      </div>
+    </div>
+
+    <!-- Illustration 5 -->
+    <div class="faq-illustration left">
+      <img src="../images/faq/illustration5.jpg" alt="Illustration pause service">
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question">
+        <h2>Peut-on suspendre temporairement les services si besoin (vacances, hospitalisation) ?</h2>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="faq-answer">
+        <p>
+          Oui, il est tout à fait possible de suspendre temporairement les interventions en cas de vacances, d'hospitalisation ou de tout autre motif.<br><br>
+          Nous vous invitons simplement à nous prévenir à l'avance afin que nous puissions organiser cette pause sans compromettre le suivi et la qualité du service.<br><br>
+          Cette flexibilité vous permet d'adapter l'aide à domicile à votre rythme et à vos besoins, en toute simplicité.
+        </p>
+      </div>
+    </div>
+
+    <!-- Illustration 6 -->
+    <div class="faq-illustration right">
+      <img src="../images/faq/illustration6.jpg" alt="Illustration fin de vie">
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question">
+        <h2>En quoi consiste le rôle de l'accompagnant en fin de vie ?</h2>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="faq-answer">
+        <p>
+          L'accompagnant en fin de vie apporte un soutien humain, attentif et respectueux à la personne en phase terminale et à ses proches.<br><br>
+          Son rôle est d'être présent, d'écouter, d'aider à soulager les besoins quotidiens, et d'offrir réconfort et dignité jusqu'au dernier moment.<br><br>
+          Il accompagne la personne dans ses gestes de la vie courante, facilite la communication avec les équipes médicales, et soutient aussi la famille face aux émotions difficiles.<br><br>
+          L'accompagnant agit avec bienveillance, discrétion, et dans le respect des souhaits de chacun, contribuant ainsi à une fin de vie apaisée et digne.
+        </p>
+      </div>
+    </div>
+
+    <!-- Illustration 7 -->
+    <div class="faq-illustration left">
+      <img src="../images/faq/illustration7.jpg" alt="Illustration compréhension pathologie">
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question">
+        <h2>Comment puis-je mieux comprendre la pathologie de mon proche ?</h2>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="faq-answer">
+        <p>
+          Comprendre la pathologie de votre proche est essentiel pour lui offrir un accompagnement adapté et bienveillant.<br><br>
+          Nous mettons à votre disposition des articles dédiés et des ressources claires, fiables et accessibles qui expliquent la maladie, ses symptômes, et son évolution.<br><br>
+          Nos intervenants sont également formés pour répondre à vos questions et vous orienter vers ces ressources ou vers des spécialistes si nécessaire.<br><br>
+          Cette meilleure compréhension vous permet de mieux gérer le quotidien, d'anticiper les besoins, et de soutenir efficacement votre proche.
+        </p>
+      </div>
+    </div>
+
+    <!-- Illustration 8 -->
+    <div class="faq-illustration right">
+      <img src="../images/faq/illustration8.jpg" alt="Illustration nuit à domicile">
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question">
+        <h2>Comment se déroule une nuit avec un intervenant à domicile ?</h2>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="faq-answer">
+        <p>
+          L'intervenant assure une présence attentive tout au long de la nuit pour veiller au bien-être et à la sécurité de la personne aidée.<br><br>
+          Selon les besoins, il peut rester auprès de la personne pour l'assister dans ses déplacements nocturnes, gérer les réveils, ou apporter un soutien en cas d'inconfort ou de malaise.<br><br>
+          Dans certains cas, l'intervenant reste en veille silencieuse, prêt à intervenir rapidement en cas de besoin, tout en respectant le repos de la personne.<br><br>
+          Chaque nuit est adaptée aux habitudes et exigences spécifiques du bénéficiaire, afin d'assurer un accompagnement rassurant et discret.
+        </p>
+      </div>
+    </div>
+
+    <!-- Illustration 9 -->
+    <div class="faq-illustration left">
+      <img src="../images/faq/illustration9.jpg" alt="Illustration matériel médical">
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question">
+        <h2>Est-ce que Nena Adom peut fournir du matériel médical à domicile ?</h2>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="faq-answer">
+        <p>
+          Oui. Si un professionnel de santé (médecin, hôpital…) prescrit du matériel médical (lit médicalisé, déambulateur, fauteuil roulant, etc.), Nena Adom peut faciliter sa mise à disposition.<br><br>
+          Nous collaborons avec des pharmacies et des prestataires agréés :<br><br>
+          Nous transmettons l'ordonnance à la pharmacie,<br><br>
+          Le matériel est livré et installé directement à votre domicile,<br><br>
+          Nous veillons à ce qu'il soit adapté à vos besoins.<br><br>
+          Vous n'avez aucune démarche à faire seul , nous nous occupons de tout.<br><br>
+        </p>
+      </div>
+    </div>
+
+    <!-- Illustration 10 -->
+    <div class="faq-illustration right">
+      <img src="../images/faq/illustration10.jpg" alt="Illustration soins à domicile">
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question">
+        <h2>Quels sont les soins à domicile pris en charge par l'Assurance Maladie ?</h2>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="faq-answer">
+        <p>
+          Les soins infirmiers, les soins de kinésithérapie et certains soins médicaux à domicile sont pris en charge par l'Assurance Maladie, à condition qu'ils soient prescrits par un médecin.<br><br>
+          Chez Nena Adom, nous facilitons la coordination de ces soins :<br><br>
+          Vous fournissez l'ordonnance,<br><br>
+          Nous contactons les professionnels de santé (infirmiers, kinés, etc.),les soins sont assurés à domicile, en lien avec votre parcours de santé.<br><br>
+          Nous vous aidons à organiser les rendez-vous et à suivre le bon déroulement des soins.<br><br>
+        </p>
+      </div>
+    </div>
+
+    <!-- Illustration 11 -->
+    <div class="faq-illustration left">
+      <img src="../images/faq/illustration11.jpg" alt="Illustration après décès">
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question">
+        <h2>Que se passe-t-il après le décès d'un bénéficiaire ?</h2>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="faq-answer">
+        <p>
+          Après le décès d'un proche, Nena Adom prend en charge la récupération du matériel mis à disposition (lits médicalisés, fauteuils, aides techniques…).<br><br>
+          Lorsque cela est possible et selon les cas, ce matériel peut être remis en état et redistribué à d'autres personnes dans le besoin, en partenariat avec des structures solidaires.<br><br>
+          Cela fait partie de notre engagement humain : accompagner les familles avec respect, même après la fin de la prise en charge.<br><br>
+        </p>
+      </div>
+    </div>
+
+    <!-- Illustration 12 -->
+    <div class="faq-illustration right">
+      <img src="../images/faq/illustration12.jpg" alt="Illustration téléassistance">
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question">
+        <h2>Proposez-vous un service de téléassistance à domicile ?</h2>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="faq-answer">
+        <p>
+          Oui. En complément de l'aide à domicile, Nena Adom peut vous orienter vers une solution de téléassistance fiable et adaptée à votre situation (bracelet, médaillon ou boîtier d'alerte).<br><br>
+          Ce service permet d'alerter rapidement un centre d'appel en cas de chute ou de problème à domicile, 24h/24 et 7j/7.<br><br>
+          Nous vous aidons à choisir un prestataire, à monter les éventuels dossiers d'aide financière, et à installer le dispositif.<br><br>
+        </p>
+      </div>
+    </div>
+
+    <!-- Illustration 13 -->
+    <div class="faq-illustration left">
+      <img src="../images/faq/illustration13.jpg" alt="Illustration urgence">
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question">
+        <h2>Que faire en cas d'urgence à domicile ?</h2>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="faq-answer">
+        <p>
+          En cas d'urgence, appelez immédiatement Nena Adom.<br>
+          Notre équipe évaluera la situation et, selon le degré d'urgence :<br>
+          Contactera le médecin traitant ou la permanence médicale,<br>
+          Ou fera appel directement au SAMU (15) en cas de danger vital.<br>
+          Notre priorité est d'agir rapidement et efficacement pour garantir votre sécurité ou celle de votre proche à domicile.<br>
+        </p>
+      </div>
+    </div>
+
+    <!-- Illustration 14 -->
+    <div class="faq-illustration right">
+      <img src="../images/faq/illustration14.jpg" alt="Illustration toilette mortuaire">
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question">
+        <h2>Adaptez vous la toilette mortuaire en fonction de nos besoins envers le défunt ?</h2>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="faq-answer">
+        <p>
+          Oui, nous assurons la toilette mortuaire dans le respect total de la dignité du défunt et des souhaits de la famille.<br><br>
+          Nos équipes peuvent intervenir pour :<br><br>
+          - Une toilette complète (lavage, soins d'hygiène, coiffure),<br><br>
+          - L'habillage avec les vêtements choisis par les proches,<br><br>
+          Nous opérons dans le respect des traditions culturelles, religieuses ou des volontés spécifiques exprimées.
+          Chaque geste est réalisé avec discrétion, bienveillance et professionnalisme, dans un moment délicat où l'humanité est essentielle.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- JS pour la première question -->
+  <script>
+    function expandFirstQuestion() {
+      const firstItem = document.querySelector('.faq-item.first-item');
+      firstItem.classList.add('active');
+    }
+  </script>
+
+  <!-- JS Accordéon -->
+  <script>
+    document.querySelectorAll('.faq-question').forEach(question => {
+      question.addEventListener('click', () => {
+        const item = question.parentElement;
+        document.querySelectorAll('.faq-item').forEach(other => {
+          if (other !== item) other.classList.remove('active');
+        });
+        item.classList.toggle('active');
+      });
+    });
+  </script>
+
+  <!-- JS Recherche et surlignage -->
+  <script>
+  //Pour la barre de recherche
+  function highlightTerm(term) {
+    if (!term) return;
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    let firstMark = null;
+    let openedFaqItems = new Set();
+
+    while (node = walker.nextNode()) {
+      if (
+        node.parentNode &&
+        !['SCRIPT', 'STYLE', 'NOSCRIPT', 'IFRAME', 'MARK'].includes(node.parentNode.tagName) &&
+        node.nodeValue.match(regex)
+      ) {
+        const span = document.createElement('span');
+        span.innerHTML = node.nodeValue.replace(regex, '<mark>$1</mark>');
+        node.parentNode.replaceChild(span, node);
+        if (!firstMark) {
+          firstMark = span.querySelector('mark');
+        }
+        // Ouvre la question si le mot est dans une réponse de l'accordéon
+        let faqAnswer = span.closest('.faq-answer');
+        if (faqAnswer) {
+          let faqItem = faqAnswer.closest('.faq-item');
+          if (faqItem && !openedFaqItems.has(faqItem)) {
+            faqItem.classList.add('active');
+            openedFaqItems.add(faqItem);
+          }
+        }
+      }
+    }
+    // Scroll vers la première occurrence surlignée
+    if (firstMark) {
+      firstMark.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(() => {
+        window.scrollBy({ top: 200, left: 0, behavior: "smooth" }); 
+      }, 400);
+    }
+  }
+
+  // Récupère le paramètre 'q' de l'URL
+  function getSearchTerm() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('q');
+  }
+
+  // Au chargement, surligne si besoin
+  document.addEventListener('DOMContentLoaded', function() {
+    const term = getSearchTerm();
+    if (term) {
+      document.getElementById('searchInput').value = term;
+      highlightTerm(term);
+    }
+  });
+  </script>
+  
+  <script>
+  // Pour le sommaire   
+  document.querySelectorAll('.toc a').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href').replace('#', '');
+      const faqItem = document.getElementById(targetId);
+      if (faqItem) {
+        // Ouvre la question
+        document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
+        faqItem.classList.add('active');
+        // Scroll jusqu'à la question
+        faqItem.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    });
+  });
+  </script>
+
+  <script>
+  document.querySelector('.mobile-menu-btn').onclick = function() {
+    document.getElementById('mobileSideMenu').classList.add('open');
+  };
+  document.querySelector('.mobile-close-btn').onclick = function() {
+    document.getElementById('mobileSideMenu').classList.remove('open');
+  };
+  // Optionnel : fermer le menu si on clique en dehors
+  document.addEventListener('click', function(e) {
+    const menu = document.getElementById('mobileSideMenu');
+    if (menu.classList.contains('open') && !menu.contains(e.target) && !e.target.classList.contains('mobile-menu-btn')) {
+      menu.classList.remove('open');
+    }
+  });
+  </script>
+<script>
+  // Ouvre le menu mobile
+  document.querySelector('.mobile-menu-btn').onclick = function() {
+    document.getElementById('mobileSideMenu').classList.add('open');
+  };
+  // Ferme le menu mobile
+  document.querySelector('.mobile-close-btn').onclick = function() {
+    document.getElementById('mobileSideMenu').classList.remove('open');
+  };
+  // Ferme le menu si on clique en dehors
+  document.addEventListener('click', function(e) {
+    const menu = document.getElementById('mobileSideMenu');
+    if (menu.classList.contains('open') && !menu.contains(e.target) && !e.target.classList.contains('mobile-menu-btn')) {
+      menu.classList.remove('open');
+    }
+  });
+
+  // Affiche le champ de recherche mobile au clic sur la loupe
+  const mobileSearchBtn = document.querySelector('.mobile-search-btn');
+  const mobileSearchInput = document.getElementById('mobileSearchInput');
+  const mobileSearchForm = document.querySelector('.mobile-search-bar');
+  mobileSearchBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (mobileSearchInput.style.display === 'none' || mobileSearchInput.style.display === '') {
+      mobileSearchInput.style.display = 'block';
+      mobileSearchInput.focus();
+    } else if (mobileSearchInput.value.trim() !== '') {
+      mobileSearchForm.submit();
+    }
+  });
+  // Permet la recherche au "Entrée"
+  mobileSearchInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      mobileSearchForm.submit();
+    }
+  });
+</script>
+  <footer style="background-color: #ffffff; padding: 20px 0; text-align: center; font-size: 14px; color: #000000; border-top: 1px solid #ddd;">
+    <p>© 2025 Nena Adom – Tous droits réservés</p>
+    <p>
+      SIRET : 95102803400019 – Site sans collecte de données<br>
+      Hébergement : IONOS – 7 Place de la Gare, 57200 Sarreguemines, France
+    </p>
+    <p>
+      <a href="mailto:contact@nenaadom.fr" style="color: #000000; text-decoration: underline;">contact@nenaadom.fr</a> |
+      <a href="mentions-legales.html" style="color: #000000; text-decoration: underline;">Mentions légales</a> |
+      <a href="faq.html" style="color: #000000; text-decoration: underline;">FAQ</a>
+    </p>
+  </footer>
+
+</body>
+</html>

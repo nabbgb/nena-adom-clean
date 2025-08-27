@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services d'aide à domicile aux personnes âgées</title>
+  <style>
+@font-face {
+  font-family: 'Glacial Indifference';
+  src: url('../fonts/glacial-indifference/GlacialIndifference-Regular.otf') format('opentype');
+}
+@font-face {
+  font-family: 'Arimo';
+  src: url('../fonts/arimo/Arimo-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Comfortaa';
+  src: url('../fonts/comfortaa/Comfortaa-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('../fonts/Playfair-Display/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf') format('truetype');
+}
+
+body {
+  font-family: 'Comfortaa', sans-serif;
+  text-align: justify;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3 {
+  font-family: 'Glacial Indifference', sans-serif;
+}
+.intro-text h2 {
+  font-family: 'Arimo', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.header {
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.search-bar {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  width: 80%;
+  max-width: 400px;
+}
+.search-bar input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 30px;
+  background: none;
+  font-size: 16px;
+  color: #000;
+}
+.search-bar input::placeholder {
+  color: #000;
+}
+.search-bar button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #000;
+  vertical-align: middle;
+  padding-top: 2px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 5px auto 0;
+  padding: 0 10px;
+  background-color: white;
+  min-height: calc(100vh - 280px);
+}
+
+.main-title {
+  font-family: 'Playfair Display', sans-serif;
+  color: #15167b;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  margin: 5px 0 30px;
+}
+
+.intro-text {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #333;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.service-section {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  margin-left: 10px;
+  position: relative;
+}
+.service-section.reverse {
+  flex-direction: row-reverse;
+}
+
+.service-number {
+  position: absolute;
+  left: -100px;         /* pousse le chiffre vers la gauche (valeur à régler) */
+  font-family: 'Playfair Display', sans-serif;
+  color: #15167b;
+  font-size: 120px;
+  font-weight: bold;
+  line-height: 0.8;
+  z-index: 0;
+}
+
+.service-section.reverse .service-number {
+  left: auto;          /* annule la gauche */
+  right: -100px;        /* pousse le chiffre vers la droite */
+}
+
+
+.service-content {
+  flex: 1;
+  position: relative;
+}
+
+.service-title {
+  font-family: 'Playfair Display', sans-serif;
+  color: #15167b;
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  margin-left: -30px;
+  display: flex;              /* Ajout */
+  justify-content: flex-start; /* Normal: aligné à gauche */
+}
+
+.service-section.reverse .service-title {
+  justify-content: flex-end;  /* En reverse: aligné à droite */
+  margin-right: -30px;        /* petit correctif comme pour content-wrapper */
+}
+
+.content-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  margin-left: -30px;
+}
+.service-section.reverse .content-wrapper {
+  flex-direction: row-reverse;
+  margin-left: 0;
+  margin-right: -30px;
+}
+
+.service-image {
+  width: 180px;
+  height: 200px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  position: relative;
+  z-index: 2;
+}
+.service-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 5px;
+}
+
+.service-text {
+  flex: 1;
+  text-align: justify;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #333;
+  /* margin-left: 15px; */
+  margin-right: -30px;
+  padding-top: 0;
+  padding-left: 20px;
+  margin-top: 0;
+}
+.service-section.reverse .service-text {
+  margin-right: 5px;
+  margin-left: -30px;
+  padding-right: 20px;
+  padding-left: 0;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+
+
+footer {
+  background-color: #fff;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 14px;
+  color: #000;
+  border-top: 1px solid #ddd;
+}
+footer p {
+  margin: 5px 0;
+}
+footer a {
+  color: #000;
+  text-decoration: underline;
+}
+
+/* ===========================
+   VERSION MOBILE
+   =========================== */
+@media (max-width: 600px) {
+  /* 1) Annule les décalages desktop qui rognent le layout mobile */
+  .service-section { margin-left: 0 !important; margin-right: 0 !important; }
+  .content-wrapper { display: flow-root; margin: 0 !important; gap: 0; }
+
+  /* 2) Images : même largeur, marge DES DEUX CÔTÉS (y compris à droite pour .reverse) */
+  .service-image {
+    float: left;
+    width: 120px;
+    height: 120px;
+    margin: 0 12px 12px 12px !important; /* marge droite + gauche */
+  }
+  /* *** IMPORTANT : cette règle DOIT venir APRÈS la précédente *** */
+  .service-section.reverse .service-image {
+    float: right;
+    width: 120px;
+    height: 120px;
+    margin: 0 12px 12px 12px !important; /* marge à droite restaurée */
+  }
+
+  /* 3) L’image ne doit pas être “coupée” visuellement */
+  .service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ou 'contain' si tu veux zéro recadrage */
+    display: block;
+    border-radius: 5px;
+  }
+
+  /* 4) Texte : supprime les marges/paddings qui élargissent la ligne */
+  .service-text {
+    margin-top:0!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    margin-bottom: 40px!important;
+    padding: 0 !important;
+    width: auto;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    text-align: left;
+  }
+  .service-section.reverse .service-text {
+    margin-top:0!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    margin-bottom: 40px!important;
+    padding: 0 !important;
+  }
+
+  /* 5) Titre sans décalage latéral parasite */
+  .service-title,
+  .service-section.reverse .service-title {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    justify-content: flex-start;
+    text-align: start;
+  }
+
+  /* 6) Optionnel : éviter tout scroll horizontal */
+  .container { padding-left: 12px; padding-right: 12px; overflow-x: hidden; }
+
+  /* 7) Si tu caches les chiffres en mobile */
+  .service-number { display: none; }
+}
+
+/* ===========================
+   HEADER MOBILE
+   =========================== */
+@media (max-width: 700px) {
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    padding: 0 18px;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+  }
+  .mobile-menu-btn,
+  .mobile-close-btn {
+    background: none;
+    border: none;
+    font-size: 38px;
+    cursor: pointer;
+    color: #111;
+    padding: 0 8px;
+    line-height: 1;
+  }
+  .mobile-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+  }
+  .mobile-logo img {
+    height: 55px;
+    display: block;
+    margin: 0 auto;
+  }
+  .mobile-search-btn {
+    background: none;
+    border: none;
+    padding: 0 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  .mobile-side-menu {
+    position: fixed;
+    top: 0;
+    left: -100vw;
+    width: 85vw;
+    max-width: 400px;
+    height: 100vh;
+    background: #fff;
+    box-shadow: 2px 0 16px rgba(0,0,0,0.10);
+    z-index: 3000;
+    transition: left 0.3s cubic-bezier(.4,1.6,.4,1);
+    display: flex;
+    flex-direction: column;
+    padding: 32px 24px 0 24px;
+  }
+  .mobile-side-menu.open {
+    left: 0;
+  }
+  .mobile-close-btn {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    font-size: 38px;
+    z-index: 10;
+  }
+  .mobile-side-menu ul {
+    list-style: none;
+    padding: 60px 0 0 0;
+    margin: 0;
+  }
+  .mobile-side-menu li {
+    margin-bottom: 22px;
+  }
+  .mobile-side-menu a {
+    font-size: 1.35em;
+    color: #111;
+    text-decoration: none;
+    font-family: 'Comfortaa', Arial, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    transition: color 0.2s;
+  }
+  .mobile-side-menu a:hover {
+    color: #004aad;
+  }
+  .mobile-search-bar input[type="text"] {
+    transition: width 0.2s;
+    background: #fff;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    outline: none;
+    margin-left: 0;
+  }
+  .site-header {
+    display: none !important;
+  }
+  .mobile-call-link {
+    display: block;
+    margin-top: auto;
+    margin-bottom: 24px;
+    padding: 14px 0;
+    text-align: justify;
+    font-size: 1.2em;
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .intro-text-aides {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+  }
+
+  .intro-text {
+    margin : 12px;
+  }
+}
+
+/* Cacher le header mobile sur desktop */
+@media (min-width: 701px) {
+  .mobile-header,
+  .mobile-side-menu {
+    display: none !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .service-image {
+    float: left;
+    width: 120px;
+    height: 120px;
+    margin: 0 12px 12px 0 !important;   /* 12px ONLY on the right (inner), 0 on the left (outer) */
+  }
+  .service-section.reverse .service-image {
+    float: right;
+    width: 120px;
+    height: 120px;
+    margin: 0 0 12px 12px !important;    /* 12px ONLY on the left (inner), 0 on the right (outer) */
+  }
+}
+
+/* ===========================
+   CTA CALL
+   =========================== */
+.cta-call {
+  background-color:none;
+  color: #000000;
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.cta-call h2 {
+  font-size: 2em;
+  margin-bottom: 15px;
+  font-family: 'Glacial Indifference', sans-serif;
+}
+
+.cta-call p {
+  font-size: 1.1em;
+  margin-bottom: 25px;
+  font-family: 'Comfortaa', sans-serif;
+}
+
+.cta-call-btn {
+  display: inline-block;
+  padding: 14px 30px;
+  font-size: 1.2em;
+  background-color: #004aad;
+  color: #ffffff;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.cta-call-btn:hover {
+  background-color: #ffffff; 
+  color: #004aad;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .cta-call {
+    padding: 35px 15px;
+  }
+  .cta-call h2 {
+    font-size: 1.6em;
+  }
+  .cta-call p {
+    font-size: 1em;
+  }
+  .cta-call-btn {
+    width: 100%;
+    max-width: 320px;
+    font-size: 1.1em;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+  <!-- HEADER MOBILE (affiché uniquement sur mobile) -->
+<header class="mobile-header">
+  <button class="mobile-menu-btn" aria-label="Ouvrir le menu">&#9776;</button>
+  <a href="../index.html" class="mobile-logo">
+    <img src="../images/logo.png" alt="Nena Adom logo">
+  </a>
+  <form class="mobile-search-bar" action="" method="get" style="position:relative;">
+    <input type="text" id="mobileSearchInput" name="q" placeholder="Rechercher..." style="display:none; position:absolute; right:40px; top:50%; transform:translateY(-50%); width:140px; border-radius:20px; border:1px solid #ccc; padding:4px 10px; font-size:15px;">
+    <button type="button" class="mobile-search-btn" aria-label="Recherche" style="background:none; border:none;">
+      <img src="../images/search.png" alt="Recherche" style="width:28px;height:28px;">
+    </button>
+  </form>
+</header>
+
+<!-- MENU LATERAL MOBILE -->
+<nav class="mobile-side-menu" id="mobileSideMenu">
+  <button class="mobile-close-btn" aria-label="Fermer le menu">&times;</button>
+  <ul>
+    <li><a href="services.html">Nos Services</a></li>
+    <li><a href="hospitalisation.html">Mon suivi après une hospitalisation</a></li>
+    <li><a href="pathologie.html">Comprendre ma pathologie</a></li>
+    <li><a href="aides.html">Aides Financières</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="tel:0605873735" class="mobile-call-link">06.05.87.37.35</a></li>
+  </ul>
+</nav>
+
+<header class="header">
+  <picture>
+    <!-- Version mobile -->
+    <source srcset="../images/services/header-v2.png" media="(max-width: 700px)">
+    <!-- Version desktop -->
+    <img src="../images/services/header.png" alt="Bannière" style="width: 100%; height: auto; display: block;">
+  </picture>
+</header>
+
+  <div class="container">
+    <h1 class="main-title">Services d'aide à domicile aux personnes âgées</h1>
+
+    <div class="intro-text">
+      L'accompagnement de la personne est assuré par notre équipe de moniteurs entièrement personnalisé.
+      Par facilitation d'aide à la motivation de l'envie à domicile d'autonomie, une routine quotidienne adaptée ainsi
+      qu'une organisation structurée sont mises en place pour soutenir le patient tout au long de la journée.
+      <br>
+      L'objectif est de favoriser le maintien de son autonomie en l'encourageant activement à réaliser les gestes de
+      la vie quotidienne par lui-même, tout en bénéficiant d'une présence bienveillante et sécurisante.
+    </div>
+
+    <!-- Section 1 -->
+    <div class="service-section">
+      <div class="service-number" style="margin-top: -40px;">1</div>
+      <div class="service-content">
+        <h2 class="service-title">Aide au lever, toilette, petit déjeuner</h2>
+        <div class="content-wrapper">
+          <div class="service-image"><img src="../images/services/service-1.png" alt="Aide au lever"></div>
+          <div class="service-text">
+            La journée débute par l'intervention de l'auxiliaire de vie au domicile du patient, qui l'assiste dans sa toilette
+            (douche en salle de bain ou toilette complète au lit et change si nécessaire), ainsi que pour se coiffer, s'habiller,
+            mettre ses appareils auditifs, etc. Elle procède ensuite au petit-déjeuner et veille à ce que le patient s'alimente
+            correctement et prenne bien ses médicaments. Ce moment privilégié permet aussi d'échanger, de stimuler, et de
+            renforcer le lien social, tout en soutenant l'autonomie de la personne.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2 -->
+    <div class="service-section reverse">
+      <div class="service-number" style="margin-top: -35px;">2</div>
+      <div class="service-content">
+        <h2 class="service-title">Courses, repas, ménage</h2>
+        <div class="content-wrapper">
+          <div class="service-image"><img src="../images/services/service-2-v2.jpg" alt="Courses"></div>
+          <div class="service-text">
+            Un menu hebdomadaire personnalisé est élaboré en tenant compte du régime alimentaire, des préférences et des besoins
+            nutritionnels du patient. L'objectif est de stimuler l'appétit, de maintenir une alimentation équilibrée et de lui
+            redonner l'énergie nécessaire pour ses activités quotidiennes. L'intervenante prépare les repas à domicile, veille à
+            leur qualité et à leur présentation. Elle peut également assurer l'entretien du logement et effectuer les courses,
+            afin de garantir un environnement propre, sain et adapté au bien-être de la personne accompagnée.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3 -->
+    <div class="service-section section-3">
+      <div class="service-number" style="margin-top: -40px;">3</div>
+      <div class="service-content">
+        <h2 class="service-title">Présence, accompagnement aux RDV</h2>
+        <div class="content-wrapper">
+          <div class="service-image"><img src="../images/services/service-2.jpg" alt="Accompagnement RDV"></div>
+          <div class="service-text">
+            Nous assurons le suivi des rendez-vous médicaux en coordination avec l'équipe soignante. Le patient est rappelé de ses
+            RDV, le transport (ambulance ou VTC) est organisé, et il est accompagné par une auxiliaire selon la nature du rendez-vous.
+            <br><br>
+            • RDV à l'hôpital : un ambulancier partenaire accompagne le patient avec un bon de transport. <br>
+            • RDV en cabinet : une auxiliaire prépare le dossier médical, aide à l'habillage et accompagne le patient. <br>
+            Après chaque rendez-vous, les informations sont partagées avec les proches, les auxiliaires et le médecin traitant.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4 -->
+    <div class="service-section reverse">
+      <div class="service-number" style="margin-top: -60px;">4</div>
+      <div class="service-content">
+        <h2 class="service-title">Présence, stimulation : santé mentale et vie sociale</h2>
+        <div class="content-wrapper">
+          <div class="service-image"><img src="../images/services/service-4.jpg" alt="Stimulation"></div>
+          <div class="service-text">
+            Notre équipe veille à la santé physique du patient mais nous savons que la stimulation mentale et sociale est tout aussi
+            essentielle. C’est pourquoi la routine journalière personnalisée du patient comporte des activités de stimulation
+            cognitive : jeux de mémoire, mots croisés, peinture, bridge… ainsi que des sorties adaptées comme des promenades au parc
+            (activité physique douce), des visites culturelles ou encore des repas au restaurant. Chaque élément est réfléchi pour
+            maintenir le bien-être global de la personne, dans le respect de son rythme, de ses envies et de ses capacités physiques.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 5 -->
+    <div class="service-section section-3">
+      <div class="service-number" style="margin-top: -40px;">5</div>
+      <div class="service-content">
+        <h2 class="service-title">Aide au coucher, toilette du soir, dîner</h2>
+        <div class="content-wrapper">
+          <div class="service-image"><img src="../images/services/service-5.png" alt="Toilette du soir"></div>
+          <div class="service-text">
+            En soirée, l’auxiliaire prépare un repas léger, aide à la prise des médicaments, puis accompagne le patient dans sa
+            toilette du soir, le change de protection si nécessaire, et l’habillage en tenue de nuit. Pour garantir sa sécurité,
+            une chaise percée peut être installée à proximité du lit afin d’éviter les déplacements nocturnes et prévenir les risques
+            de chute. Avant de quitter le domicile, l’auxiliaire s’assure que le patient est prêt à passer une nuit sereine, dans le
+            confort et en toute sécurité.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 6 -->
+    <div class="service-section reverse">
+      <div class="service-number">6</div>
+      <div class="service-content">
+        <h2 class="service-title">Garde de nuit</h2>
+        <div class="content-wrapper" style="padding-bottom: 10px;">
+          <div class="service-image"><img src="../images/services/service-6.jpg" alt="Garde de nuit"></div>
+          <div class="service-text">
+            Selon le souhait du patient et son état de santé, une présence rassurante est assurée tout au long de la nuit, dans un
+            environnement calme et sécurisé. L’auxiliaire de vie veille discrètement et intervient si nécessaire : en cas de lever
+            nocturne, de besoin d’aller aux toilettes ou de change au lit, de besoin d’aide ou d’urgence. Elle surveille l’état de
+            santé, apaise les angoisses et assure un accompagnement adapté, dans le respect du rythme et de l’intimité du patient.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+<!-- CTA APPEL -->
+<section class="cta-call">
+  <h2>N'hésitez plus !</h2>
+  <p>Appelez-nous pour bénéficier dès maintenant de nos services d'exception.</p>
+  <a href="tel:0605873735" class="cta-call-btn"> +33 6 05 87 37 35</a>
+</section>
+
+  <script>
+    // Pour la barre de recherche
+    function highlightTerm(term) {
+      if (!term) return;
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+      let node;
+      const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&')})`, 'gi');
+      let firstMark = null;
+      let openedFaqItems = new Set();
+
+      while (node = walker.nextNode()) {
+        if (
+          node.parentNode &&
+          !['SCRIPT', 'STYLE', 'NOSCRIPT', 'IFRAME', 'MARK'].includes(node.parentNode.tagName) &&
+          node.nodeValue.match(regex)
+        ) {
+          const span = document.createElement('span');
+          span.innerHTML = node.nodeValue.replace(regex, '<mark>$1</mark>');
+          node.parentNode.replaceChild(span, node);
+          if (!firstMark) { firstMark = span.querySelector('mark'); }
+          // Ouvre la question si le mot est dans une réponse de l'accordéon
+          let faqAnswer = span.closest('.faq-answer');
+          if (faqAnswer) {
+            let faqItem = faqAnswer.closest('.faq-item');
+            if (faqItem && !openedFaqItems.has(faqItem)) {
+              faqItem.classList.add('active');
+              openedFaqItems.add(faqItem);
+            }
+          }
+        }
+      }
+      if (firstMark) {
+        firstMark.scrollIntoView({ behavior: "smooth", block: "center" });
+        setTimeout(() => { window.scrollBy({ top: 200, left: 0, behavior: "smooth" }); }, 400);
+      }
+    }
+
+    function getSearchTerm() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('q');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const term = getSearchTerm();
+      if (term) {
+        document.getElementById('searchInput').value = term;
+        highlightTerm(term);
+      }
+    });
+  </script>
+
+
+<script>
+//Pour la barre de recherche
+function highlightTerm(term) {
+  if (!term) return;
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+  let node;
+  const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+  let firstMark = null;
+  while (node = walker.nextNode()) {
+    if (
+      node.parentNode &&
+      !['SCRIPT', 'STYLE', 'NOSCRIPT', 'IFRAME', 'MARK'].includes(node.parentNode.tagName) &&
+      node.nodeValue.match(regex)
+    ) {
+      const span = document.createElement('span');
+      span.innerHTML = node.nodeValue.replace(regex, '<mark>$1</mark>');
+      node.parentNode.replaceChild(span, node);
+      if (!firstMark) {
+        firstMark = span.querySelector('mark');
+      }
+    }
+  }
+  // Scroll vers la première occurrence surlignée
+  if (firstMark) {
+    firstMark.scrollIntoView({ behavior: "smooth", block: "center" });
+    // Décalage supplémentaire pour éviter le header
+    setTimeout(() => {
+      window.scrollBy({ top: 400, left: 0, behavior: "smooth" }); 
+    }, 400); // délai pour laisser le scrollIntoView s'effectuer
+  }
+}
+
+// Récupère le paramètre 'q' de l'URL
+function getSearchTerm() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('q');
+}
+
+// Au chargement, surligne si besoin
+document.addEventListener('DOMContentLoaded', function() {
+  const term = getSearchTerm();
+  if (term) {
+    document.getElementById('searchInput').value = term;
+    highlightTerm(term);
+  }
+});
+</script>  
+
+<script>
+  document.querySelector('.mobile-menu-btn').onclick = function() {
+    document.getElementById('mobileSideMenu').classList.add('open');
+  };
+  document.querySelector('.mobile-close-btn').onclick = function() {
+    document.getElementById('mobileSideMenu').classList.remove('open');
+  };
+  // Optionnel : fermer le menu si on clique en dehors
+  document.addEventListener('click', function(e) {
+    const menu = document.getElementById('mobileSideMenu');
+    if (menu.classList.contains('open') && !menu.contains(e.target) && !e.target.classList.contains('mobile-menu-btn')) {
+      menu.classList.remove('open');
+    }
+  });
+</script>
+
+<script>
+  // Ouvre le menu mobile
+  document.querySelector('.mobile-menu-btn').onclick = function() {
+    document.getElementById('mobileSideMenu').classList.add('open');
+  };
+  // Ferme le menu mobile
+  document.querySelector('.mobile-close-btn').onclick = function() {
+    document.getElementById('mobileSideMenu').classList.remove('open');
+  };
+  // Ferme le menu si on clique en dehors
+  document.addEventListener('click', function(e) {
+    const menu = document.getElementById('mobileSideMenu');
+    if (menu.classList.contains('open') && !menu.contains(e.target) && !e.target.classList.contains('mobile-menu-btn')) {
+      menu.classList.remove('open');
+    }
+  });
+
+  // Affiche le champ de recherche mobile au clic sur la loupe
+  const mobileSearchBtn = document.querySelector('.mobile-search-btn');
+  const mobileSearchInput = document.getElementById('mobileSearchInput');
+  const mobileSearchForm = document.querySelector('.mobile-search-bar');
+  mobileSearchBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (mobileSearchInput.style.display === 'none' || mobileSearchInput.style.display === '') {
+      mobileSearchInput.style.display = 'block';
+      mobileSearchInput.focus();
+    } else if (mobileSearchInput.value.trim() !== '') {
+      mobileSearchForm.submit();
+    }
+  });
+  // Permet la recherche au "Entrée"
+  mobileSearchInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      mobileSearchForm.submit();
+    }
+  });
+</script>
+
+  <footer>
+    <p>© 2025 Nena Adom – Tous droits réservés</p>
+    <p>
+      SIRET : 95102803400019 – Site sans collecte de données<br>
+      Hébergement : IONOS – 7 Place de la Gare, 57200 Sarreguemines, France
+    </p>
+    <p>
+      <a href="mailto:contact@nenaadom.fr">contact@nenaadom.fr</a> |
+      <a href="mentions-legales.html">Mentions légales</a> |
+      <a href="faq.html">FAQ</a>
+    </p>
+  </footer>
+</body>
+</html>

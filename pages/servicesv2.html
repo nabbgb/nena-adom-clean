@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .service-sectionv2 {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .service-sectionv2:nth-child(even) {
+      flex-direction: row-reverse;
+      background-color: #fafafa;
+    }
+
+    .service-imagev2 {
+        flex: 0 0 auto;
+    }
+
+    .service-imagev2 img {
+        width: 25vw;
+        height: auto;
+        object-fit: cover;
+        display: block;
+    }
+
+
+    .service-contentv2 {
+      flex: 1;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .service-titlev2 {
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-align: left;
+    }
+
+    .cta-sectionv2 {
+      text-align: center;
+      padding: 60px 20px;
+      background-color: #ffffff;
+    }
+
+    .cta-sectionv2 h2 {
+      font-style: italic;
+      font-weight: normal;
+      font-size: 1.6em;
+      margin-bottom: 10px;
+    }
+
+    .cta-sectionv2 p {
+      margin-bottom: 20px;
+    }
+
+    .cta-buttonv2 {
+      background-color: #1f2d4d;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .service-sectionv2 {
+        flex-direction: column !important;
+      }
+
+      .service-contentv2 {
+        text-align: center;
+        padding: 20px;
+      }
+
+      .service-titlev2 {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <img src="../images/logo.png" alt="Nena Adom logo">
+    </a>
+
+    <nav class="nav-links">
+      <a href="aides.html">Aides Disponibles</a>
+      <form class="search-bar" action="" method="get">
+        <input type="text" id="searchInput" name="q" placeholder="Rechercher...">
+        <button type="submit">🔍</button>
+      </form>
+      <a href="faq.html">FAQ</a>
+    </nav>
+
+    <a href="tel:0605873735" class="phone-number">
+      06.05.87.37.35
+    </a>
+  </header>
+
+  <!-- SECTION SERVICES -->
+  <div class="service-sectionv2">
+    <div class="service-imagev2">
+      <img src="../images/services/aide-lever.png" alt="Aide au lever">
+    </div>
+    <div class="service-contentv2">
+      <div class="service-titlev2">AIDE AU LEVER</div>
+      <p>Nous proposons un accompagnement bienveillant et personnalisé dans les gestes essentiels du quotidien, tels que l'aide à l'hygiène, l'habillage et la mobilité.<br><br>Ces services favorisent le maintien à domicile dans des conditions de confort et de sécurité optimales.</p>
+    </div>
+  </div>
+
+  <div class="service-sectionv2">
+    <div class="service-imagev2">
+      <img src="../images/services/menage.png" alt="Ménage">
+    </div>
+    <div class="service-contentv2">
+      <div class="service-titlev2">MÉNAGE</div>
+      <p>Parce qu'un environnement propre est gage de confort et de sécurité, nos auxiliaires prennent en charge l'entretien du logement :<br><br>L'entretien courant du domicile (poussière, sols, sanitaires...)<br>L'entretien du linge (lavage, étendage, repassage)<br>Le rangement des espaces de vie<br>La désinfection des surfaces sensibles<br>L'aération régulière des pièces</p>
+    </div>
+  </div>
+
+  <div class="service-sectionv2">
+    <div class="service-imagev2">
+      <img src="../images/services/courses.png" alt="Courses">
+    </div>
+    <div class="service-contentv2">
+      <div class="service-titlev2">COURSES</div>
+      <p>Nous assurons la préparation de repas équilibrés, adaptés aux goûts, aux régimes alimentaires spécifiques ou aux prescriptions médicales.<br><br>Nos intervenants peuvent aussi faire les courses à la place de la personne ou l'accompagner en magasin selon ses préférences.<br><br>Un accompagnement discret et chaleureux, qui respecte les habitudes de chacun.</p>
+    </div>
+  </div>
+
+  <div class="service-sectionv2">
+    <div class="service-imagev2">
+      <img src="../images/services/preparation-repas.png" alt="Préparation des repas">
+    </div>
+    <div class="service-contentv2">
+      <div class="service-titlev2">PRÉPARATION DES REPAS</div>
+      <p>Nous préparons des repas variés, équilibrés et adaptés aux besoins de chacun : respect des régimes médicaux, des allergies ou des préférences alimentaires.<br><br>Nos auxiliaires veillent à la présentation et à la saveur des plats, pour allier plaisir et santé.</p>
+    </div>
+  </div>
+
+  <div class="service-sectionv2">
+    <div class="service-imagev2">
+      <img src="../images/services/sorties.png" alt="Accompagnement aux sorties">
+    </div>
+    <div class="service-contentv2">
+      <div class="service-titlev2">ACCOMPAGNEMENT AUX SORTIES</div>
+      <p>Sortir, prendre l'air, se rendre à un rendez-vous médical ou faire une promenade... ces moments du quotidien sont essentiels au bien-être.<br><br>C'est pourquoi nous proposons un accompagnement sécurisé et bienveillant, incluant une collaboration avec DJEK Service, notre partenaire transport spécialisé.</p>
+    </div>
+  </div>
+
+  <div class="service-sectionv2">
+    <div class="service-imagev2">
+      <img src="../images/services/garde-nuit.png" alt="Garde de nuit">
+    </div>
+    <div class="service-contentv2">
+      <div class="service-titlev2">GARDE DE NUIT</div>
+      <p>La nuit peut représenter un moment d'inquiétude ou de fragilité. Nos auxiliaires de vie assurent une présence de nuit sécurisante pour :<br><br>• Répondre rapidement en cas d'urgence<br>• Accompagner les levers nocturnes<br>• Surveiller l'état de santé<br>• Apaiser l'anxiété<br>• Veiller toute la nuit</p>
+    </div>
+  </div>
+
+  <!-- SECTION CTA -->
+  <div class="cta-sectionv2">
+    <h2>N’HÉSITEZ PLUS !</h2>
+    <p>Contactez-nous dès maintenant pour mettre en place un rendez-vous !</p>
+    <a href="tel:0605873735" class="cta-buttonv2">06.05.87.37.35</a>
+  </div>
+
+</body>
+</html>

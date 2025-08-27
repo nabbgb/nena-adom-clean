@@ -1,0 +1,665 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <title>Aides financières - Nena Adom</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<style>
+  
+  h2 {
+  font-family: 'Comfortaa', sans-serif;
+  }
+  @media (min-width: 769px) {
+  /* Sommaire en colonne gauche */
+  .toc {
+    float: left;
+    width: 400px;           /* ajuste si besoin */
+    margin-right: 24px;
+    position: sticky;
+    top: 100px;             /* hauteur sous le header ; ajuste si besoin */
+  }
+
+  /* Le conteneur FAQ prend toute la place restante */
+  .faq-container {
+    margin: 0;              /* override le margin-left:200px */
+  }
+
+  /* Empêche l’affichage du sommaire mobile sur PC */
+  #toc.mf-article-anchors { 
+    display: none; 
+  }
+
+  /* Évite que le footer remonte à côté du sommaire flottant */
+  footer { 
+    clear: both; 
+  }
+}
+
+  .faq-container{
+    margin-left:200px;
+  }
+  @media (max-width: 768px) {
+    .faq-container{
+    margin:0;
+  }
+  }
+</style>
+<body>
+<!-- HEADER MOBILE (affiché uniquement sur mobile) -->
+<header class="mobile-header">
+  <button class="mobile-menu-btn" aria-label="Ouvrir le menu">&#9776;</button>
+  <a href="../index.html" class="mobile-logo">
+    <img src="../images/logo.png" alt="Nena Adom logo">
+  </a>
+  <form class="mobile-search-bar" action="" method="get" style="position:relative;">
+    <input type="text" id="mobileSearchInput" name="q" placeholder="Rechercher..." style="display:none; position:absolute; right:40px; top:50%; transform:translateY(-50%); width:140px; border-radius:20px; border:1px solid #ccc; padding:4px 10px; font-size:15px;">
+    <button type="button" class="mobile-search-btn" aria-label="Recherche" style="background:none; border:none;">
+      <img src="../images/search.png" alt="Recherche" style="width:28px;height:28px;">
+    </button>
+  </form>
+</header>
+
+<!-- MENU LATERAL MOBILE -->
+<nav class="mobile-side-menu" id="mobileSideMenu">
+  <button class="mobile-close-btn" aria-label="Fermer le menu">&times;</button>
+  <ul>
+    <li><a href="services.html">NOS SERVICES</a></li>
+    <li><a href="hospitalisation.html">MON SUIVI APRÈS UNE HOSPITALISATION</a></li>
+    <li><a href="pathologie.html">COMPRENDRE MA PATHOLOGIE</a></li>
+    <li><a href="aides.html">AIDES FINANCIÈRES</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="tel:0605873735" class="mobile-call-link">06.05.87.37.35</a></li>
+  </ul>
+</nav>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <img src="../images/logo.png" alt="Nena Adom logo">
+    </a>
+    <nav class="nav-links">
+      <a href="aides.html">Aides Disponibles</a>
+      <form class="search-bar" action="" method="get">
+        <input type="text" id="searchInput" name="q" placeholder="Rechercher...">
+        <button type="submit">🔍</button>
+      </form>
+      <a href="faq.html">FAQ</a>
+    </nav>
+    <a href="tel:0605873735" class="phone-number">
+      06.05.87.37.35
+    </a>
+  </header>
+
+
+  <!-- INTRO -->
+  <div class="container">
+    <section class="main-section">
+      <img src="../images/aides-financieres/solgan-aides.png" alt="Photo personnel soignant accompagnant un patient">
+      <div class="main-text">
+        <h1>TOUT SAVOIR SUR LES AIDES DISPONIBLES POUR VOUS OU VOS PROCHES</h1>
+        <p>
+          Découvrez les principales aides financières et dispositifs d'accompagnement pour faciliter le maintien à domicile ou l'adaptation du logement.<br><br>
+          Retrouvez ici des réponses claires à vos questions sur l'APA, les caisses de retraite ou l'ARDH.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <div class="intro-illustration-wrapper">
+    <div class="intro-image-aides">
+      <img src="../images/aides-financieres/schema.png" alt="Schéma explicatif des aides" />
+    </div>
+    
+    <div class="intro-text-aides">
+      <p>
+        Que vous soyez une personne âgée ou son proche aidant, différentes aides fiscales peuvent vous être accordées selon votre situation : Allocation Personnalisée d'Autonomie (APA), crédits d'impôt, et autres dispositifs fiscaux.<br> 
+        Ces aides concernent notamment les interventions d'aide à domicile, les titulaires d'une Carte Mobilité Inclusion (CMI) invalidité, l'adaptation du logement, ainsi que le soutien financier ou l'hébergement d'un proche âgé.<br>
+        Nous vous aidons à identifier ces aides et à mettre en place un accompagnement adapté, pour préserver votre bien-être et celui de vos proches.
+      </p>
+    </div>
+    
+  </div>
+
+  <!-- CONTENU -->
+    <!-- SOMMAIRE VERSION PC -->
+    <aside class="toc">
+      <h2>Sommaire</h2>
+      <a href="#credit-impot">Crédit d'impôt</a>
+      <a href="#cmi-invalidite">Aides fiscales pour les titulaires d'une CMI «invalidité»</a>
+      <a href="#apa">L'Allocation Personnalisée d'Autonomie (APA)</a>
+      <a href="#mutuelles">Aides des mutuelles</a>
+      <a href="#aide-menagere">Aides via la caisse de retraite</a>
+      <a href="#pension-alimentaire">J'aide mes parents financièrement, est-ce déductible?</a>
+      <a href="#logement-adapte">Aides financières pour adapter votre logement</a>
+    </aside>
+
+<!-- SOMMAIRE MOBILE -->
+<details id="toc" class="mf-article-anchors" open>
+  <summary>
+    <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24">
+      <path fill="none" d="M0 0h24v24H0z"></path>
+      <path d="M3 4h18v2H3V4zm0 7h12v2H3v-2zm0 7h18v2H3v-2z"></path>
+    </svg>
+    Sommaire
+    <button type="button" id="close-toc" aria-label="Fermer le sommaire">&times;</button>                   
+  </summary>
+  <nav class="anchors">
+    <ul>
+      <li><a href="#credit-impot">Crédit d'impôt</a></li>
+      <li><a href="#cmi-invalidite">Aides fiscales pour les titulaires d'une CMI «invalidité»</a></li>
+      <li><a href="#apa">L'Allocation Personnalisée d'Autonomie (APA)</a></li>
+      <li><a href="#mutuelles">Aides des mutuelles</a></li>
+      <li><a href="#aide-menagere">Aides via la caisse de retraite</a></li>
+      <li><a href="#pension-alimentaire">J'aide mes parents financièrement, est-ce déductible?</a></li>
+      <li><a href="#logement-adapte">Aides financières pour adapter votre logement</a></li>
+    </ul>
+  </nav>
+</details>
+
+    <!-- CONTENU DÉTAILLÉ REGROUPÉ -->
+<section class="faq-section">
+  <div class="faq-container">
+    
+    <div class="faq-item first-item" id="credit-impot">
+      <div class="faq-question">
+        <h2>Le Crédit d'impôt</h2>
+        <span class="arrow">▾</span>
+      </div>
+      
+      <div class="faq-preview">
+        <div class="faq-preview-text">
+          <h3>Qu'est-ce que le crédit d'impôt ?</h3>
+          <p>
+            Le crédit d'impôt est une aide fiscale accordée par l'État pour soutenir les particuliers qui emploient un service à la personne à leur domicile. Il vous permet de récupérer 50 % des sommes dépensées pour des prestations d'aide à domicile
+          </p>
+        </div>
+        <button class="read-more-btn" onclick="expandFirstQuestion()">Lire plus...</button>
+      </div>
+      
+      <div class="faq-answer" style="text-align: justify;">
+        <h3>Qu'est-ce que le crédit d'impôt ?</h3>
+        <p>
+          Le crédit d'impôt est une aide fiscale accordée par l'État pour soutenir les particuliers qui emploient un service à la personne à leur domicile. Il vous permet de récupérer 50 % des sommes dépensées pour des prestations d'aide à domicile
+        </p>
+        
+        <h3>Quel est le montant de cette réduction d'impôt ?</h3>
+        <p>
+          Vous bénéficiez d'un crédit d'impôt de 50 % sur les dépenses engagées.<br>
+          Plafond : 
+          </p>
+
+          <p>
+          - 12 000 € par an, majoré de 1 500 € par membre du foyer de plus de 65 ans, dans la limite de 15 000 €.<br>
+          - Plafond porté à 20 000 € si vous ou votre conjoint êtes titulaires d'une CMI invalidité (≥ 80 %) ou d'une pension d'invalidité de 3ᵉ catégorie.<br>
+          - Les aides perçues (ex. APA) doivent être déduites du montant déclaré.
+        </p>
+        
+        <p>
+          À noter qu'ouvrent droit à une réduction fiscale limitée les prestations suivantes :
+        </p>
+        
+        <p>
+          - le montant de l'assistance informatique et internet à domicile est plafonné à 1 000 euros par an et par foyer, soit une réduction d'impôt de 500 euros ;<br>
+          - le montant des interventions de petits travaux de jardinage des particuliers est plafonné à 1 500 euros par an et par foyer, soit une réduction d'impôt de 750 euros.<br>
+        </p>
+        
+        <p>
+          Pour rester autonome plus longtemps, vous pouvez aménager votre logement (ex. : douche adaptée, monte-escalier).<br>
+          - Ces travaux ouvrent droit à un crédit d'impôt, sous conditions de ressources.<br>
+          - Si vos revenus sont modestes, vous pouvez bénéficier de <a href="https://www.service-public.fr/particuliers/vosdroits/F37501" target="_blank" rel="noopener" class="ext-link"> MaPrimeAdapt' </a>
+        </p>
+      </div>
+    </div>
+
+    <div class="faq-item" id="cmi-invalidite">
+      <div class="faq-question">
+        <h2>Aides fiscales pour les titulaires d'une CMI «invalidité»</h2>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="faq-answer" style="text-align: justify;">
+        <p>
+          La Carte Mobilité Inclusion (CMI) avec mention invalidité ouvre droit à plusieurs avantages fiscaux, notamment si vous faites appel à des services d'aide à domicile
+        </p>
+        
+        <p>
+          <b>Les principaux avantages fiscaux :</b><br>
+          Crédit d'impôt majoré pour l'aide à domicile<br>
+          En tant que titulaire d'une CMI invalidité, vous bénéficiez :<br>
+          Du crédit d'impôt à 50 % sur les dépenses engagées pour l'emploi d'un service d'aide à domicile, d'un plafond de dépenses majoré, pouvant aller jusqu'à 20 000 € par an, au lieu de 12 000 € habituellement.
+        </p>
+        
+        <p>
+          <b>Réduction de taxe d'habitation ou d'impôt local</b><br>
+          Certains départements accordent des allègements de taxe d'habitation ou de taxe foncière pour les personnes titulaires d'une CMI, selon leur situation.
+        </p>
+      </div>
+    </div>
+
+    <div class="faq-item" id="apa">
+      <div class="faq-question">
+        <h2>L'Allocation Personnalisée d'Autonomie (APA)</h2>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="faq-answer" style="text-align: justify;">
+        <h3>Qu'est ce que l'APA?</h3>
+        <p>
+          L'Allocation Personnalisée d'Autonomie (APA) est une aide financière dédiée aux personnes âgées de 60 ans et plus rencontrant des difficultés pour accomplir les gestes essentiels du quotidien. Elle permet de financer tout ou partie des services d'aide à domicile, afin de favoriser le maintien à domicile en toute sécurité et dignité.
+        </p>
+        
+        <h3>Comment bénéficier de l'APA?</h3>
+        <p>
+          Pour bénéficier de l'Allocation Personnalisée d'Autonomie (APA) à domicile, la première étape consiste à faire une demande auprès du Conseil départemental de votre lieu de résidence.
+        </p>
+        
+        <p>
+          Nena Adom vous accompagne dans vos démarches administratives pour vous permettre de bénéficier plus rapidement de l'aide à laquelle vous avez droit.
+        </p>
+      </div>
+    </div>
+
+    <div class="faq-item" id="mutuelles">
+      <div class="faq-question">
+        <h2>Aides des mutuelles</h2>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="faq-answer" style="text-align: justify;">
+        <p>
+          Certaines mutuelles santé ou assurances complémentaires proposent des aides financières ou des prestations spécifiques pour accompagner leurs adhérents lors de situations de fragilité temporaire ou durable.<br>
+          Ces aides, souvent incluses dans les contrats sans coût supplémentaire, peuvent faciliter le financement d'une aide à domicile ponctuelle ou régulière.
+        </p>
+        
+        <h3>Que peuvent financer les mutuelles ?</h3>
+        <p>
+          Selon les contrats, les mutuelles peuvent prendre en charge :<br>
+          Des heures d'aide à domicile (ménage, repas, courses…),<br>
+          Le retour à domicile après une hospitalisation (aide pour les actes du quotidien),<br>
+          Des services de garde à domicile pour personnes dépendantes ou malades,<br>
+          Parfois, des équipements de sécurité (barres d'appui, rehausseurs WC…).<br>
+          Ces prestations sont souvent plafonnées (ex. : 10 à 40 heures), mais peuvent être renouvelées selon la situation.
+        </p>
+        
+        <h3>Comment faire la demande ?</h3>
+        <p>
+          Il faut contacter directement votre mutuelle ou consulter les conditions de votre contrat pour vérifier les services inclus. La demande se fait en général sur présentation d'un justificatif médical (certificat, compte-rendu d'hospitalisation…).<br>
+          Certaines mutuelles travaillent avec des prestataires agréés
+        </p>
+      </div>
+    </div>
+
+    <div class="faq-item" id="aide-menagere">
+      <div class="faq-question">
+        <h2>Aides via la caisse de retraite</h2>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="faq-answer" style="text-align: justify;">
+        <p>
+          Si vous êtes retraité et que vous avez besoin d'un soutien ponctuel ou régulier à votre domicile, votre caisse de retraite peut vous accorder une aide-ménagère pour faciliter votre quotidien. Cette aide est pensée pour vous permettre de rester chez vous, dans un cadre sûr et confortable, le plus longtemps possible.
+        </p>
+        
+        <h3>À qui s'adresse cette aide</h3>
+        <p>
+          Cette aide concerne :<br>
+          Les personnes âgées de 65 ans et plus (ou dès 60 ans en cas d'inaptitude au travail),<br>
+          Retraitées du régime général ou d'un autre régime de base (CARSAT, MSA, etc.),<br>
+          Autonomes (non éligibles à l'APA),<br>
+          Ayant des ressources modestes, selon les plafonds définis par chaque caisse.
+        </p>
+        
+        <p>
+          Le nombre d'heures accordées et le montant pris en charge varient selon votre situation personnelle et les critères de votre caisse.
+        </p>
+        
+        <h3>Comment faire la demande ?</h3>
+        <p>
+          La demande d'aide-ménagère se fait directement auprès de votre caisse de retraite principale. Vous devrez remplir un dossier et fournir quelques justificatifs (revenus, composition du foyer, etc.). Une évaluation de vos besoins peut être réalisée à domicile.
+        </p>
+      </div>
+    </div>
+
+    <div class="faq-item" id="pension-alimentaire">
+      <div class="faq-question">
+        <h2>J'aide mes parents financièrement, est-ce déductible?</h2>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="faq-answer" style="text-align: justify;">
+        <p>
+          Bonne nouvelle : dans certains cas, les sommes versées en tant que pensions alimentaires peuvent être déduites de vos revenus imposables, ce qui réduit le montant de votre impôt. Voici un guide clair et pratique pour comprendre vos droits.
+        </p>
+        
+        <h3>Qui peut verser une pension alimentaire déductible ?</h3>
+        <p>
+          La loi (Code civil, articles 205 à 208) impose une obligation alimentaire entre certains membres de la famille. Vous pouvez donc déduire une pension alimentaire versée à :<br>
+          vos ascendants ou descendants (parents, enfants, petits-enfants, grands-parents, etc.), sans limitation de degré ;<br>
+          vos beaux-parents, gendre ou belle-fille .
+        </p>
+        
+        <p>
+          <b>Bon à savoir :</b><br>
+          - vous ne pouvez pas déduire de pension pour une personne déjà comptée dans votre foyer fiscal.
+        </p>
+        
+        <p>
+          Un ascendant est considéré comme étant dans le besoin lorsque son revenu imposable ne dépasse pas le plafond de ressources mentionné à l'article L. 815-9 du code de la sécurité sociale pour l'attribution de l'allocation de solidarité aux personnes âgées (ASPA) prévue à l'article L. 815-1 du code de la sécurité sociale soit, pour l'année 2024,12 144,27 € pour une personne seule et 18 854,02 € pour un couple marié ou pacsé .
+        </p>
+        
+        <h3>Quelles dépenses sont concernées ?</h3>
+        <p>
+          Les pensions alimentaires couvrent toutes les dépenses essentielles à la vie quotidienne et peuvent prendre différentes formes :<br>
+          Nourriture, logement, frais médicaux ;<br>
+          Frais liés à l'éducation des enfants ;<br>
+          Versements en argent (virement, chèque) ou paiement direct de dépenses (ex. frais scolaires, loyer, soins).
+        </p>
+        
+        <h3>Quelles sont les conditions pour déduire une pension alimentaire ?</h3>
+        <p>
+          Le montant doit être adapté aux besoins du bénéficiaire et à la situation financière du débiteur.<br>
+          La déduction est plafonnée dans certains cas (notamment pour les enfants majeurs).
+        </p>
+        
+        <p>
+          Un ascendant est considéré comme étant dans le besoin lorsque son revenu imposable ne dépasse pas le plafond de ressources mentionné à l'article L. 815-9 du code de la sécurité sociale pour l'attribution de l'allocation de solidarité aux personnes âgées (ASPA) prévue à l'article L. 815-1 du code de la sécurité sociale soit, pour l'année 2024,12 144,27 € pour une personne seule et 18 854,02 € pour un couple marié ou pacsé .
+        </p>
+        
+        <h3>Quelles preuves fournir à l'administration fiscale ?</h3>
+        <p>
+          En cas de contrôle, le fisc peut demander :<br>
+          une preuve du lien de parenté ou la décision de justice ;<br>
+          des justificatifs des versements ou paiements effectués ;<br>
+          une preuve de l'état de besoin du bénéficiaire
+        </p>
+        
+
+        <p>
+          Pour aller plus loin : consultez les informations officielles sur  
+          <a href="https://www.impots.gouv.fr"
+            target="_blank" rel="noopener" class="ext-link">
+            impots.gouv.fr
+          </a>.
+        </p>
+
+      </div>
+    </div>
+
+    <div class="faq-item" id="logement-adapte">
+      <div class="faq-question">
+        <h2>Aides financières pour adapter votre logement</h2>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="faq-answer" style="text-align: justify;">
+        <p>
+          Aménager son domicile pour rester autonome et en sécurité est un enjeu de taille pour les personnes âgées. Plusieurs aides financières publiques sont disponibles pour alléger le coût des travaux d'adaptation et prolonger le maintien à domicile. Voici un guide clair et structuré.
+        </p>
+        
+        <p>
+          MaPrimeAdapt' regroupe et simplifie plusieurs dispositifs antérieurs (ANAH, Cnav, crédit d'impôt) et devient l'aide principale pour vos travaux d'adaptation du logement
+        </p>
+        
+        <h3>Conditions d'éligibilité :</h3>
+        <p>
+          Être propriétaire occupant ou locataire du parc privé, pour une résidence principale<br>
+          - 70 ans et plus : éligible sans condition de perte d'autonomie<br>
+          - 60–69 ans : justificatif de perte d'autonomie (GIR 1 à 6) requis<br>
+          - Ressources plafonnées
+        </p>
+        
+        <h3>Montants pris en charge :</h3>
+        <p>
+          Jusqu'à 22 000 € HT de travaux :
+        </p>
+        
+        <h3>Travaux couramment pris en charge</h3>
+        <p>
+          Les adaptations éligibles visent à améliorer la sécurité, l'accessibilité et le confort au quotidien :<br>
+          Salle de bain : douche à l'italienne, revêtement antidérapant, rehausse WC, lavabos adaptés, barres d'appui<br>
+          Aménagement du logement : volets roulants motorisés, élargissement des portes, cheminements extérieurs, pièce de vie aux normes PMR<br>
+          Équipements de sécurité : matériels domotiques, téléassistance, systèmes d'éclairage adaptés
+        </p>
+        
+        <p>
+          <a href="https://www.pour-les-personnes-agees.gouv.fr/preserver-son-autonomie/amenager-son-logement-et-s-equiper/les-aides-financieres-pour-adapter-son-logement"
+          target="_blank" rel="noopener" class="ext-link">
+          En savoir plus
+          </a>
+        </p>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+  <!-- RECHERCHE SUR LIGNE -->
+  <script>
+  //Pour la barre de recherche
+  function highlightTerm(term) {
+    if (!term) return;
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    let firstMark = null;
+    let openedFaqItems = new Set();
+
+    while (node = walker.nextNode()) {
+      if (
+        node.parentNode &&
+        !['SCRIPT', 'STYLE', 'NOSCRIPT', 'IFRAME', 'MARK'].includes(node.parentNode.tagName) &&
+        node.nodeValue.match(regex)
+      ) {
+        const span = document.createElement('span');
+        span.innerHTML = node.nodeValue.replace(regex, '<mark>$1</mark>');
+        node.parentNode.replaceChild(span, node);
+        if (!firstMark) {
+          firstMark = span.querySelector('mark');
+        }
+        // Ouvre la question si le mot est dans une réponse de l'accordéon
+        let faqAnswer = span.closest('.faq-answer');
+        if (faqAnswer) {
+          let faqItem = faqAnswer.closest('.faq-item');
+          if (faqItem && !openedFaqItems.has(faqItem)) {
+            faqItem.classList.add('active');
+            openedFaqItems.add(faqItem);
+          }
+        }
+      }
+    }
+    // Scroll vers la première occurrence surlignée
+    if (firstMark) {
+      firstMark.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(() => {
+        window.scrollBy({ top: 200, left: 0, behavior: "smooth" }); 
+      }, 400);
+    }
+  }
+
+  // Récupère le paramètre 'q' de l'URL
+  function getSearchTerm() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('q');
+  }
+
+  // Au chargement, surligne si besoin
+  document.addEventListener('DOMContentLoaded', function() {
+    const term = getSearchTerm();
+    if (term) {
+      document.getElementById('searchInput').value = term;
+      highlightTerm(term);
+    }
+  });
+  </script>
+  
+  <script>
+  // Pour le sommaire   
+  document.querySelectorAll('.toc a').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href').replace('#', '');
+      const faqItem = document.getElementById(targetId);
+      if (faqItem) {
+        // Ouvre la question
+        document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
+        faqItem.classList.add('active');
+        // Scroll jusqu'à la question
+        faqItem.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    });
+  });
+  </script>
+
+<script>
+  document.querySelector('.mobile-menu-btn').onclick = function() {
+    document.getElementById('mobileSideMenu').classList.add('open');
+  };
+  document.querySelector('.mobile-close-btn').onclick = function() {
+    document.getElementById('mobileSideMenu').classList.remove('open');
+  };
+  // Optionnel : fermer le menu si on clique en dehors
+  document.addEventListener('click', function(e) {
+    const menu = document.getElementById('mobileSideMenu');
+    if (menu.classList.contains('open') && !menu.contains(e.target) && !e.target.classList.contains('mobile-menu-btn')) {
+      menu.classList.remove('open');
+    }
+  });
+</script>
+
+<script>
+  // Ouvre le menu mobile
+  document.querySelector('.mobile-menu-btn').onclick = function() {
+    document.getElementById('mobileSideMenu').classList.add('open');
+  };
+  // Ferme le menu mobile
+  document.querySelector('.mobile-close-btn').onclick = function() {
+    document.getElementById('mobileSideMenu').classList.remove('open');
+  };
+  // Ferme le menu si on clique en dehors
+  document.addEventListener('click', function(e) {
+    const menu = document.getElementById('mobileSideMenu');
+    if (menu.classList.contains('open') && !menu.contains(e.target) && !e.target.classList.contains('mobile-menu-btn')) {
+      menu.classList.remove('open');
+    }
+  });
+
+  // Affiche le champ de recherche mobile au clic sur la loupe
+  const mobileSearchBtn = document.querySelector('.mobile-search-btn');
+  const mobileSearchInput = document.getElementById('mobileSearchInput');
+  const mobileSearchForm = document.querySelector('.mobile-search-bar');
+  mobileSearchBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (mobileSearchInput.style.display === 'none' || mobileSearchInput.style.display === '') {
+      mobileSearchInput.style.display = 'block';
+      mobileSearchInput.focus();
+    } else if (mobileSearchInput.value.trim() !== '') {
+      mobileSearchForm.submit();
+    }
+  });
+  // Permet la recherche au "Entrée"
+  mobileSearchInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      mobileSearchForm.submit();
+    }
+  });
+</script>
+
+    <!-- JS pour la première question -->
+  <script>
+    function expandFirstQuestion() {
+      const firstItem = document.querySelector('.faq-item.first-item');
+      firstItem.classList.add('active');
+    }
+  </script>
+
+  <!-- ACCORDÉON JS -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          document.querySelectorAll('.faq-item').forEach(other => {
+            if (other !== item) other.classList.remove('active');
+          });
+          item.classList.toggle('active');
+        });
+      });
+    });
+  </script>
+
+<script>
+  // Smooth scroll + referme <details> après clic
+  document.addEventListener('click', function (e) {
+    const a = e.target.closest('#toc a[href^="#"]');
+    if (!a) return;
+    const id = a.getAttribute('href').slice(1);
+    const target = document.getElementById(id);
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const det = document.getElementById('toc');
+    if (det && det.open) det.open = false;
+  });
+
+  // Active link selon section visible
+  document.addEventListener('DOMContentLoaded', () => {
+    const links = Array.from(document.querySelectorAll('#toc a[href^="#"]'));
+    const map = new Map(
+      links.map(a => [a.getAttribute('href').slice(1), a])
+    );
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const a = map.get(entry.target.id);
+        if (!a) return;
+        if (entry.isIntersecting) {
+          links.forEach(l => l.classList.remove('toc-active'));
+          a.classList.add('toc-active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px', threshold: 0.01 });
+
+    // Observe toutes les sections référencées
+    map.forEach((a, id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+  });
+</script>
+
+<script>
+    // Ferme le sommaire via la croix
+  document.getElementById("close-toc").addEventListener("click", function (e) {
+    e.stopPropagation();
+    document.getElementById("toc").removeAttribute("open");
+  });
+  // Ouvre la question correspondante quand on clique sur le sommaire mobile
+  document.addEventListener('click', function (e) {
+    const a = e.target.closest('#toc a[href^="#"]');
+    if (!a) return;
+    const id = a.getAttribute('href').slice(1);
+    const faqItem = document.getElementById(id);
+    if (faqItem && faqItem.classList.contains('faq-item')) {
+      // Ferme toutes les autres questions
+      document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
+      // Ouvre la question ciblée
+      faqItem.classList.add('active');
+      // Scroll jusqu'à la question
+      faqItem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Referme le sommaire mobile si ouvert
+      const det = document.getElementById('toc');
+      if (det && det.open) det.open = false;
+      e.preventDefault();
+    }
+  });
+</script>
+
+<footer style="background-color: #ffffff; padding: 20px 0; text-align: center; font-size: 14px; color: #000000; border-top: 1px solid #ddd;">
+    <p>© 2025 Nena Adom – Tous droits réservés</p>
+    <p>
+      SIRET : 95102803400019 – Site sans collecte de données<br>
+      Hébergement : IONOS – 7 Place de la Gare, 57200 Sarreguemines, France
+    </p>
+    <p>
+      <a href="mailto:contact@nenaadom.fr" style="color: #000000; text-decoration: underline;">contact@nenaadom.fr</a> |
+      <a href="mentions-legales.html" style="color: #000000; text-decoration: underline;">Mentions légales</a> |
+      <a href="faq.html" style="color: #000000; text-decoration: underline;">FAQ</a>
+    </p>
+</footer>
+</body>
+</html>
