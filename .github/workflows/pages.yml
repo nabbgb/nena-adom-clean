@@ -1,7 +1,9 @@
-name: Pages
+name: Deploy to GitHub Pages
+
 on:
   push:
-    branches: [ main ]   # adapte si nécessaire
+    branches: [ main ]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -9,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: "pages"
   cancel-in-progress: true
 
 jobs:
@@ -17,27 +19,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
-      # Si tu n’as pas de build (site statique pur), mets simplement :
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: .  # ⚠️ Mets ici le dossier où se trouve ton index.html
 
-      # Si tu as un build (genre npm run build → dist), alors utilise :
-      # - run: |
-      #     npm ci
-      #     npm run build
-      # - uses: actions/upload-pages-artifact@v3
-      #   with:
-      #     path: ./dist
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: .   # index.html à la racine
 
   deploy:
-    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
-
