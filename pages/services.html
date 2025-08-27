@@ -24,7 +24,6 @@
 
 body {
   font-family: 'Comfortaa', sans-serif;
-  text-align: justify;
   margin: 0;
   padding: 0;
 }
@@ -378,6 +377,7 @@ footer a {
     font-weight: 400;
     letter-spacing: 0.01em;
     transition: color 0.2s;
+    text-align:left !important;
   }
   .mobile-side-menu a:hover {
     color: #004aad;
@@ -398,7 +398,7 @@ footer a {
     margin-top: auto;
     margin-bottom: 24px;
     padding: 14px 0;
-    text-align: justify;
+    text-align:start !important;
     font-size: 1.2em;
     color: #fff;
     border-radius: 8px;
@@ -497,10 +497,123 @@ footer a {
   }
 }
 
+/* ====== MENU GAUCHE DESKTOP ====== */
+@media (min-width: 701px) {
+  .desktop-menu-btn {
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: none;            /* aucun contour */
+    background: transparent; /* aucun background */
+    box-shadow: none;        /* rien autour */
+    cursor: pointer;
+    z-index: 2500;
+  }
+  .desktop-menu-btn:focus { outline: none; }
+
+  /* Les 3 tirets blancs */
+  .desktop-menu-btn .hamburger,
+  .desktop-menu-btn .hamburger::before,
+  .desktop-menu-btn .hamburger::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;      /* longueur des traits */
+    height: 2px;      /* épaisseur des traits */
+    background: #fff; /* BLANC */
+    border-radius: 1px;
+  }
+  .desktop-menu-btn .hamburger { top: 50%; }
+  .desktop-menu-btn .hamburger::before { top: -8px; }
+  .desktop-menu-btn .hamburger::after  { top:  8px; }
+}
+
+
+  .desktop-side-menu {
+    position: fixed;
+    top: 0;
+    left: -320px;             /* caché par défaut */
+    width: 280px;
+    height: 100vh;
+    background: #fff;
+    transition: left .3s cubic-bezier(.4,1.6,.4,1);
+    z-index: 4000;
+    padding: 80px 24px 24px;
+  }
+  .desktop-side-menu.open { left: 0; }
+
+  .desktop-close-btn {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    font-size: 36px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .desktop-side-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .desktop-side-menu li { margin-bottom: 18px; }
+  .desktop-side-menu a {
+    font-size: 1.05em;
+    color: #111;
+    text-decoration: none;
+    font-family: 'Comfortaa', Arial, sans-serif;
+    transition: color .2s ease;
+  }
+  .desktop-side-menu a:hover { color: #004aad; }
+  .desktop-call-link {
+    display: inline-block;
+    padding: 10px 12px;
+    border-radius: 2px;
+    background: #004aad;
+    color: none !important;
+    font-weight: 600;
+  }
+
+
+/* Ne pas afficher ces éléments sur mobile */
+@media (max-width: 700px) {
+  .desktop-menu-btn,
+  .desktop-side-menu { display: none !important; }
+}
+
+/* L'ancien règle cachant .mobile-side-menu sur desktop reste OK.
+   On ne la modifie pas : ce menu desktop a ses propres classes. */
+
 
   </style>
 </head>
 <body>
+<!-- BOUTON MENU DESKTOP -->
+<button class="desktop-menu-btn" aria-label="Ouvrir le menu" title="Menu">
+  <span class="hamburger" aria-hidden="true"></span>
+</button>
+
+<!-- MENU LATÉRAL DESKTOP -->
+<nav class="desktop-side-menu" id="desktopSideMenu" aria-label="Navigation latérale">
+  <button class="desktop-close-btn" aria-label="Fermer le menu">&times;</button>
+  <ul>
+    <li><a href="../index.html">Accueil</a></li>
+    <li><a href="services.html">Nos Services</a></li>
+    <li><a href="hospitalisation.html">Mon suivi après une hospitalisation</a></li>
+    <li><a href="pathologie.html">Comprendre ma pathologie</a></li>
+    <li><a href="aides.html">Aides Financières</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="mentions-legales.html">Mentions légales</a></li>
+    <li><a href="tel:0605873735" class="desktop-call-link">06.05.87.37.35</a></li>
+  </ul>
+</nav>
+
   <!-- HEADER MOBILE (affiché uniquement sur mobile) -->
 <header class="mobile-header">
   <button class="mobile-menu-btn" aria-label="Ouvrir le menu">&#9776;</button>
@@ -818,6 +931,32 @@ document.addEventListener('DOMContentLoaded', function() {
       mobileSearchForm.submit();
     }
   });
+</script>
+
+<script>
+  // Menu latéral desktop
+  (function() {
+    const btn = document.querySelector('.desktop-menu-btn');
+    const menu = document.getElementById('desktopSideMenu');
+    const closeBtn = menu ? menu.querySelector('.desktop-close-btn') : null;
+
+    if (!btn || !menu || !closeBtn) return;
+
+    btn.addEventListener('click', () => menu.classList.add('open'));
+    closeBtn.addEventListener('click', () => menu.classList.remove('open'));
+
+    // Ferme si clic à l'extérieur
+    document.addEventListener('click', (e) => {
+      if (menu.classList.contains('open') && !menu.contains(e.target) && e.target !== btn) {
+        menu.classList.remove('open');
+      }
+    });
+
+    // Ferme avec Échap
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') menu.classList.remove('open');
+    });
+  })();
 </script>
 
   <footer>
