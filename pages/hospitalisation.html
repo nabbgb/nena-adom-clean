@@ -14,6 +14,334 @@
 h2{
   font-family: 'Playfair Display',sans-serif;
 }
+
+/* ===== CTA bas de page ===== */
+.bottom-cta{
+  background: linear-gradient(180deg,#ffffff 0%, #f9fbff 100%);
+  padding: 40px 16px;
+  margin-top: 60px;
+  border-top: 1px solid #eee;
+}
+.bottom-cta .cta-grid{
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 24px;
+  align-items: end;
+}
+.cta-card{ text-align:center; }
+.cta-card p{
+  font-family: 'Playfair Display', sans-serif;
+  font-size: 18px;
+  margin: 0 0 12px;
+}
+.cta-call-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:12px 18px;
+  border-radius: 9999px;
+  text-decoration:none;
+  font-weight:700;
+  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+  transition: transform .2s ease, box-shadow .2s ease, width .35s ease, background-color .2s ease, color .2s ease;
+}
+.cta-call-btn svg{ width:20px; height:20px; flex:0 0 20px; }
+
+/* Bouton 1 (bleu) */
+.cta-btn--blue{ background:#004aad; color:#fff; }
+.cta-btn--blue:hover{ transform:translateY(-2px); box-shadow:0 8px 18px rgba(0,74,173,.25); }
+
+/* Bouton 2 (vert pastel) */
+.cta-btn--mint{ background:#A8E6CF; color:#003a2c; }
+.cta-btn--mint:hover{ transform:translateY(-2px); box-shadow:0 8px 18px rgba(0,0,0,.12); }
+
+/* Bouton 3 (urgence) */
+.emergency-wrap{ text-align:center; }
+.emergency-label{ font-family:'Playfair Display',sans-serif; font-size:18px; margin-bottom:12px; color:#111; }
+.emergency-call{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:#E53935; /* rouge urgence */
+  color:#fff;
+  border-radius:9999px;
+  width:56px; height:56px; /* rond par défaut */
+  overflow:hidden; white-space:nowrap;
+  text-decoration:none; font-weight:800;
+  box-shadow:0 6px 16px rgba(229,57,53,.35);
+  transition: width .35s ease, box-shadow .2s ease, transform .2s ease;
+}
+.emergency-call svg{ width:22px; height:22px; flex:0 0 22px; }
+.emergency-call .text{ opacity:0; width:0; overflow:hidden; transition:opacity .2s ease .15s; }
+.emergency-call:hover,.emergency-call:focus-visible{ width:180px; transform:translateY(-2px); box-shadow:0 10px 22px rgba(229,57,53,.5); }
+.emergency-call:hover .text,.emergency-call:focus-visible .text{ opacity:1; width:auto; }
+
+/* Mobile : 3 boutons alignés horizontalement, plus compacts */
+@media (max-width:768px){
+  .bottom-cta{ padding:24px 10px; }
+  .bottom-cta .cta-grid{ grid-template-columns: repeat(3, 1fr); gap:10px; }
+  .cta-card p,.emergency-label{ font-size:13px; }
+  .cta-call-btn{ padding:10px 12px; font-size:14px; gap:8px; }
+  .cta-call-btn svg{ width:18px; height:18px; }
+  .emergency-call{ width:48px; height:48px; }
+  .emergency-call:hover,.emergency-call:focus-visible{ width:140px; }
+}
+
+/* Accessibilité : réduit les animations si demandé */
+@media (prefers-reduced-motion: reduce){
+  .cta-call-btn, .emergency-call{ transition: none; }
+}
+
+/* ===== CTA bas de page — version corrigée ===== */
+.bottom-cta{
+  background: none !important;   /* supprime le fond */
+  border-top: none !important;    /* supprime la ligne */
+  margin-top: 60px;
+}
+
+.bottom-cta .cta-grid{
+  /* occupe toute la largeur disponible */
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 colonnes qui se partagent 100% */
+  column-gap: 56px;  /* espace plus large entre les boutons */
+  align-items: end;
+  justify-items: center; /* centre chaque carte dans sa colonne */
+}
+
+.cta-card{ text-align: center; }
+.cta-card p{
+  margin: 0 0 12px;
+  text-align: center !important;
+  font-family: 'Comfortaa', sans-serif;
+}
+
+/* Boutons existants (inchangés) */
+.cta-call-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:12px 18px;
+  border-radius: 9999px;
+  text-decoration:none;
+  font-weight:700;
+  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+  transition: transform .2s ease, box-shadow .2s ease, width .35s ease, background-color .2s ease, color .2s ease;
+}
+.cta-call-btn svg{ width:20px; height:20px; flex:0 0 20px; }
+.cta-btn--blue{ background:#004aad; color:#fff; }
+.cta-btn--blue:hover{ transform:translateY(-2px); box-shadow:0 8px 18px rgba(0,74,173,.25); }
+.cta-btn--mint{ background:#A8E6CF; color:#003a2c; }
+.cta-btn--mint:hover{ transform:translateY(-2px); box-shadow:0 8px 18px rgba(0,0,0,.12); }
+
+/* Urgence 15 : rond par défaut, s'allonge au survol */
+.emergency-wrap{ text-align:center; }
+.emergency-label{ font-family:'Playfair Display',sans-serif; font-size:18px; margin-bottom:12px; color:#111; }
+.emergency-call{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:#E53935;
+  color:#fff;
+  border-radius:9999px;
+  width:56px;
+  height:56px;
+  overflow:hidden;
+  white-space:nowrap;
+  text-decoration:none;
+  font-weight:800;
+  box-shadow:0 6px 16px rgba(229,57,53,.35);
+  transition: width .35s ease, box-shadow .2s ease, transform .2s ease;
+}
+.emergency-call svg{ width:22px; height:22px; flex:0 0 22px; }
+.emergency-call .text{ opacity:0; width:0; overflow:hidden; transition:opacity .2s ease .15s; }
+.emergency-call:hover,.emergency-call:focus-visible{ width:180px; transform:translateY(-2px); box-shadow:0 10px 22px rgba(229,57,53,.5); }
+.emergency-call:hover .text,.emergency-call:focus-visible .text{ opacity:1; width:auto; }
+
+/* ===== Mobile : une colonne, chaque paire "phrase + bouton" l'une sous l'autre ===== */
+@media (max-width:768px){
+  .bottom-cta{ padding: 20px 14px; }
+
+  .bottom-cta .cta-grid{
+    grid-template-columns: 1fr;   /* une seule colonne */
+    row-gap: 18px;                 /* espace entre chaque paire phrase/bouton */
+    justify-items: start;          /* aligne à gauche */
+  }
+
+  .cta-card{
+    /* text-align: left; */              /* phrase alignée à gauche */
+  }
+
+  .cta-card p{
+    margin: 0 0 8px;               /* petite marge entre la phrase et le bouton */
+    font-size: 14px;
+  }
+
+  .cta-call-btn{
+    padding:10px 12px;
+    font-size:14px;
+    gap:8px;
+  }
+  .cta-call-btn svg{ width:18px; height:18px; }
+
+  .emergency-label{ font-size:14px; }
+  .emergency-call{ width:48px; height:48px; }
+  .emergency-call:hover,.emergency-call:focus-visible{ width:140px; }
+
+  .cta-card .cta-call-btn,
+  .cta-card .emergency-call{
+    display: flex;        /* au lieu de inline-flex */
+    margin: 0 auto;       /* centre horizontalement */
+  }
+}
+
+/* Accessibilité */
+@media (prefers-reduced-motion: reduce){
+  .cta-call-btn, .emergency-call{ transition: none; }
+}
+
+@media (max-width:768px){
+  .bottom-cta{
+    padding: 20px 14px;
+  }
+
+  /* Une seule colonne + cartes centrées */
+  .bottom-cta .cta-grid{
+    grid-template-columns: 1fr;
+    row-gap: 18px;
+    justify-items: center;          /* <-- centre chaque .cta-card */
+  }
+
+  /* Mise en page interne de la carte : grille verticale */
+  .cta-card{
+    display: grid;
+    justify-items: center;          /* centre le bouton par défaut */
+  }
+
+  /* Phrase à gauche, bouton centré */
+  .cta-card p{
+    margin: 0 0 8px;
+    font-size: 14px;
+    justify-self: start;            /* <-- le texte reste aligné à gauche */
+    text-align: left;
+  }
+
+  /* Pas besoin de margin:auto : elles sont centrées via justify-items */
+  .cta-card .cta-call-btn,
+  .cta-card .emergency-call{
+    display: inline-flex;           /* garde la taille auto du bouton */
+  }
+
+  .cta-call-btn{
+    padding:10px 12px;
+    font-size:14px;
+    gap:8px;
+  }
+  .cta-call-btn svg{ width:18px; height:18px; }
+
+  .emergency-label{ font-size:14px; }
+  .emergency-call{ width:48px; height:48px; }
+  .emergency-call:hover,
+  .emergency-call:focus-visible{ width:140px; }
+}
+
+/* Bouton appel dans le header (desktop) */
+.header-call {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:#004AAD;
+  color:#fff;
+  border-radius:9999px;
+  width:50px;
+  height:50px;
+  overflow:hidden;
+  white-space:nowrap;
+  text-decoration:none;
+  font-weight:600;
+  box-shadow:0 6px 16px rgba(0,74,173,.35);
+  transition: width .35s ease, box-shadow .2s ease, transform .2s ease;
+}
+.header-call svg{
+  width:22px; height:22px; flex:0 0 22px;
+}
+.header-call .text{
+  opacity:0; width:0; overflow:hidden;
+  transition:opacity .2s ease .15s;
+}
+.header-call:hover,
+.header-call:focus-visible{
+  width:160px;
+  transform:translateY(-2px);
+  box-shadow:0 10px 22px rgba(0,74,173,.5);
+}
+.header-call:hover .text,
+.header-call:focus-visible .text{
+  opacity:1; width:auto;
+}
+
+/* Réserve la place max du bouton pour éviter tout décalage du header */
+.header-call-wrap{
+  width: 180px;                /* = largeur du bouton déployé */
+  display: flex;
+  justify-content: flex-end;   /* aligne à droite dans le header */
+}
+
+/* Bouton rond qui s’allonge au survol */
+.header-call{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;     /* centre parfaitement l’icône */
+  background: #004AAD;
+  color: #fff;
+  border-radius: 9999px;
+  width: 50px;                 /* rond par défaut */
+  height: 50px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 6px 16px rgba(0,74,173,.35);
+  transition: width .35s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+/* Icône bien centrée (évite l’offset inline) */
+.header-call svg{
+  width: 22px; height: 22px; display: block;
+}
+
+/* Le texte ne doit pas décaler l’icône quand il est masqué */
+.header-call .text{
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+  margin-left: 0;             /* pas d’espace fantôme */
+  transition: opacity .2s ease .15s, margin-left .2s ease .15s;
+}
+
+/* État survol/focus : s’allonge sans faire bouger le header */
+.header-call:hover,
+.header-call:focus-visible{
+  width: 180px;               /* <= doit correspondre au wrap */
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0,74,173,.5);
+}
+
+/* Montre le texte uniquement quand déployé, et ajoute l’espace */
+.header-call:hover .text,
+.header-call:focus-visible .text{
+  opacity: 1;
+  width: auto;
+  margin-left: 10px;          /* l’espace apparaît seulement ici */
+}
+
+
 </style>
 <body>
 
@@ -56,93 +384,121 @@ h2{
       </form>
       <a href="faq.html">FAQ</a>
     </nav>
-    <a href="tel:0605873735" class="phone-number">06.05.87.37.35</a>
+    <div class="header-call-wrap">
+      <a href="tel:0605873735" class="header-call" aria-label="Appeler Nena Adom">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1v3.5a1 1 0 01-1 1C11.07 22 2 12.93 2 2.5a1 1 0 011-1H6.5a1 1 0 011 1c0 1.24.2 2.45.57 3.57a1 1 0 01-.24 1.02l-2.2 2.2z"/>
+        </svg>
+        <span class="text">Appelez-nous</span>
+      </a>
+    </div>
   </header>
 
 <section class="hospital-section">
   <h1 style="text-align: center;">ACCOMPAGNEMENT SUITE À UNE HOSPITALISATION</h1>
   <img src="../images/hospitalisation/slogan-hospitalisation.jpg" alt="Accompagnement médical" class="hospital-img">
+
   <p>
-    Après un séjour à l’hôpital, le retour à domicile peut s’avérer complexe.<br><br>
-    Nous assurons une prise en charge rapide et coordonnée, incluant l’organisation des soins nécessaires, l’installation du matériel médical adapté, ainsi qu’un accompagnement personnalisé pour faciliter cette transition essentielle.<br><br>
-    L’atout de notre accompagnement réside dans l’efficacité de nos services et la communication fluide entre les professionnels de santé et notre équipe, assurant un suivi clair, réactif et de qualité.<br><br>
+    Après un séjour à l’hôpital, le retour à domicile peut s’avérer complexe. Nous assurons une prise en charge rapide et coordonnée, incluant l’organisation des soins nécessaires, l’installation du matériel médical adapté, ainsi qu’un accompagnement personnalisé pour faciliter cette transition essentielle. L’atout de notre accompagnement réside dans l’efficacité de nos services et la communication fluide entre les professionnels de santé et notre équipe, assurant un suivi clair, réactif et de qualité.
   </p>
 
   <div class="hospital-columns">
     <div class="hospital-text">
       <img src="../images/hospitalisation/post-hospitalisation.jpg" alt="Soutien post hospitalisation" class="hospital-float">
-      <h2>ACCOMPAGNEMENT PERSONNALISÉ DÈS LA SORTIE DE L'HOPITAL</h2>
+
+      <h2>ACCOMPAGNEMENT PERSONNALISÉ DÈS LA SORTIE DE L'HÔPITAL</h2>
       <p>
-        Chez Nena Adom, notre mission commence avant même le retour à domicile. <br><br>
-        Dès le premier appel, un membre de notre équipe se rend à l’hôpital pour rencontrer le patient et établir un premier lien de confiance.<br><br>
-        Ce contact humain essentiel permet de rassurer le patient sur la continuité des soins à domicile et facilite la coordination avec l’équipe hospitalière. <br><br>
-        Cette étape-clé garantit une transition en douceur entre l’hôpital et le lieu de vie.<br><br>
-        Dès la prise de contact, notre équipe se mobilise immédiatement : un professionnel se rend à l’hôpital pour rencontrer le patient qui souhaite continuer les soins à domicile, instaurer un lien de confiance et préparer sereinement le retour à domicile.<br><br>
-        Cette visite proactive permet de rassurer le patient et sa famille, tout en posant les bases d’un accompagnement individualisé.<br><br>
+        Chez Nena Adom, notre mission commence avant même le retour à domicile. Dès le premier appel, un membre de notre équipe se rend à l’hôpital pour rencontrer le patient et établir un premier lien de confiance. Ce contact humain essentiel permet de rassurer le patient sur la continuité des soins à domicile et facilite la coordination avec l’équipe hospitalière. Cette étape-clé garantit une transition en douceur entre l’hôpital et le lieu de vie. Dès la prise de contact, notre équipe se mobilise immédiatement : un professionnel se rend à l’hôpital pour instaurer un lien de confiance et préparer sereinement le retour à domicile. Cette visite proactive permet de rassurer le patient et sa famille, tout en posant les bases d’un accompagnement individualisé.
       </p>
 
       <h2>MISE EN PLACE DU SUIVI MÉDICAL À DOMICILE</h2>
       <p>
-        Dès la validation de la sortie hospitalière, Nena Adom active une procédure accélérée pour garantir une prise en charge médicale complète à domicile : <br><br>
-        - Organisation des soins infirmiers à domicile (IDEL)<br><br>
-        - Coordination avec <a href="tel:+33698332521">médecin gériatre qui assure le suivi du patient à domicile</a> <br><br>
-        - Mobilisation des professionnels paramédicaux <br><br>
-        - Livraison de matériel médical sous 48h : <br><br>
-          - Lit médicalisé, fauteuil roulant, déambulateur, chaise percée, perfusion, oxygène, dispositifs de soins techniques… <br><br>
-        Nous assurons également l’évaluation de l’environnement du domicile pour garantir accessibilité, sécurité et confort du patient. Nos équipes peuvent recommander et mettre en place les adaptations nécessaires.<br><br>
-
+        Dès la validation de la sortie hospitalière, Nena Adom active une procédure accélérée pour garantir une prise en charge médicale complète à domicile. Nous organisons les soins infirmiers à domicile, coordonnons l’intervention du médecin gériatre pour le suivi du patient, mobilisons les professionnels paramédicaux et assurons la livraison de matériel médical sous 48h : lit médicalisé, fauteuil roulant, déambulateur, chaise percée, perfusion, oxygène ou dispositifs de soins techniques. Nous évaluons également l’environnement du domicile pour garantir accessibilité, sécurité et confort du patient, et recommandons si nécessaire des adaptations adaptées.
       </p>
 
       <h2>SUIVI GLOBAL DU PATIENT À DOMICILE</h2>
       <p>
-        À son retour, le patient est accompagné dans tous les actes de la vie quotidienne :<br><br>
-        - Aide au lever/coucher (change de protection), à la toilette, à l’habillage<br><br>
-        - Prise de traitements, surveillance des constantes<br><br>
-        - Préparation des repas adaptés, aide à la prise de repas<br><br>
-        - Soutien à l’autonomie<br><br>
-        - Garde de nuit<br><br>
-        Grâce à notre organisation rigoureuse et humaine et notre équipe pluridisciplinaire de professionnels de santé en libéral spécialisés en soins à domicile (Medecin gériatre , infirmiers, kinésithérapeutes, ergothérapeutes, diététiciens..) nous assurons la continuité des soins médicaux post-hospitalisation dans les meilleures conditions.<br><br>
-        </p>
+        À son retour, le patient est accompagné dans tous les actes de la vie quotidienne : aide au lever et au coucher, toilette, habillage, prise des traitements, surveillance des constantes, préparation et aide à la prise de repas, soutien à l’autonomie et garde de nuit. Grâce à une organisation rigoureuse et humaine et à une équipe pluridisciplinaire composée de médecins gériatres, infirmiers, kinésithérapeutes, ergothérapeutes et diététiciens, nous assurons la continuité des soins post-hospitalisation dans les meilleures conditions.
+      </p>
 
-      <h2>SOINS PALLIATIFS ET ACCOMPAGNEMENT EN FIN DE VIE À DOMICILE</h2>
-        <p>
-        Bien plus qu'une simple entreprise d'aide à domicile, Nena Adom se dévoue entièrement à offrir un soutien complet et compatissant aux patients en fin de vie.<br><br>
-        Nous nous engageons à soulager la souffrance du patient dans le confort de son domicile.<br><br>
-        Notre équipe médicale dédiée, composée de médecins gériatres, d'infirmières et d'auxiliaires de vie qualifiées, travaille de concert pour assurer une prise en charge intégrale et personnalisée<br><br>
-        </p>
+      <h2>SOINS PALLIATIFS ET ACCOMPAGNEMENT EN FIN DE VIE</h2>
+      <p>
+        Bien plus qu'une simple entreprise d'aide à domicile, Nena Adom se dévoue entièrement à offrir un soutien complet et compatissant aux patients en fin de vie. Nous nous engageons à soulager la souffrance du patient dans le confort de son domicile, avec une équipe médicale composée de médecins gériatres, d’infirmières et d’auxiliaires de vie qualifiées. Ensemble, ils assurent une prise en charge intégrale et personnalisée.
+      </p>
 
-        <h2>NOTRE APPROCHE HOLISTIQUE</h2>
-        <p>
-        Nous comprenons l'importance d'une assistance médicale complète et rapide.<br><br>
-        Vous n'aurez pas à chercher ailleurs pour la bonne équipe, on s'occupe de tout.<br><br>
-        Nos médecins gériatres se déplacent à domicile pour diagnostiquer les patients et prescrire les traitements nécessaires.<br><br>
-        Les infirmières expérimentées dans les soins de fin de vie assureront la réalisation de procédures délicates telles que perfusions, administration d'oxygène, piqûres, gestion de la douleur, confort physique, accompagnement psychologique et bien plus encore.<br><br>
-        Les auxiliaires de vie seront là pour l'accompagnement dans les tâches quotidiennes (toilette, aide au lever et coucher, garde de nuit etc)<br><br>
-        Nous croyons en la dignité et le respect de chaque individu, même dans les moments difficiles.<br><br>
-        Notre équipe s'efforce de créer un environnement propice à un départ paisible, sans souffrance, permettant aux patients de partir entourés d'amour et de compassion.<br><br>
-        </p>
+      <h2>NOTRE APPROCHE HOLISTIQUE</h2>
+      <p>
+        Nous comprenons l'importance d'une assistance médicale complète et rapide. Nos médecins gériatres se déplacent à domicile pour diagnostiquer les patients et prescrire les traitements nécessaires. Les infirmières, expérimentées dans les soins de fin de vie, réalisent des procédures délicates telles que perfusions, administration d'oxygène, gestion de la douleur ou accompagnement psychologique. Les auxiliaires de vie complètent cette prise en charge en assurant les gestes du quotidien : toilette, aide au lever et au coucher, garde de nuit. Nous croyons en la dignité et le respect de chaque individu, même dans les moments difficiles, et nous nous efforçons de créer un environnement propice à un départ paisible et entouré.
+      </p>
 
-        <h2>UN SOUTIEN ÉMOTIONNEL POUR LA FAMILLE</h2>
-        <p>
-        Au-delà des soins, nous apportons une écoute et un soutien bienveillant aux proches, souvent démunis face à cette étape difficile.<br><br>
-        Notre objectif est de leur permettre de rester présents et sereins, sans avoir à gérer seuls les aspects médicaux et logistiques.<br><br>
-        </p>
+      <h2>UN SOUTIEN ÉMOTIONNEL POUR LA FAMILLE</h2>
+      <p>
+        Au-delà des soins, nous apportons une écoute et un soutien bienveillant aux proches, souvent démunis face à cette étape difficile. Notre objectif est de leur permettre de rester présents et sereins, sans avoir à gérer seuls les aspects médicaux et logistiques.
+      </p>
 
-        <h2>UN ENVIRONNEMENT APAISANT ET RESPECTUEUX</h2>
-        <p>
-        Nous organisons discrètement tout ce qui est nécessaire : matériel adapté, installation du domicile, coordination médicale, suivi régulier.<br><br>
-        L’objectif est de prévenir les hospitalisations imprévues et de préserver l’intimité, la tranquillité et le confort du patient.<br><br>
-        Une organisation sur-mesure avec une présence humaine est mise en place selon le besoin du patient allant jusqu’à 24H/24 7j/7, assurée par des relais de jour comme de nuit.<br><br>
-        Cette présence constante vise à offrir un accompagnement stable, apaisant et sécurisant, tant pour la personne en fin de vie que pour ses proches.<br><br>
-        </p>
+      <h2>UN ENVIRONNEMENT APAISANT ET RESPECTUEUX</h2>
+      <p>
+        Nous organisons discrètement tout ce qui est nécessaire : matériel adapté, installation du domicile, coordination médicale et suivi régulier. L’objectif est de prévenir les hospitalisations imprévues et de préserver l’intimité et le confort du patient. Une organisation sur mesure avec une présence humaine peut être mise en place selon les besoins, allant jusqu’à 24h/24 et 7j/7 grâce à des relais de jour comme de nuit.
+      </p>
 
-        <h2>UN CHOIX DIGNE, CHEZ SOI</h2>
-        <p>
-        Choisir l’accompagnement Nena Adom en fin de vie, c’est offrir à son proche la possibilité de vivre ses derniers instants entouré, respecté, dans un cadre familier.<br><br>
-        Ce service rare, exigeant et profondément humain fait partie des engagements les plus forts de notre structure.<br><br>
-        </p>
+      <h2>UN CHOIX DIGNE, CHEZ SOI</h2>
+      <p>
+        Choisir l’accompagnement Nena Adom en fin de vie, c’est offrir à son proche la possibilité de vivre ses derniers instants entouré, respecté et dans un cadre familier. Ce service rare, exigeant et profondément humain fait partie des engagements les plus forts de notre structure.
+      </p>
     </div>
   </div>
+
+<!-- ===== CTA BAS DE PAGE ===== -->
+<section class="bottom-cta" aria-label="Appels rapides">
+  <div class="cta-grid">
+
+    <!-- Bouton 1 : Retour à domicile (bleu #004aad) -->
+    <div class="cta-card">
+      <p style="color:#004aad;">
+        Besoin de programmer votre retour à domicile après une hospitalisation&nbsp;?
+      </p>
+      <a class="cta-call-btn cta-btn--blue" href="tel:0605873735"
+         aria-label="Appeler Nena Adom pour organiser le retour à domicile">
+        <!-- icône téléphone -->
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor"
+            d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1v3.5a1 1 0 01-1 1C11.07 22 2 12.93 2 2.5a1 1 0 011-1H6.5a1 1 0 011 1c0 1.24.2 2.45.57 3.57a1 1 0 01-.24 1.02l-2.2 2.2z"/>
+        </svg>
+        <span>Nous appeler</span>
+      </a>
+    </div>
+
+    <!-- Bouton 2 : Médecin gériatre (vert pastel) -->
+    <div class="cta-card">
+      <p style="color:#6CC5A9;">
+        Besoin d’un médecin gériatre à domicile&nbsp;?
+      </p>
+      <a class="cta-call-btn cta-btn--mint" href="tel:+33698332521"
+         aria-label="Appeler un médecin gériatre à domicile">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor"
+            d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1v3.5a1 1 0 01-1 1C11.07 22 2 12.93 2 2.5a1 1 0 011-1H6.5a1 1 0 011 1c0 1.24.2 2.45.57 3.57a1 1 0 01-.24 1.02l-2.2 2.2z"/>
+        </svg>
+        <span>Appeler notre médecin</span>
+      </a>
+    </div>
+
+    <!-- Bouton 3 : Urgence 15 (rond -> s'allonge au survol) -->
+    <div class="cta-card emergency-wrap">
+      <p class="emergency-label">Une urgence&nbsp;?</p>
+      <a class="emergency-call" href="tel:15"
+         aria-label="Urgence médicale, appeler le 15">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor"
+            d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1v3.5a1 1 0 01-1 1C11.07 22 2 12.93 2 2.5a1 1 0 011-1H6.5a1 1 0 011 1c0 1.24.2 2.45.57 3.57a1 1 0 01-.24 1.02l-2.2 2.2z"/>
+        </svg>
+        <span class="text">Contactez le 15</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
 </section>
 
 <script>
