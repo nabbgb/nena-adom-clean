@@ -823,57 +823,6 @@ footer a {
   </a>
 </section>
 
-  <script>
-    // Pour la barre de recherche
-    function highlightTerm(term) {
-      if (!term) return;
-      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
-      let node;
-      const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&')})`, 'gi');
-      let firstMark = null;
-      let openedFaqItems = new Set();
-
-      while (node = walker.nextNode()) {
-        if (
-          node.parentNode &&
-          !['SCRIPT', 'STYLE', 'NOSCRIPT', 'IFRAME', 'MARK'].includes(node.parentNode.tagName) &&
-          node.nodeValue.match(regex)
-        ) {
-          const span = document.createElement('span');
-          span.innerHTML = node.nodeValue.replace(regex, '<mark>$1</mark>');
-          node.parentNode.replaceChild(span, node);
-          if (!firstMark) { firstMark = span.querySelector('mark'); }
-          // Ouvre la question si le mot est dans une réponse de l'accordéon
-          let faqAnswer = span.closest('.faq-answer');
-          if (faqAnswer) {
-            let faqItem = faqAnswer.closest('.faq-item');
-            if (faqItem && !openedFaqItems.has(faqItem)) {
-              faqItem.classList.add('active');
-              openedFaqItems.add(faqItem);
-            }
-          }
-        }
-      }
-      if (firstMark) {
-        firstMark.scrollIntoView({ behavior: "smooth", block: "center" });
-        setTimeout(() => { window.scrollBy({ top: 200, left: 0, behavior: "smooth" }); }, 400);
-      }
-    }
-
-    function getSearchTerm() {
-      const params = new URLSearchParams(window.location.search);
-      return params.get('q');
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-      const term = getSearchTerm();
-      if (term) {
-        document.getElementById('searchInput').value = term;
-        highlightTerm(term);
-      }
-    });
-  </script>
-
 
 <script>
 //Pour la barre de recherche
@@ -902,8 +851,8 @@ function highlightTerm(term) {
     firstMark.scrollIntoView({ behavior: "smooth", block: "center" });
     // Décalage supplémentaire pour éviter le header
     setTimeout(() => {
-      window.scrollBy({ top: 400, left: 0, behavior: "smooth" }); 
-    }, 400); // délai pour laisser le scrollIntoView s'effectuer
+      window.scrollBy({ top: 4000, left: 0, behavior: "smooth" }); 
+    }, 4000); // délai pour laisser le scrollIntoView s'effectuer
   }
 }
 
