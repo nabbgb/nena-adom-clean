@@ -412,6 +412,67 @@ footer{
   content: none !important;
 }
 
+/* 1) Donne une “priorité” de pile à la zone recherche */
+.search-section{
+  position: relative;  /* tu l’as déjà, on garde */
+  z-index: 10;         /* > 1 pour passer devant les autres sections */
+}
+
+/* 2) Assure que la liste de suggestions survole tout */
+.ta-wrap{ 
+  position: relative;  /* conteneur du dropdown */
+  z-index: 10;
+}
+.ta-list{
+  z-index: 10000;      /* le dropdown lui-même, tout en haut */
+}
+
+/* (optionnel mais propre) garde les autres sections derrière */
+.contact-section,
+.partners-section,
+.map-section{
+  position: relative;
+  z-index: 1;
+}
+
+.partners-track{
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  overflow: hidden;     /* obligatoire pour le ruban infini */
+  white-space: nowrap;  /* au cas où */
+}
+
+.partners-track img{
+  display: block;       /* évite l’espace baseline */
+  height: 56px;         /* mets une hauteur fixe si tu peux, c’est plus robuste */
+  width: auto;
+}
+@media (max-width: 768px){
+  .partners-track img{
+  height: 85px;
+  }
+  
+}
+
+/* Masquer les clones uniquement sur desktop */
+@media (min-width: 769px){
+  .partners-track [data-clone="1"]{
+    display: none !important;
+  }
+
+  /* ✅ Rétablit une taille confortable des logos sur ordi */
+  .partners-track img{
+    height: 120px;   /* augmente si tu veux (ex: 90px ou 100px) */
+    width: auto;
+  }
+
+  /* Un peu plus d’espace entre logos si besoin */
+  .partners-track{
+    gap: 32px;      /* ajuste à ton goût (ex: 40px) */
+    padding-bottom: 45px;
+  }
+}
 
 
 </style>
@@ -512,7 +573,7 @@ footer{
 <!-- Barre de recherche -->
   <section class="search-section center-title" style="margin-top:40px; text-align: center;">
     <h2 class="center-title">BESOIN D'UN RENSEIGNEMENT PRÉCIS ?</h2>
-      <input type="text" id="searchInput" placeholder="Tapez un mot-clé..." style="padding:10px; width:100%; max-width:400px; border-radius:8px; border:1px solid #ccc; margin:10px auto;">
+      <input type="text" id="searchInput" placeholder="Tapez un mot-clé..." style="padding:10px; width:90%; max-width:400px; border-radius:8px; border:1px solid #ccc; margin:10px auto;">
       <button onclick="searchSite()" style="padding:10px 20px; border-radius:8px; background-color:#004aad; color:white; border:none;">Rechercher</button>
       <ul id="results" style="margin-top:15px; list-style:none; padding-left:0;"></ul>
   </section>
@@ -810,266 +871,134 @@ document.getElementById("searchInput").addEventListener("keydown", function(even
 </style>
 
 <script>
-/**
- * Typeahead sans dépendance — inspiré de typeahead.js
- * - indexe H1/H2/H3 + mots fréquents des pages cibles
- * - fuzzy léger: priorité prefix, sinon substring
- * - navigation clavier ↑/↓/Enter/Échap
- * - clic/Enter -> redirection vers URL avec ?q=
- */
-
 (function(){
-  // --- config
-  const PAGES = [
-    { title: "Aides financières", url: "pages/aides.html" },
-    { title: "Services à domicile", url: "pages/services.html" },
-    { title: "Hospitalisation",    url: "pages/hospitalisation.html" },
-    { title: "Pathologies",        url: "pages/pathologie.html" },
-    { title: "FAQ",                url: "pages/faq.html" }
-  ];
-  const MAX_SUGGESTIONS = 8;
-  const MIN_CHARS = 2;
+  const track = document.querySelector('.partners-track');
+  if (!track) return;
 
-  // --- DOM: on wrappe ton input existant dans un conteneur
-  const input = document.getElementById('searchInput');
-  if (!input) return;
+  const mq = window.matchMedia('(max-width: 768px)');
+  let running = false, rafId = null, lastTs = 0;
+  const SPEED = 40; // px/s (ajuste)
+  let cycle = 0;
 
-  // accessibilité ARIA
-  input.setAttribute('role','combobox');
-  input.setAttribute('aria-autocomplete','list');
-  input.setAttribute('aria-expanded','false');
-
-  // wrapper + liste
-  const wrap = document.createElement('div'); wrap.className = 'ta-wrap';
-  input.parentNode.insertBefore(wrap, input);
-  wrap.appendChild(input);
-
-  const list = document.createElement('div'); list.className = 'ta-list'; list.id = 'ta-listbox';
-  input.setAttribute('aria-controls', 'ta-listbox');
-  wrap.appendChild(list);
-
-  // aligne la largeur du menu sur l’input si celui-ci est responsive
-  const ro = new ResizeObserver(() => { list.style.minWidth = input.offsetWidth+'px'; });
-  ro.observe(input);
-
-  // --- index en mémoire
-  // structure: {label, url, pageTitle, weight}
-  const INDEX = [];
-  let indexed = false;
-
-  function addEntry(label, url, pageTitle, weight=1){
-    const key = (label||'').trim();
-    if (!key) return;
-    INDEX.push({ label:key, url, pageTitle, weight });
-  }
-
-  async function buildIndex(){
-    if (indexed) return;
-    // titres de page “bruts”
-    PAGES.forEach(p => addEntry(p.title, p.url, p.title, 10));
-
-    // on va chercher les h1/h2/h3 et quelques mots-clés
-    await Promise.all(PAGES.map(async p=>{
-      try{
-        const html = await (await fetch(p.url)).text();
-        const doc  = new DOMParser().parseFromString(html,'text/html');
-        // headings
-        doc.querySelectorAll('h1, h2, h3').forEach(h=>{
-          const t = (h.textContent||'').replace(/\s+/g,' ').trim();
-          addEntry(t, p.url, p.title, h.tagName==='H1'?9: (h.tagName==='H2'?7:5));
-        });
-        // mots-clés fréquents (simples) depuis paragraphes
-        const text = [...doc.querySelectorAll('p, li')].map(n=>n.textContent||'').join(' ');
-        const words = text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-                      .match(/[a-zàâäéèêëîïôöùûüç-]{3,}/g) || [];
-        // score naïf par fréquence
-        const freq = new Map();
-        words.forEach(w => freq.set(w, (freq.get(w)||0)+1));
-        const top = [...freq.entries()]
-          .sort((a,b)=>b[1]-a[1]).slice(0,60) // limite
-          .map(([w,c])=>({w,c}));
-        top.forEach(({w,c}) => addEntry(w, p.url, p.title, Math.min(4, 1 + Math.log2(1+c))));
-      }catch(e){ /* ignore */ }
-    }));
-
-    indexed = true;
-  }
-
-  function highlight(label, q){
-    const i = label.toLowerCase().indexOf(q.toLowerCase());
-    if (i<0) return label;
-    return label.slice(0,i) + '<mark>' + label.slice(i, i+q.length) + '</mark>' + label.slice(i+q.length);
-  }
-
-  function rankMatch(item, q){
-    const L = item.label.toLowerCase();
-    const Q = q.toLowerCase();
-    if (L.startsWith(Q)) return 1000 + item.weight;          // meilleur cas: préfixe
-    const idx = L.indexOf(Q);
-    if (idx>=0) return 500 + item.weight - idx*0.01;         // substring
-    return -1;
-  }
-
-  function dedupe(list){
-    const seen = new Set(); const out = [];
-    for (const it of list){
-      const key = (it.label+'|'+it.url).toLowerCase();
-      if (seen.has(key)) continue;
-      seen.add(key); out.push(it);
-    }
-    return out;
-  }
-
-  function suggest(q){
-    const raw = INDEX.map(it => ({ it, score: rankMatch(it, q) }))
-                     .filter(x => x.score >= 0)
-                     .sort((a,b)=> b.score - a.score)
-                     .map(x => x.it);
-    // on remonte d’abord les entrées longues (phrases), puis mots seuls
-    const phrases = raw.filter(it => /\s/.test(it.label));
-    const singles = raw.filter(it => !/\s/.test(it.label));
-    return dedupe([...phrases, ...singles]).slice(0, MAX_SUGGESTIONS);
-  }
-
-  function render(items, q){
-    list.innerHTML = '';
-    if (!items.length){
-      const div = document.createElement('div');
-      div.className='ta-empty';
-      div.textContent = 'Aucun résultat';
-      list.appendChild(div);
-    } else {
-      items.forEach((it, idx)=>{
-        const div = document.createElement('div');
-        div.className = 'ta-item';
-        div.id = 'ta-item-'+idx;
-        div.setAttribute('role','option');
-        div.setAttribute('aria-selected','false');
-        div.innerHTML = `<div>${highlight(it.label, q)}</div><small>${it.pageTitle}</small>`;
-        div.addEventListener('mousedown', (e)=>{ // mousedown pour précéder blur
-          e.preventDefault();
-          go(it, q);
-        });
-        list.appendChild(div);
+  // --- util: attendre que TOUTES les images du track soient prêtes
+  function imagesReady(){
+    const imgs = Array.from(track.querySelectorAll('img'));
+    if (imgs.length === 0) return Promise.resolve();
+    const waiters = imgs.map(img => {
+      if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+      return new Promise(res => {
+        img.addEventListener('load', res, { once:true });
+        img.addEventListener('error', res, { once:true }); // on ne bloque pas si erreur
       });
+    });
+    return Promise.all(waiters);
+  }
+
+  function cleanupClones(){
+    track.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
+  }
+
+  function rebuild(){
+    cleanupClones();
+
+    // duplique une fois le contenu pour la boucle infinie
+    const originals = Array.from(track.children);
+    originals.forEach(el => {
+      const clone = el.cloneNode(true);
+      clone.setAttribute('data-clone','1');
+      track.appendChild(clone);
+    });
+
+    // forcer un reflow puis mesurer
+    void track.offsetWidth;
+    const firstClone = track.querySelector('[data-clone="1"]');
+    cycle = firstClone ? Math.round(firstClone.offsetLeft) : 0;
+
+    // se replacer au bon endroit dans le cycle
+    if (cycle > 0) track.scrollLeft = track.scrollLeft % cycle;
+  }
+
+  function shouldRun(){
+    return mq.matches && track.scrollWidth > track.clientWidth;
+  }
+
+  function step(ts){
+    if (!running) return;
+    if (!lastTs) lastTs = ts;
+    const dt = (ts - lastTs) / 1000;
+    lastTs = ts;
+
+    track.scrollLeft += SPEED * dt;
+
+    if (cycle > 0 && track.scrollLeft >= cycle) {
+      track.scrollLeft -= cycle;
     }
-    list.style.display = 'block';
-    input.setAttribute('aria-expanded','true');
-    activeIndex = items.length ? 0 : -1;
-    updateActive();
+    rafId = requestAnimationFrame(step);
   }
 
-  function hide(){
-    list.style.display = 'none';
-    input.setAttribute('aria-expanded','false');
-    activeIndex = -1;
-  }
+  async function start(){
+    if (running) return;
+    // attendre les images (important en prod/CDN)
+    await imagesReady();
 
-  function go(item, q){
-    // redirection avec ?q= pour ton mécanisme de surlignage/scroll
-    const url = item.url + '?q=' + encodeURIComponent(q);
-    window.location.href = url;
-  }
-
-  // --- interactions
-  let activeIndex = -1; // élément actuellement surligné
-  function updateActive(){
-    const items = [...list.querySelectorAll('.ta-item')];
-    items.forEach((n,i)=> n.setAttribute('aria-selected', i===activeIndex ? 'true':'false'));
-    if (activeIndex>=0 && items[activeIndex]) {
-      const el = items[activeIndex];
-      const rTop = el.offsetTop, rBot = rTop + el.offsetHeight;
-      if (list.scrollTop > rTop) list.scrollTop = rTop;
-      else if (list.scrollTop + list.clientHeight < rBot)
-        list.scrollTop = rBot - list.clientHeight;
+    // si certaines images arrivent en retard, mets un petit garde-fou
+    // qui re-tente tant que les largeurs sont insuffisantes
+    let tries = 0;
+    while (tries < 8) { // ~8 * 120ms = < 1s
+      rebuild();
+      if (shouldRun()) break;
+      await new Promise(r => setTimeout(r, 120));
+      tries++;
     }
+
+    if (!shouldRun()) { stop(); return; }
+
+    running = true;
+    lastTs = 0;
+    rafId = requestAnimationFrame(step);
   }
 
-  function onKey(e){
-    const visible = list.style.display === 'block';
-    if (e.key === 'ArrowDown'){
-      if (!visible) return;
-      const n = list.querySelectorAll('.ta-item').length;
-      if (!n) return;
-      activeIndex = (activeIndex + 1) % n;
-      updateActive();
-      e.preventDefault();
-    } else if (e.key === 'ArrowUp'){
-      if (!visible) return;
-      const n = list.querySelectorAll('.ta-item').length;
-      if (!n) return;
-      activeIndex = (activeIndex - 1 + n) % n;
-      updateActive();
-      e.preventDefault();
-    } else if (e.key === 'Enter'){
-      if (visible){
-        const items = list.querySelectorAll('.ta-item');
-        if (activeIndex>=0 && items[activeIndex]){
-          const label = items[activeIndex].querySelector('div')?.textContent?.trim() || input.value.trim();
-          const it = CURRENT_SUGGESTIONS[activeIndex];
-          go(it, input.value.trim() || label);
-          e.preventDefault();
-          return;
-        }
-      }
-      // fallback: lancer ta recherche générale
-      if (input.value.trim().length >= MIN_CHARS) searchSite();
-    } else if (e.key === 'Escape'){
-      hide();
-    }
+  function stop(){
+    running = false;
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = null;
   }
 
-  // debounce utilitaire
-  function debounce(fn, ms=120){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms); }; }
+  // --- interactions & résilience
+  // pause au toucher (mobile), reprise ensuite
+  let touchTimer = null;
+  track.addEventListener('touchstart', () => {
+    if (touchTimer) clearTimeout(touchTimer);
+    stop();
+  }, {passive:true});
+  track.addEventListener('touchend', () => {
+    if (touchTimer) clearTimeout(touchTimer);
+    touchTimer = setTimeout(() => start(), 600);
+  }, {passive:true});
 
-  let CURRENT_SUGGESTIONS = [];
-  const onInput = debounce(async ()=>{
-    const q = input.value.trim();
-    if (q.length < MIN_CHARS){ hide(); return; }
-    await buildIndex();
-    CURRENT_SUGGESTIONS = suggest(q);
-    render(CURRENT_SUGGESTIONS, q);
-  }, 120);
-
-  input.addEventListener('input', onInput);
-  input.addEventListener('keydown', onKey);
-  input.addEventListener('blur', () => setTimeout(hide, 120)); // laisse le temps au click
-
-  // Optionnel : clic dans la page ferme la liste
-  document.addEventListener('click', (e)=>{
-    if (!wrap.contains(e.target)) hide();
+  // onglet caché -> pause / visible -> reprise
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stop(); else start();
   });
 
-  // --- ta fonction existante (inchangée) pour le bouton "Rechercher"
-  window.searchSite = function(){
-    const keyword = input.value.trim().toLowerCase();
-    const resultsList = document.getElementById("results");
-    if (!keyword) {
-      resultsList.innerHTML = "<li>Veuillez entrer un mot-clé.</li>";
-      return;
-    }
-    resultsList.innerHTML = "Recherche en cours...";
-    const promises = PAGES.map(page =>
-      fetch(page.url)
-        .then(res => res.text())
-        .then(html => ({
-          title: page.title,
-          url: page.url,
-          found: html.toLowerCase().includes(keyword)
-        }))
-        .catch(() => ({ title: page.title, url: page.url, found: false }))
-    );
-    Promise.all(promises).then(results => {
-      const filtered = results.filter(r => r.found);
-      if (filtered.length === 0) {
-        resultsList.innerHTML = "<li>Aucun résultat trouvé</li>";
-      } else {
-        resultsList.innerHTML = filtered
-          .map(r => `<li><a href="${r.url}?q=${encodeURIComponent(keyword)}">${r.title}</a></li>`)
-          .join("");
-      }
-    });
-  };
+  // viewport/responsive
+  if (mq.addEventListener) {
+    mq.addEventListener('change', () => { stop(); track.scrollLeft = 0; start(); });
+  } else if (mq.addListener) {
+    mq.addListener(() => { stop(); track.scrollLeft = 0; start(); });
+  }
+  window.addEventListener('resize', () => { stop(); track.scrollLeft = 0; start(); });
+
+  // si des images se (re)chargent plus tard (cache lent/CDN), on relance
+  const ro = new ResizeObserver(() => { stop(); start(); });
+  ro.observe(track);
+
+  // Go au DOM prêt
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start, { once:true });
+  } else {
+    start();
+  }
 })();
 </script>
 
