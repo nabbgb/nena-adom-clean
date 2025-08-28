@@ -825,52 +825,46 @@ footer a {
 
 
 <script>
-//Pour la barre de recherche
-function highlightTerm(term) {
-  if (!term) return;
-  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
-  let node;
-  const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-  let firstMark = null;
-  while (node = walker.nextNode()) {
-    if (
-      node.parentNode &&
-      !['SCRIPT', 'STYLE', 'NOSCRIPT', 'IFRAME', 'MARK'].includes(node.parentNode.tagName) &&
-      node.nodeValue.match(regex)
-    ) {
-      const span = document.createElement('span');
-      span.innerHTML = node.nodeValue.replace(regex, '<mark>$1</mark>');
-      node.parentNode.replaceChild(span, node);
-      if (!firstMark) {
-        firstMark = span.querySelector('mark');
-      }
-    }
-  }
-  // Scroll vers la première occurrence surlignée
-  if (firstMark) {
-    firstMark.scrollIntoView({ behavior: "smooth", block: "center" });
-    // Décalage supplémentaire pour éviter le header
-    setTimeout(() => {
-      window.scrollBy({ top: 4000, left: 0, behavior: "smooth" }); 
-    }, 4000); // délai pour laisser le scrollIntoView s'effectuer
-  }
-}
-
 // Récupère le paramètre 'q' de l'URL
 function getSearchTerm() {
   const params = new URLSearchParams(window.location.search);
   return params.get('q');
 }
 
-// Au chargement, surligne si besoin
-document.addEventListener('DOMContentLoaded', function() {
+// Pour la barre de recherche
+function highlightTerm(term) {
+  if (!term) return;
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+  let node;
+  const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&')})`, 'gi');
+  let firstMark = null;
+  while (node = walker.nextNode()) {
+    if (node.parentNode && !['SCRIPT','STYLE','NOSCRIPT','IFRAME','MARK'].includes(node.parentNode.tagName) && node.nodeValue.match(regex)) {
+      const span = document.createElement('span');
+      span.innerHTML = node.nodeValue.replace(regex, '<mark>$1</mark>');
+      node.parentNode.replaceChild(span, node);
+      if (!firstMark) firstMark = span.querySelector('mark');
+    }
+  }
+  if (firstMark) {
+    firstMark.scrollIntoView({ behavior: "smooth", block: "center" });
+    setTimeout(() => {
+      window.scrollBy({ top: 400, left: 0, behavior: "smooth" }); // pas 4000 :)
+    }, 400);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
   const term = getSearchTerm();
   if (term) {
-    document.getElementById('searchInput').value = term;
+    // Cherche un input desktop ou mobile, sans jeter d'erreur si absent
+    const input = document.getElementById('searchInput') || document.getElementById('mobileSearchInput');
+    if (input) input.value = term;
     highlightTerm(term);
   }
 });
-</script>  
+</script>
+ 
 
 <script>
   document.querySelector('.mobile-menu-btn').onclick = function() {
