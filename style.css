@@ -363,11 +363,13 @@ header h2 {
 
 .service-content-box img {
   width: 30%;
-  height: 30%;
+  aspect-ratio: 1 / 1;
+  height: auto;
   object-fit: cover;
   border-radius: 4px;
   flex-shrink: 0;
 }
+
 
 .service-text {
   font-size: 1em;
