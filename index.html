@@ -689,6 +689,27 @@ footer{
   </p>
 </footer>
 
+
+<script>
+function searchSite() {
+  const keyword = document.getElementById("searchInput").value.trim();
+  if (!keyword) return;
+
+  // Choisis ici où envoyer par défaut :
+  // par exemple on envoie toujours sur "services.html"
+  // et le script dans la page fera le highlight + scroll
+  window.location.href = "pages/services.html?q=" + encodeURIComponent(keyword);
+}
+
+// Permet d'appuyer sur Entrée
+document.getElementById("searchInput").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    searchSite();
+  }
+});
+</script>
+
 <script>
 // ===== Recherche site : scan de pages + redirection auto =====
 (function(){
