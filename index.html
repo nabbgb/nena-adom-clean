@@ -505,7 +505,7 @@ footer{
   align-items: center;
 }
 .service-visual img {
-  width: 100%;
+  width: 90%;
   height: auto;
   display: block;
   border-radius: 6px;
@@ -513,7 +513,6 @@ footer{
 
 /* Bouton En savoir plus */
 .read-more-pill {
-  margin-top: 12px;
   display: inline-block;
   padding: 6px 14px;
   border-radius: 20px;
@@ -552,6 +551,52 @@ footer{
   .service-visual {
     width: 100%;
     max-width: 440px;
+  }
+}
+/* Version mobile : bouton sous le texte */
+@media (max-width: 768px) {
+  .service-content-box {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-visual {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+
+  .read-more-pill {
+    display: block;
+    margin: 15px auto 0; /* centrage + espace au-dessus */
+    order: 2; /* s'assure que le bouton arrive après le texte */
+  }
+
+  .service-text {
+    order: 1; /* texte avant le bouton */
+  }
+}
+/* --- Mobile: mettre "En savoir plus" sous le texte, sans changer le HTML --- */
+@media (max-width: 768px){
+  .services-grid .service-content-box{
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Aplatit le conteneur image pour réordonner ses enfants */
+  .services-grid .service-visual{
+    display: contents !important;
+  }
+
+  /* Ordre mobile: image (0) → texte (1) → bouton (2) */
+  .services-grid .service-visual img{ order: 0; }
+  .services-grid .service-text{ order: 1; }
+
+  .services-grid .read-more-pill{
+    order: 2;
+    display: inline-block;
+    margin-top: 12px;
+    align-self: center; /* centrage propre */
   }
 }
 
@@ -595,7 +640,7 @@ footer{
               <div class="service-content-box">
                 <!-- Image + En savoir plus -->
                 <div class="service-visual">
-                  <img src="images/accueil/pictures-cellules (1).png" alt="Aide à domicile">
+                  <img src="images/accueil/Maquette  (1) (1).png" alt="Aide à domicile">
                   <span class="read-more-pill">En savoir plus</span>
                 </div>
 
