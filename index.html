@@ -474,6 +474,12 @@ footer{
   }
 }
 
+/* Liste en portail (toujours au-dessus) */
+.ta-portal{
+  position: fixed !important;
+  z-index: 2147483647 !important; /* top de top */
+}
+
 
 </style>
 
@@ -684,53 +690,75 @@ footer{
 </footer>
 
 <script>
-const pagesToSearch = [
-  { title: "Aides financières", url: "pages/aides.html" },
-  { title: "Services à domicile", url: "pages/services.html" },
-  { title: "Hospitalisation", url: "pages/hospitalisation.html" },
-  { title: "Pathologies", url: "pages/pathologie.html" },
-  { title: "FAQ", url: "pages/faq.html" }
-];
+// ===== Recherche site : scan de pages + redirection auto =====
+(function(){
+  // Reprend ton tableau existant si présent, sinon fallback :
+  const PAGES = (window.pagesToSearch && Array.isArray(window.pagesToSearch) && window.pagesToSearch.length)
+    ? window.pagesToSearch
+    : [
+        { title: "Aides financières", url: "pages/aides.html" },
+        { title: "Services à domicile", url: "pages/services.html" },
+        { title: "Hospitalisation",   url: "pages/hospitalisation.html" },
+        { title: "Pathologies",       url: "pages/pathologie.html" },
+        { title: "FAQ",               url: "pages/faq.html" }
+      ];
 
-function searchSite() {
-  const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
   const resultsList = document.getElementById("results");
-  if (!keyword) {
-    resultsList.innerHTML = "<li>Veuillez entrer un mot-clé.</li>";
-    return;
-  }
+  const input = document.getElementById("searchInput");
 
-  resultsList.innerHTML = "Recherche en cours...";
+  function escapeRegExp(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 
-  const promises = pagesToSearch.map(page =>
-    fetch(page.url)
-      .then(res => res.text())
-      .then(html => ({
-        title: page.title,
-        url: page.url,
-        found: html.toLowerCase().includes(keyword)
-      }))
-      .catch(() => ({ title: page.title, url: page.url, found: false }))
-  );
+  async function searchSite(){
+    const keyword = (input.value || '').trim();
+    if (!keyword){
+      if (resultsList) resultsList.innerHTML = "<li>Veuillez entrer un mot-clé.</li>";
+      return;
+    }
+    if (resultsList) resultsList.innerHTML = "Recherche en cours...";
 
-  Promise.all(promises).then(results => {
-    const filtered = results.filter(r => r.found);
-    if (filtered.length === 0) {
-      resultsList.innerHTML = "<li>Aucun résultat trouvé</li>";
-    } else {
-      resultsList.innerHTML = filtered
-        .map(r => `<li><a href="${r.url}?q=${encodeURIComponent(keyword)}">${r.title}</a></li>`)
+    const qLower = keyword.toLowerCase();
+    const matches = [];
+
+    await Promise.all(PAGES.map(async page=>{
+      try{
+        const res = await fetch(page.url, { cache: "no-store" });
+        const html = await res.text();
+        const lower = html.toLowerCase();
+        const firstIdx = lower.indexOf(qLower);
+        if (firstIdx !== -1){
+          const count = (lower.match(new RegExp(escapeRegExp(qLower), "g")) || []).length;
+          matches.push({ page, firstIdx, count });
+        }
+      }catch(_){}
+    }));
+
+    if (matches.length === 0){
+      if (resultsList) resultsList.innerHTML = "<li>Aucun résultat trouvé</li>";
+      return;
+    }
+
+    // Choix du "meilleur" résultat : plus d'occurrences, puis position la plus tôt
+    matches.sort((a,b) => b.count - a.count || a.firstIdx - b.firstIdx);
+
+    // 🔁 Redirection immédiate vers la meilleure page
+    window.location.href = matches[0].page.url + "?q=" + encodeURIComponent(keyword);
+
+    // (Optionnel) on affiche aussi la liste complète sous la barre
+    if (resultsList){
+      resultsList.innerHTML = matches
+        .map(m => `<li><a href="${m.page.url}?q=${encodeURIComponent(keyword)}">${m.page.title}</a> — ${m.count} occurrence(s)</li>`)
         .join("");
     }
-  });
-}
-
-document.getElementById("searchInput").addEventListener("keydown", function(event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    searchSite();
   }
-});
+
+  // Entrée = lancer la recherche (même si aucune suggestion)
+  input.addEventListener("keydown", (e)=>{
+    if (e.key === "Enter"){ e.preventDefault(); searchSite(); }
+  });
+
+  // Expose la fonction si tu l’appelles ailleurs (bouton Rechercher)
+  window.searchSite = searchSite;
+})();
 </script>
 
 <script>
