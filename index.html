@@ -480,6 +480,80 @@ footer{
   z-index: 2147483647 !important; /* top de top */
 }
 
+/* Nettoyage : plus de blobs internes */
+.services-grid .service-content-box::before,
+.services-grid .service-content-box::after {
+  content: none !important;
+}
+
+/* Nouveau gabarit : simple, clair */
+.services-grid .service-content-box {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  background: #fff;
+  border-radius: 14px;
+  padding: 22px 24px;
+  border: 1px solid #eee;   /* léger contour pour structurer */
+}
+
+/* Colonne image + bouton */
+.service-visual {
+  flex: 0 0 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.service-visual img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+}
+
+/* Bouton En savoir plus */
+.read-more-pill {
+  margin-top: 12px;
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--na-blue);
+  background: white;
+  color: var(--na-blue);
+  font-size: 0.9em;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.service-link:hover .read-more-pill {
+  background: var(--na-blue);
+  color: white;
+}
+
+/* Texte */
+.service-text {
+  flex: 1;
+  font-size: 0.95em;
+  line-height: 1.5;
+}
+
+/* Supprimer ancien bouton */
+.service-text .read-more-btn {
+  display: none !important;
+}
+
+/* Mobile : passe en colonne */
+@media (max-width: 768px) {
+  .services-grid .service-content-box {
+    flex-direction: column;
+    gap: 14px;
+    padding: 18px 16px;
+  }
+  .service-visual {
+    width: 100%;
+    max-width: 440px;
+  }
+}
 
 </style>
 
@@ -517,15 +591,22 @@ footer{
           <div class="service-title-box">
             <h2>Aide à domicile aux personnes âgées</h2>
           </div>
-          <a href="pages/services.html" class="service-link">
-            <div class="service-content-box">
-              <img src="images/accueil/pictures-cellules (1).png" alt="Aide à domicile">
-              <div class="service-text">
-                Afin d'assurer leur autonomie et leur dignité et d’offrir une tranquillité d'esprit totale aux proches aidants, nous proposons une gamme de services complète pour les tâches quotidiennes, y compris la toilette, l'aide au lever et au coucher, courses et préparation des repas, le ménage et le repassage.
-                <br><button class="read-more-btn" onclick="expandFirstQuestion()">En savoir plus</button>
+            <a href="pages/services.html" class="service-link">
+              <div class="service-content-box">
+                <!-- Image + En savoir plus -->
+                <div class="service-visual">
+                  <img src="images/accueil/pictures-cellules (1).png" alt="Aide à domicile">
+                  <span class="read-more-pill">En savoir plus</span>
+                </div>
+
+                <!-- Texte -->
+                <div class="service-text">
+                  Afin d'assurer leur autonomie et leur dignité et d’offrir une tranquillité d'esprit totale aux proches aidants,
+                  nous proposons une gamme de services complète pour les tâches quotidiennes, y compris la toilette, l'aide au lever
+                  et au coucher, courses et préparation des repas, le ménage et le repassage.
+                </div>
               </div>
-            </div>
-          </a>
+            </a>
         </div>
 
         <div class="service-cell">
@@ -649,7 +730,7 @@ footer{
 
       <div class="partner-tooltipv2">
           <a href="tel:0605873735" target="_blank">
-              <img src="images/partenaires/kiné.png" width="240" height="80" alt="Kinésithérapeute">
+              <img src="images/partenaires/kine.png" width="240" height="80" alt="Kinésithérapeute">
           </a>
           <div class="tooltip-textv2">
               Messages Messages Messages Messages Messages Messages Messages Messages
@@ -683,7 +764,7 @@ footer{
     Hébergement : IONOS – 7 Place de la Gare, 57200 Sarreguemines, France
   </p>
   <p>
-    <a href="mailto:contact@nenaadom.fr" style="color: #000000; text-decoration: underline;">contact@nenaadom.fr</a> |
+    <a href="mailto:contact@aideadomicileparis.fr" style="color: #000000; text-decoration: underline;">contact@aideadomicileparis.fr</a> |
     <a href="pages/mentions-legales.html" style="color: #000000; text-decoration: underline;">Mentions légales</a> |
     <a href="pages/faq.html" style="color: #000000; text-decoration: underline;">FAQ</a>
   </p>
