@@ -768,30 +768,114 @@ footer{
   const track = document.querySelector('.partners-track');
   if (!track) return;
 
+  // ====== Tunables ======
   const mq = window.matchMedia('(max-width: 768px)');
-  let running = false, rafId = null, lastTs = 0;
-  const SPEED = 40; // px/s (ajuste si besoin)
-  let cycle = 0;    // distance avant que le motif se répète (début du 1er clone)
+  const SPEED = 40;                   // px/s
+  const RECHECK_DELAY_MS = 1800;      // safety fallback if decode never fires
+  const RESUME_TOUCH_DELAY_MS = 600;
 
-  function rebuild() {
-    // 1) nettoyer d'anciens clones
-    track.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
+  // ====== State ======
+  let running = false, rafId = null, lastTs = 0, cycle = 0;
+  let ro = null; // ResizeObserver
 
-    // 2) dupliquer tous les items une fois
-    const originals = Array.from(track.children);
+  // --- Utilities ---
+  function qChildren() { return Array.from(track.children).filter(n => !n.dataset.clone); }
+  function clones()    { return Array.from(track.children).filter(n => n.dataset.clone === '1'); }
+
+  function imagesIn(nodeList){
+    return nodeList.flatMap(el => Array.from(el.querySelectorAll('img')));
+  }
+
+  // Wait until all images in the ORIGINAL set have a stable size
+  function waitImagesReady(originals){
+    const imgs = imagesIn(originals);
+
+    // Hint browsers not to lazy-load this carousel
+    imgs.forEach(img => {
+      try { img.loading = 'eager'; } catch(e){}
+      try { img.fetchPriority = 'high'; } catch(e){}
+      try { img.decoding = 'async'; } catch(e){}
+    });
+
+    const promises = imgs.map(img => {
+      if (img.complete && img.naturalWidth > 0) {
+        // Try to decode anyway to ensure layout-ready on Safari
+        return (img.decode ? img.decode().catch(()=>{}) : Promise.resolve());
+      }
+      return new Promise(resolve => {
+        const done = () => { img.removeEventListener('load', done); img.removeEventListener('error', done);
+          (img.decode ? img.decode().catch(()=>{}).finally(resolve) : resolve()); };
+        img.addEventListener('load', done, {once:true});
+        img.addEventListener('error', done, {once:true});
+      });
+    });
+
+    // Safety timeout in case some images never fire
+    const timeout = new Promise(resolve => setTimeout(resolve, RECHECK_DELAY_MS));
+    return Promise.race([Promise.all(promises), timeout]).then(() => {
+      // One microtask later, sizes should be final
+      return new Promise(r => requestAnimationFrame(()=>r()));
+    });
+  }
+
+  // Lock each original item’s width so late font/image swaps don’t move the loop point
+  function lockWidths(originals){
+    originals.forEach(el => {
+      el.style.flex = '0 0 auto';
+      el.style.width = el.getBoundingClientRect().width + 'px';
+    });
+  }
+  function unlockWidths(originals){
+    originals.forEach(el => { el.style.width = ''; el.style.flex = ''; });
+  }
+
+  function computeCycle(){
+    // Using offsetLeft of first clone is fine once everything is measured
+    const firstClone = track.querySelector('[data-clone="1"]');
+    if (firstClone) return Math.round(firstClone.offsetLeft);
+    return 0;
+  }
+
+  async function rebuild(){
+    // 1) clear previous clones
+    clones().forEach(n => n.remove());
+
+    // 2) originals
+    const originals = qChildren();
+
+    // 3) make sure images are sized
+    await waitImagesReady(originals);
+
+    // 4) lock widths against late layout shifts
+    lockWidths(originals);
+
+    // 5) duplicate once
     originals.forEach(el => {
       const clone = el.cloneNode(true);
-      clone.setAttribute('data-clone', '1');
+      clone.setAttribute('data-clone','1');
+      // Prevent lazy on clones
+      imagesIn([clone]).forEach(img => { try { img.loading='eager'; img.decoding='async'; } catch(e){} });
       track.appendChild(clone);
     });
 
-    // 3) forcer un reflow puis mesurer le point de boucle
+    // 6) force reflow then compute loop point
     void track.offsetWidth;
-    const firstClone = track.querySelector('[data-clone="1"]');
-    cycle = firstClone ? Math.round(firstClone.offsetLeft) : 0;
+    cycle = computeCycle();
 
-    // 4) se replacer proprement dans le cycle (utile après resize/orientation)
+    // 7) normalize scroll position inside the cycle
     if (cycle > 0) track.scrollLeft = track.scrollLeft % cycle;
+
+    // 8) watch for size changes (fonts swap, orientation, etc.)
+    if (ro) ro.disconnect();
+    if ('ResizeObserver' in window) {
+      ro = new ResizeObserver(() => {
+        // If any item’s width changed, rebuild cleanly
+        stop();
+        unlockWidths(originals);
+        rebuild().then(start);
+      });
+      originals.forEach(el => ro.observe(el));
+    }
   }
 
   function shouldRun(){
@@ -801,24 +885,19 @@ footer{
   function step(ts){
     if (!running) return;
     if (!lastTs) lastTs = ts;
-    const dt = (ts - lastTs) / 1000;
-    lastTs = ts;
+    const dt = (ts - lastTs) / 1000; lastTs = ts;
 
     track.scrollLeft += SPEED * dt;
-
-    // Boucle continue sans “reset visible”
-    if (cycle > 0 && track.scrollLeft >= cycle) {
-      track.scrollLeft -= cycle;
-    }
+    if (cycle > 0 && track.scrollLeft >= cycle) track.scrollLeft -= cycle;
 
     rafId = requestAnimationFrame(step);
   }
 
-  function start(){
+  async function start(){
     if (running) return;
     if (!shouldRun()) { stop(); return; }
-    track.style.scrollBehavior = 'auto'; // on s'assure d'aucune inertie CSS
-    rebuild();
+    track.style.scrollBehavior = 'auto';
+    await rebuild();
     running = true;
     lastTs = 0;
     rafId = requestAnimationFrame(step);
@@ -830,29 +909,29 @@ footer{
     rafId = null;
   }
 
-  // Pause pendant interaction tactile, reprise ensuite
+  // Pause during touch drag; resume after
   let touchTimer = null;
-  track.addEventListener('touchstart', () => {
+  track.addEventListener('touchstart', () => { if (touchTimer) clearTimeout(touchTimer); stop(); }, {passive:true});
+  track.addEventListener('touchend',   () => {
     if (touchTimer) clearTimeout(touchTimer);
-    stop();
-  }, {passive:true});
-  track.addEventListener('touchend', () => {
-    if (touchTimer) clearTimeout(touchTimer);
-    touchTimer = setTimeout(() => start(), 600);
+    touchTimer = setTimeout(() => start(), RESUME_TOUCH_DELAY_MS);
   }, {passive:true});
 
-  // Tab caché → pause / retour → reprise
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) stop(); else start();
-  });
+  // Tab visibility
+  document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else start(); });
 
-  // Changement viewport/orientation
-  if (mq.addEventListener) {
-    mq.addEventListener('change', () => { stop(); track.scrollLeft = 0; start(); });
-  } else {
-    // fallback
-    window.addEventListener('resize', () => { stop(); track.scrollLeft = 0; start(); });
-  }
+  // Viewport/orientation
+  const onViewportChange = () => { stop(); // fully rebuild for new widths
+    unlockWidths(qChildren());
+    track.scrollLeft = 0; start(); };
+
+  if (mq.addEventListener) mq.addEventListener('change', onViewportChange);
+  else window.addEventListener('resize', onViewportChange);
+
+  // Respect reduced motion
+  const prm = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (prm.matches) return; // don’t start
+  if (prm.addEventListener) prm.addEventListener('change', e => { e.matches ? stop() : start(); });
 
   // Go
   start();
