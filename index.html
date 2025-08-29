@@ -622,7 +622,7 @@ footer{
   <div class="partners-track">
       <div class="partner-tooltipv2">
           <a href="tel:0698332521" target="_blank">
-              <img src="images/partenaires/sosmedecins.png" alt="Médecin Partenaire">
+              <img src="images/partenaires/sosmedecins.png" width="240" height="80" alt="Médecin Partenaire">
           </a>
           <div class="tooltip-textv2">
               En cas d'imprévu ou d'un pépin physique, appelez notre médecin partenaire, qui saura vous guider et vous permettre d'adopter les bons gestes dans les meilleurs délais.
@@ -631,7 +631,7 @@ footer{
 
       <div class="partner-tooltipv2">
           <a href="tel:0665957019" target="_blank">
-              <img src="images/partenaires/taxi.png" alt="Jek Services">
+              <img src="images/partenaires/taxi.png" width="240" height="80" alt="Jek Services">
           </a>
           <div class="tooltip-textv2">
               Avec nous test, vous disposez d'un chauffeur expérimenté privé pour vous amener partout ou vous le souhaitez, que ce soit pour des rendez-vous médicaux ou pour tout autre sortie.        
@@ -640,7 +640,7 @@ footer{
 
       <div class="partner-tooltipv2">
           <a href="tel:0605873735" target="_blank">
-              <img src="images/partenaires/audition.png" alt="Prothèse auditive">
+              <img src="images/partenaires/audition.png" width="240" height="80" alt="Prothèse auditive">
           </a>
           <div class="tooltip-textv2">
               En cas de soucis auditif appuyez sur l'icone pour prendre contact avec notre partenaire
@@ -649,7 +649,7 @@ footer{
 
       <div class="partner-tooltipv2">
           <a href="tel:0605873735" target="_blank">
-              <img src="images/partenaires/kiné.png" alt="Kinésithérapeute">
+              <img src="images/partenaires/kiné.png" width="240" height="80" alt="Kinésithérapeute">
           </a>
           <div class="tooltip-textv2">
               Messages Messages Messages Messages Messages Messages Messages Messages
@@ -658,7 +658,7 @@ footer{
 
       <div class="partner-tooltipv2">
           <a href="tel:0605873735" target="_blank">
-              <img src="images/partenaires/pharmacie.png" alt="Pharmacie">
+              <img src="images/partenaires/pharmacie.png" width="240" height="80" alt="Pharmacie">
           </a>
           <div class="tooltip-textv2">
               Messages Messages Messages Messages Messages Messages Messages Messages
@@ -763,180 +763,6 @@ footer{
 })();
 </script>
 
-<script>
-(function(){
-  const track = document.querySelector('.partners-track');
-  if (!track) return;
-
-  // ====== Tunables ======
-  const mq = window.matchMedia('(max-width: 768px)');
-  const SPEED = 40;                   // px/s
-  const RECHECK_DELAY_MS = 1800;      // safety fallback if decode never fires
-  const RESUME_TOUCH_DELAY_MS = 600;
-
-  // ====== State ======
-  let running = false, rafId = null, lastTs = 0, cycle = 0;
-  let ro = null; // ResizeObserver
-
-  // --- Utilities ---
-  function qChildren() { return Array.from(track.children).filter(n => !n.dataset.clone); }
-  function clones()    { return Array.from(track.children).filter(n => n.dataset.clone === '1'); }
-
-  function imagesIn(nodeList){
-    return nodeList.flatMap(el => Array.from(el.querySelectorAll('img')));
-  }
-
-  // Wait until all images in the ORIGINAL set have a stable size
-  function waitImagesReady(originals){
-    const imgs = imagesIn(originals);
-
-    // Hint browsers not to lazy-load this carousel
-    imgs.forEach(img => {
-      try { img.loading = 'eager'; } catch(e){}
-      try { img.fetchPriority = 'high'; } catch(e){}
-      try { img.decoding = 'async'; } catch(e){}
-    });
-
-    const promises = imgs.map(img => {
-      if (img.complete && img.naturalWidth > 0) {
-        // Try to decode anyway to ensure layout-ready on Safari
-        return (img.decode ? img.decode().catch(()=>{}) : Promise.resolve());
-      }
-      return new Promise(resolve => {
-        const done = () => { img.removeEventListener('load', done); img.removeEventListener('error', done);
-          (img.decode ? img.decode().catch(()=>{}).finally(resolve) : resolve()); };
-        img.addEventListener('load', done, {once:true});
-        img.addEventListener('error', done, {once:true});
-      });
-    });
-
-    // Safety timeout in case some images never fire
-    const timeout = new Promise(resolve => setTimeout(resolve, RECHECK_DELAY_MS));
-    return Promise.race([Promise.all(promises), timeout]).then(() => {
-      // One microtask later, sizes should be final
-      return new Promise(r => requestAnimationFrame(()=>r()));
-    });
-  }
-
-  // Lock each original item’s width so late font/image swaps don’t move the loop point
-  function lockWidths(originals){
-    originals.forEach(el => {
-      el.style.flex = '0 0 auto';
-      el.style.width = el.getBoundingClientRect().width + 'px';
-    });
-  }
-  function unlockWidths(originals){
-    originals.forEach(el => { el.style.width = ''; el.style.flex = ''; });
-  }
-
-  function computeCycle(){
-    // Using offsetLeft of first clone is fine once everything is measured
-    const firstClone = track.querySelector('[data-clone="1"]');
-    if (firstClone) return Math.round(firstClone.offsetLeft);
-    return 0;
-  }
-
-  async function rebuild(){
-    // 1) clear previous clones
-    clones().forEach(n => n.remove());
-
-    // 2) originals
-    const originals = qChildren();
-
-    // 3) make sure images are sized
-    await waitImagesReady(originals);
-
-    // 4) lock widths against late layout shifts
-    lockWidths(originals);
-
-    // 5) duplicate once
-    originals.forEach(el => {
-      const clone = el.cloneNode(true);
-      clone.setAttribute('data-clone','1');
-      // Prevent lazy on clones
-      imagesIn([clone]).forEach(img => { try { img.loading='eager'; img.decoding='async'; } catch(e){} });
-      track.appendChild(clone);
-    });
-
-    // 6) force reflow then compute loop point
-    void track.offsetWidth;
-    cycle = computeCycle();
-
-    // 7) normalize scroll position inside the cycle
-    if (cycle > 0) track.scrollLeft = track.scrollLeft % cycle;
-
-    // 8) watch for size changes (fonts swap, orientation, etc.)
-    if (ro) ro.disconnect();
-    if ('ResizeObserver' in window) {
-      ro = new ResizeObserver(() => {
-        // If any item’s width changed, rebuild cleanly
-        stop();
-        unlockWidths(originals);
-        rebuild().then(start);
-      });
-      originals.forEach(el => ro.observe(el));
-    }
-  }
-
-  function shouldRun(){
-    return mq.matches && track.scrollWidth > track.clientWidth;
-  }
-
-  function step(ts){
-    if (!running) return;
-    if (!lastTs) lastTs = ts;
-    const dt = (ts - lastTs) / 1000; lastTs = ts;
-
-    track.scrollLeft += SPEED * dt;
-    if (cycle > 0 && track.scrollLeft >= cycle) track.scrollLeft -= cycle;
-
-    rafId = requestAnimationFrame(step);
-  }
-
-  async function start(){
-    if (running) return;
-    if (!shouldRun()) { stop(); return; }
-    track.style.scrollBehavior = 'auto';
-    await rebuild();
-    running = true;
-    lastTs = 0;
-    rafId = requestAnimationFrame(step);
-  }
-
-  function stop(){
-    running = false;
-    if (rafId) cancelAnimationFrame(rafId);
-    rafId = null;
-  }
-
-  // Pause during touch drag; resume after
-  let touchTimer = null;
-  track.addEventListener('touchstart', () => { if (touchTimer) clearTimeout(touchTimer); stop(); }, {passive:true});
-  track.addEventListener('touchend',   () => {
-    if (touchTimer) clearTimeout(touchTimer);
-    touchTimer = setTimeout(() => start(), RESUME_TOUCH_DELAY_MS);
-  }, {passive:true});
-
-  // Tab visibility
-  document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else start(); });
-
-  // Viewport/orientation
-  const onViewportChange = () => { stop(); // fully rebuild for new widths
-    unlockWidths(qChildren());
-    track.scrollLeft = 0; start(); };
-
-  if (mq.addEventListener) mq.addEventListener('change', onViewportChange);
-  else window.addEventListener('resize', onViewportChange);
-
-  // Respect reduced motion
-  const prm = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (prm.matches) return; // don’t start
-  if (prm.addEventListener) prm.addEventListener('change', e => { e.matches ? stop() : start(); });
-
-  // Go
-  start();
-})();
-</script>
 
 
 <script>
@@ -979,137 +805,7 @@ footer{
 @media (max-width:700px){ .ta-wrap{ width:90vw; } }
 </style>
 
-<script>
-(function(){
-  const track = document.querySelector('.partners-track');
-  if (!track) return;
 
-  const mq = window.matchMedia('(max-width: 768px)');
-  let running = false, rafId = null, lastTs = 0;
-  const SPEED = 40; // px/s (ajuste)
-  let cycle = 0;
-
-  // --- util: attendre que TOUTES les images du track soient prêtes
-  function imagesReady(){
-    const imgs = Array.from(track.querySelectorAll('img'));
-    if (imgs.length === 0) return Promise.resolve();
-    const waiters = imgs.map(img => {
-      if (img.complete && img.naturalWidth > 0) return Promise.resolve();
-      return new Promise(res => {
-        img.addEventListener('load', res, { once:true });
-        img.addEventListener('error', res, { once:true }); // on ne bloque pas si erreur
-      });
-    });
-    return Promise.all(waiters);
-  }
-
-  function cleanupClones(){
-    track.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
-  }
-
-  function rebuild(){
-    cleanupClones();
-
-    // duplique une fois le contenu pour la boucle infinie
-    const originals = Array.from(track.children);
-    originals.forEach(el => {
-      const clone = el.cloneNode(true);
-      clone.setAttribute('data-clone','1');
-      track.appendChild(clone);
-    });
-
-    // forcer un reflow puis mesurer
-    void track.offsetWidth;
-    const firstClone = track.querySelector('[data-clone="1"]');
-    cycle = firstClone ? Math.round(firstClone.offsetLeft) : 0;
-
-    // se replacer au bon endroit dans le cycle
-    if (cycle > 0) track.scrollLeft = track.scrollLeft % cycle;
-  }
-
-  function shouldRun(){
-    return mq.matches && track.scrollWidth > track.clientWidth;
-  }
-
-  function step(ts){
-    if (!running) return;
-    if (!lastTs) lastTs = ts;
-    const dt = (ts - lastTs) / 1000;
-    lastTs = ts;
-
-    track.scrollLeft += SPEED * dt;
-
-    if (cycle > 0 && track.scrollLeft >= cycle) {
-      track.scrollLeft -= cycle;
-    }
-    rafId = requestAnimationFrame(step);
-  }
-
-  async function start(){
-    if (running) return;
-    // attendre les images (important en prod/CDN)
-    await imagesReady();
-
-    // si certaines images arrivent en retard, mets un petit garde-fou
-    // qui re-tente tant que les largeurs sont insuffisantes
-    let tries = 0;
-    while (tries < 8) { // ~8 * 120ms = < 1s
-      rebuild();
-      if (shouldRun()) break;
-      await new Promise(r => setTimeout(r, 120));
-      tries++;
-    }
-
-    if (!shouldRun()) { stop(); return; }
-
-    running = true;
-    lastTs = 0;
-    rafId = requestAnimationFrame(step);
-  }
-
-  function stop(){
-    running = false;
-    if (rafId) cancelAnimationFrame(rafId);
-    rafId = null;
-  }
-
-  // --- interactions & résilience
-  // pause au toucher (mobile), reprise ensuite
-  let touchTimer = null;
-  track.addEventListener('touchstart', () => {
-    if (touchTimer) clearTimeout(touchTimer);
-    stop();
-  }, {passive:true});
-  track.addEventListener('touchend', () => {
-    if (touchTimer) clearTimeout(touchTimer);
-    touchTimer = setTimeout(() => start(), 600);
-  }, {passive:true});
-
-  // onglet caché -> pause / visible -> reprise
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) stop(); else start();
-  });
-
-  // viewport/responsive
-  if (mq.addEventListener) {
-    mq.addEventListener('change', () => { stop(); track.scrollLeft = 0; start(); });
-  } else if (mq.addListener) {
-    mq.addListener(() => { stop(); track.scrollLeft = 0; start(); });
-  }
-  window.addEventListener('resize', () => { stop(); track.scrollLeft = 0; start(); });
-
-  // si des images se (re)chargent plus tard (cache lent/CDN), on relance
-  const ro = new ResizeObserver(() => { stop(); start(); });
-  ro.observe(track);
-
-  // Go au DOM prêt
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', start, { once:true });
-  } else {
-    start();
-  }
-})();
-</script>
 
 <script>
 /* === AUTOSUGGEST NENA ADOM (portail, scan pages, sans DB) === */
@@ -1290,6 +986,125 @@ async function TA_buildIndex(){
     INDEX = (listIdx && listIdx.length) ? listIdx : [];
     if (document.activeElement===input){ render(input.value.trim()); open(); }
   });
+})();
+</script>
+<script>
+(function(){
+  const track = document.querySelector('.partners-track');
+  if (!track) return;
+
+  const mq = window.matchMedia('(max-width: 768px)');
+  const SPEED = 40; // px/s
+  let running = false, rafId = null, lastTs = 0, cycle = 0;
+
+  // ---- helpers
+  const imgsOf = (n)=> Array.from(n.querySelectorAll ? n.querySelectorAll('img') : []);
+  const originals = ()=> Array.from(track.children).filter(n => !n.dataset.clone);
+  const removeClones = ()=> track.querySelectorAll('[data-clone]').forEach(n=>n.remove());
+
+  function imagesReady(){
+    const list = imgsOf(track);
+    if (!list.length) return Promise.resolve();
+    list.forEach(img => { try{ img.loading='eager'; img.decoding='async'; }catch(e){} });
+    return Promise.all(list.map(img=>{
+      if (img.complete && img.naturalWidth>0) return img.decode?.().catch(()=>{});
+      return new Promise(res=>{
+        const done=()=>{ img.removeEventListener('load',done); img.removeEventListener('error',done); res(); };
+        img.addEventListener('load',done,{once:true});
+        img.addEventListener('error',done,{once:true});
+      });
+    }));
+  }
+
+  function measureRowWidth(nodes){
+    let w = 0;
+    nodes.forEach(n => w += n.getBoundingClientRect().width);
+    const cs = getComputedStyle(track);
+    const gap = parseFloat(cs.columnGap || cs.gap || 0);
+    if (nodes.length > 1) w += gap * (nodes.length - 1);
+    return Math.ceil(w);
+  }
+
+  function buildEnoughCopies(){
+    removeClones();
+    const base = originals();
+
+    // verrouille les largeurs pour éviter les décalages tardifs
+    base.forEach(n=>{
+      n.style.flex = '0 0 auto';
+      n.style.width = n.getBoundingClientRect().width + 'px';
+    });
+
+    const baseWidth = measureRowWidth(base);
+    const vw = track.clientWidth || window.innerWidth;
+
+    // on veut au moins ~2x la largeur écran
+    const copiesNeeded = Math.max(1, Math.ceil((vw * 2) / baseWidth));
+    const frag = document.createDocumentFragment();
+
+    for (let i = 0; i < copiesNeeded; i++){
+      base.forEach(node=>{
+        const c = node.cloneNode(true);
+        c.dataset.clone = '1';
+        imgsOf(c).forEach(img=>{ try{ img.loading='eager'; img.decoding='async'; }catch(e){} });
+        frag.appendChild(c);
+      });
+    }
+    track.appendChild(frag);
+
+    // reflow + calcule 1 cycle = largeur du bloc original
+    void track.offsetWidth;
+    cycle = baseWidth;
+    track.scrollLeft = track.scrollLeft % cycle;
+  }
+
+  function step(ts){
+    if (!running) return;
+    if (!lastTs) lastTs = ts;
+    const dt = (ts - lastTs) / 1000; lastTs = ts;
+
+    track.scrollLeft += SPEED * dt;
+    if (cycle > 0 && track.scrollLeft >= cycle) track.scrollLeft -= cycle;
+
+    rafId = requestAnimationFrame(step);
+  }
+
+  async function start(){
+    if (running) return;
+    if (!mq.matches) return;            // mobile only
+    track.style.scrollBehavior = 'auto';
+    await imagesReady();
+    buildEnoughCopies();
+    if (cycle <= 0) return;
+    running = true; lastTs = 0;
+    rafId = requestAnimationFrame(step);
+  }
+  function stop(){ running = false; if (rafId) cancelAnimationFrame(rafId); rafId = null; }
+
+  // interactions & résilience
+  document.addEventListener('visibilitychange', ()=>{ if (document.hidden) stop(); else start(); });
+
+  const onViewport = ()=>{ 
+    stop(); 
+    removeClones(); 
+    originals().forEach(n=>{ n.style.width=''; n.style.flex=''; });
+    track.scrollLeft = 0; 
+    start(); 
+  };
+  if (mq.addEventListener) mq.addEventListener('change', onViewport); else mq.addListener(onViewport);
+  window.addEventListener('resize', onViewport);
+
+  track.addEventListener('touchstart', ()=> stop(), {passive:true});
+  track.addEventListener('touchend', ()=> setTimeout(start, 600), {passive:true});
+
+  // respecte "réduire les animations"
+  const prm = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (prm.matches) return;
+  if (prm.addEventListener) prm.addEventListener('change', e=> e.matches ? stop() : start());
+
+  // init
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, {once:true});
+  else start();
 })();
 </script>
 
