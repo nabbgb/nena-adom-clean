@@ -607,6 +607,11 @@ footer{
 }
 
 
+#results { margin-top:15px; list-style:none; padding-left:0; }
+#results .search-hit { padding:10px 12px; border:1px solid #eee; border-radius:10px; margin-bottom:10px; background:#fff; }
+#results .search-hit .hit-link { color: var(--na-blue); text-decoration: underline; font-weight: 600; }
+#results .search-hit .hit-snippet { margin-top:6px; font-size:.95em; line-height:1.4; color:#333; }
+#results mark { background: #FFEBA4; padding:0 2px; border-radius:3px; }
 
 </style>
 
@@ -836,7 +841,7 @@ footer{
 </footer>
 
 <script>
-// ===== Recherche site : scan de pages + redirection auto =====
+// ===== Recherche site : scan de pages + LISTE CLIQUABLE (pas d'auto-redirection) =====
 (function(){
   const PAGES = (window.pagesToSearch && Array.isArray(window.pagesToSearch) && window.pagesToSearch.length)
     ? window.pagesToSearch
@@ -852,6 +857,14 @@ footer{
   const input = document.getElementById("searchInput");
 
   function escapeRegExp(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+  function strip(html){ const d = new DOMParser().parseFromString(html,'text/html'); return d.body.textContent || ""; }
+  function makeSnippet(text, q, idx, radius=70){
+    const start = Math.max(0, idx - radius);
+    const end   = Math.min(text.length, idx + q.length + radius);
+    const chunk = text.slice(start, end);
+    const re = new RegExp(escapeRegExp(q), 'ig');
+    return (start>0?'…':'') + chunk.replace(re, m=>`<mark>${m}</mark>`) + (end<text.length?'…':'');
+  }
 
   async function searchSite(){
     const keyword = (input.value || '').trim();
@@ -859,7 +872,7 @@ footer{
       if (resultsList) resultsList.innerHTML = "<li>Veuillez entrer un mot-clé.</li>";
       return;
     }
-    if (resultsList) resultsList.innerHTML = "Recherche en cours...";
+    if (resultsList) resultsList.innerHTML = "<li>Recherche en cours…</li>";
 
     const qLower = keyword.toLowerCase();
     const matches = [];
@@ -872,30 +885,42 @@ footer{
         const firstIdx = lower.indexOf(qLower);
         if (firstIdx !== -1){
           const count = (lower.match(new RegExp(escapeRegExp(qLower), "g")) || []).length;
-          matches.push({ page, firstIdx, count });
+          const plain = strip(html);
+          // Trouver l'index dans le texte “plat” pour l’aperçu
+          const idxInPlain = plain.toLowerCase().indexOf(qLower);
+          const snippet = makeSnippet(plain, keyword, Math.max(0, idxInPlain));
+          matches.push({ page, firstIdx, count, snippet });
         }
       }catch(_){}
     }));
 
-    if (matches.length === 0){
-      if (resultsList) resultsList.innerHTML = "<li>Aucun résultat trouvé</li>";
+    if (!matches.length){
+      if (resultsList) resultsList.innerHTML = "<li>Aucun résultat trouvé.</li>";
       return;
     }
 
+    // Classement : plus d’occurrences d’abord, puis proximité du début
     matches.sort((a,b) => b.count - a.count || a.firstIdx - b.firstIdx);
-    window.location.href = matches[0].page.url + "?q=" + encodeURIComponent(keyword);
 
+    // ✅ On AFFICHE la liste, pas de redirection auto
     if (resultsList){
-      resultsList.innerHTML = matches
-        .map(m => `<li><a href="${m.page.url}?q=${encodeURIComponent(keyword)}">${m.page.title}</a> — ${m.count} occurrence(s)</li>`)
-        .join("");
+      resultsList.innerHTML = matches.map(m => `
+        <li class="search-hit">
+          <a href="${m.page.url}?q=${encodeURIComponent(keyword)}" class="hit-link">
+            <strong>${m.page.title}</strong> — ${m.count} occurrence(s)
+          </a>
+          <div class="hit-snippet">${m.snippet}</div>
+        </li>
+      `).join("");
     }
   }
 
+  // Entrée clavier : “Enter” lance la recherche mais ne redirige pas
   input.addEventListener("keydown", (e)=>{
     if (e.key === "Enter"){ e.preventDefault(); searchSite(); }
   });
 
+  // Bouton “Rechercher” déjà relié via onclick="searchSite()"
   window.searchSite = searchSite;
 })();
 </script>
