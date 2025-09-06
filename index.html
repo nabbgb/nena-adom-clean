@@ -15,7 +15,6 @@
 
 /* ====== Base existante ====== */
 
-
 header h1 {
   font-size: 2em;
   margin: 0;
@@ -130,8 +129,6 @@ header h2 {
   position:relative;
   isolation:isolate;
 }
-
-
 
 /* 3) Barre de recherche – petit accent jaune derrière le titre */
 .search-section{
@@ -370,10 +367,7 @@ footer{
     width: 44vw; height: 44vw;
     left: -12vw; bottom: 18vh;
   }
-
 }
-
-
 
 /* ====== Bouton Appel ====== */
 .phone-call-button {
@@ -390,18 +384,17 @@ footer{
   transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
-
 .phone-call-button:hover {
   background-color: #218838; /* vert foncé au survol */
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(0,0,0,0.2);
 }
-
 .phone-call-button svg {
   width: 22px;
   height: 22px;
   fill: white;
 }
+
 /* On coupe les anciens pseudo-éléments décoratifs */
 .main-section::before,
 .main-section::after,
@@ -452,7 +445,6 @@ footer{
   .partners-track img{
   height: 85px;
   }
-  
 }
 
 /* Masquer les clones uniquement sur desktop */
@@ -493,11 +485,11 @@ footer{
   align-items: center;
   background: #fff;
   border-radius: 14px;
-  padding: 22px 24px;
+  /* padding: 22px 24px; */
   border: 1px solid #eee;   /* léger contour pour structurer */
 }
 
-/* Colonne image + bouton */
+/* Colonne image + bouton / lien */
 .service-visual {
   flex: 0 0 40%;
   display: flex;
@@ -505,13 +497,16 @@ footer{
   align-items: center;
 }
 .service-visual img {
-  width: 90%;
+  width: 100%;
   height: auto;
   display: block;
   border-radius: 6px;
 }
+@media(max-width: 768px){
+  .service-visual img {width:65%;}
+}
 
-/* Bouton En savoir plus */
+/* (ANCIEN) Bouton En savoir plus en pilule */
 .read-more-pill {
   display: inline-block;
   padding: 6px 14px;
@@ -527,6 +522,23 @@ footer{
 .service-link:hover .read-more-pill {
   background: var(--na-blue);
   color: white;
+}
+
+/* ===== NOUVEAU : lien classique bleu souligné pour la 1ère cellule ===== */
+.read-more-link{
+  display:inline-block;
+  /* margin-top:8px; */
+  color: var(--na-blue);
+  text-decoration: underline;
+  font-weight: 600;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer; /* pour feedback visuel */
+}
+.read-more-link:hover{
+  opacity: .85;
+  text-decoration: underline;
 }
 
 /* Texte */
@@ -546,59 +558,55 @@ footer{
   .services-grid .service-content-box {
     flex-direction: column;
     gap: 14px;
-    padding: 18px 16px;
   }
   .service-visual {
     width: 100%;
     max-width: 440px;
   }
 }
-/* Version mobile : bouton sous le texte */
+
+/* Version mobile : bouton/lien sous le texte */
 @media (max-width: 768px) {
   .service-content-box {
     display: flex;
     flex-direction: column;
   }
-
   .service-visual {
     display: flex;
     justify-content: center;
     margin-bottom: 15px;
   }
-
   .read-more-pill {
     display: block;
-    margin: 15px auto 0; /* centrage + espace au-dessus */
-    order: 2; /* s'assure que le bouton arrive après le texte */
+    margin: 15px auto 0;
+    order: 2;
   }
-
-  .service-text {
-    order: 1; /* texte avant le bouton */
-  }
+  .service-text { order: 1; }
 }
+
 /* --- Mobile: mettre "En savoir plus" sous le texte, sans changer le HTML --- */
 @media (max-width: 768px){
   .services-grid .service-content-box{
     display: flex;
     flex-direction: column;
   }
-
   /* Aplatit le conteneur image pour réordonner ses enfants */
   .services-grid .service-visual{
     display: contents !important;
   }
-
-  /* Ordre mobile: image (0) → texte (1) → bouton (2) */
+  /* Ordre mobile: image (0) → texte (1) → lien (2) */
   .services-grid .service-visual img{ order: 0; }
   .services-grid .service-text{ order: 1; }
 
-  .services-grid .read-more-pill{
+  /* ✅ Concerne le nouveau lien classique */
+  .services-grid .read-more-link{
     order: 2;
     display: inline-block;
-    margin-top: 12px;
-    align-self: center; /* centrage propre */
+    align-self: center;
   }
 }
+
+
 
 </style>
 
@@ -628,77 +636,92 @@ footer{
       </div>
     </section>
 
-    <div class="section-title center-title">De quoi avez-vous besoin ?</div>
+    <div class="section-title center-title">Votre bien-être, notre priorité</div>
 
     <section class="services-grid">
 
-        <div class="service-cell">
-          <div class="service-title-box">
-            <h2>Aide à domicile aux personnes âgées</h2>
-          </div>
-            <a href="pages/services.html" class="service-link">
-              <div class="service-content-box">
-                <!-- Image + En savoir plus -->
-                <div class="service-visual">
-                  <img src="images/accueil/Maquette  (1) (1).png" alt="Aide à domicile">
-                  <span class="read-more-pill">En savoir plus</span>
-                </div>
-
-                <!-- Texte -->
-                <div class="service-text">
-                  Afin d'assurer leur autonomie et leur dignité et d’offrir une tranquillité d'esprit totale aux proches aidants,
-                  nous proposons une gamme de services complète pour les tâches quotidiennes, y compris la toilette, l'aide au lever
-                  et au coucher, courses et préparation des repas, le ménage et le repassage.
-                </div>
-              </div>
-            </a>
+      <div class="service-cell">
+        <div class="service-title-box">
+          <h2>Aide à domicile aux personnes âgées</h2>
         </div>
-
-        <div class="service-cell">
-          <div class="service-title-box">
-            <h2>S’informer sur les aides financières </h2>
-          </div>
-          <a href="pages/aides.html" class="service-link">
-            <div class="service-content-box">
-              <img src="images/accueil/pictures-cellules (4).png" alt="Aides financières">
-              <div class="service-text">
-                Différentes aides financières existent pour rendre les services d’aide à domicile accessibles et offrir aux personnes âgées la possibilité de continuer à vivre chez elles malgré une perte
-                d'autonomie. Notre équipe vous accompagne afin que vous puissiez bénéficier pleinement de vos droits. 
-                <br><button class="read-more-btn" onclick="expandFirstQuestion()">En savoir plus</button>
-              </div>
+        <a href="pages/services.html" class="service-link">
+          <div class="service-content-box">
+            <!-- Image seule -->
+            <div class="service-visual">
+              <img src="images/accueil/v-finale.png" alt="Aide à domicile">
             </div>
-          </a>
-        </div>
 
-        <div class="service-cell">
-          <div class="service-title-box">
-            <h2> Accompagnement après une hospitalisation</h2>
-          </div>
-          <a href="pages/hospitalisation.html" class="service-link">
-            <div class="service-content-box">
-              <img src="images/accueil/pictures-cellules (2).png" alt="Hospitalisation">
-              <div class="service-text">
-                Notre objectif est de favoriser le retour à domicile des patients. Notre équipe pluridisciplinaire prend entièrement en charge le patient, créant un environnement calme et adapté à ses besoins uniques. Facilitant également la logistique, Nena Adom s'occupe de la livraison du matériel médical. 
-                <br><button class="read-more-btn" onclick="expandFirstQuestion()">En savoir plus</button>              
-              </div>
+            <!-- Texte + En savoir plus -->
+            <div class="service-text">
+              Afin d'assurer leur autonomie et leur dignité et d’offrir une tranquillité d'esprit totale aux proches aidants,
+              nous proposons une gamme de services complète pour les tâches quotidiennes, y compris la toilette, l'aide au lever
+              et au coucher, courses et préparation des repas, le ménage et le repassage.
+              <br><span class="read-more-link">En savoir plus</span>
             </div>
-          </a>
-        </div>
+          </div>
+        </a>
+      </div>
 
-        <div class="service-cell">
-          <div class="service-title-box">
-            <h2>Mieux comprendre ma pathologie</h2>
-          </div>
-          <a href="pages/pathologie.html" class="service-link">
-            <div class="service-content-box">
-              <img src="images/accueil/pictures-cellules (3).png" alt="Pathologie">
-              <div class="service-text">
-                Pour les patients tout comme leurs proches aidants, bien vivre avec la maladie, passe avant tout par une bonne compréhension, vous trouverez ici à votre disposition des ressources claires et accessibles sur les pathologies les plus courantes chez les personnes âgées (Parkinson, Alzheimer…) 
-                <br><button class="read-more-btn" onclick="expandFirstQuestion()">En savoir plus</button>
-              </div>
-            </div>
-          </a>
+      <div class="service-cell">
+        <div class="service-title-box">
+          <h2>S’informer sur les aides financières </h2>
         </div>
+        <a href="pages/aides.html" class="service-link">
+          <div class="service-content-box">
+            <!-- Image seule -->
+            <div class="service-visual">
+              <img src="images/accueil/v-finale-cellules-3.png" alt="Aides financières">
+            </div>
+
+            <!-- Texte + En savoir plus -->
+            <div class="service-text">
+              Différentes aides financières existent pour rendre les services d’aide à domicile accessibles et offrir aux personnes âgées la possibilité de continuer à vivre chez elles malgré une perte
+              d'autonomie. Notre équipe vous accompagne afin que vous puissiez bénéficier pleinement de vos droits.
+              <br><span class="read-more-link">En savoir plus</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="service-cell">
+        <div class="service-title-box">
+          <h2>Accompagnement après une hospitalisation</h2>
+        </div>
+        <a href="pages/hospitalisation.html" class="service-link">
+          <div class="service-content-box">
+            <!-- Image seule -->
+            <div class="service-visual">
+              <img src="images/accueil/v-finale-cellules-2.png" alt="Hospitalisation">
+            </div>
+
+            <!-- Texte + En savoir plus -->
+            <div class="service-text">
+              Notre objectif est de favoriser le retour à domicile des patients. Notre équipe pluridisciplinaire prend entièrement en charge le patient, créant un environnement calme et adapté à ses besoins uniques. Facilitant également la logistique, Nena Adom s'occupe de la livraison du matériel médical.
+              <br><span class="read-more-link">En savoir plus</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="service-cell">
+        <div class="service-title-box">
+          <h2>Mieux comprendre ma pathologie</h2>
+        </div>
+        <a href="pages/pathologie.html" class="service-link">
+          <div class="service-content-box">
+            <!-- Image seule -->
+            <div class="service-visual">
+              <img src="images/accueil/v-finale-cellules-1.png" alt="Pathologie">
+            </div>
+
+            <!-- Texte + En savoir plus -->
+            <div class="service-text">
+              Pour les patients tout comme leurs proches aidants, bien vivre avec la maladie passe avant tout par une bonne compréhension. Vous trouverez ici des ressources claires et accessibles sur les pathologies les plus courantes chez les personnes âgées (Parkinson, Alzheimer…).
+              <br><span class="read-more-link">En savoir plus</span>
+            </div>
+          </div>
+        </a>
+      </div>
 
     </section>
 
@@ -733,7 +756,6 @@ footer{
       +33 6 05 87 37 35
     </a>
 
-
     <p class="contact-text-1">Chez Nena Adom, nous nous engageons à fournir un service d'accompagnement de fin de vie exceptionnel, apportant soutien, confort, et compassion à chaque étape du chemin. Faites le choix de la tranquillité d'esprit en nous choisissant comme partenaire dans cette étape délicate de la vie. Contactez-nous dès aujourd'hui pour en savoir plus sur nos services et comment nous pouvons accompagner vos proches.</p>
   </div>
 
@@ -751,7 +773,7 @@ footer{
               <img src="images/partenaires/sosmedecins.png" width="240" height="80" alt="Médecin Partenaire">
           </a>
           <div class="tooltip-textv2">
-              En cas d'imprévu ou d'un pépin physique, appelez notre médecin partenaire, qui saura vous guider et vous permettre d'adopter les bons gestes dans les meilleurs délais.
+              Notre médecin partenaire se déplace directement chez vous, pour un suivi simple, rapide et en toute confiance. Appeler
           </div>
       </div>
 
@@ -760,7 +782,7 @@ footer{
               <img src="images/partenaires/taxi.png" width="240" height="80" alt="Jek Services">
           </a>
           <div class="tooltip-textv2">
-              Avec nous test, vous disposez d'un chauffeur expérimenté privé pour vous amener partout ou vous le souhaitez, que ce soit pour des rendez-vous médicaux ou pour tout autre sortie.        
+              Notre partenaire VTC vient vous chercher à domicile, vous accompagne à votre rendez-vous et reste disponible pour assurer votre retour en toute sérénité.  Appeler       
           </div>
       </div>
 
@@ -769,7 +791,7 @@ footer{
               <img src="images/partenaires/audition.png" width="240" height="80" alt="Prothèse auditive">
           </a>
           <div class="tooltip-textv2">
-              En cas de soucis auditif appuyez sur l'icone pour prendre contact avec notre partenaire
+              Un professionnel de santé de confiance se déplace chez vous pour vous apporter écoute, attention et soins adaptés, directement à votre porte.  Appeler
           </div>
       </div>
 
@@ -778,7 +800,7 @@ footer{
               <img src="images/partenaires/kine.png" width="240" height="80" alt="Kinésithérapeute">
           </a>
           <div class="tooltip-textv2">
-              Messages Messages Messages Messages Messages Messages Messages Messages
+              Notre partenaire kinésithérapeute se déplace chez vous pour vous offrir des soins personnalisés et adaptés, dans le confort de votre foyer sans contrainte de déplacement vers un centre de rééducation.   Appeler 
           </div>
       </div>
 
@@ -787,7 +809,7 @@ footer{
               <img src="images/partenaires/pharmacie.png" width="240" height="80" alt="Pharmacie">
           </a>
           <div class="tooltip-textv2">
-              Messages Messages Messages Messages Messages Messages Messages Messages
+              Recevez vos produits d’incontinence (couches, alèses, gants etc) directement chez vous! sans frais supplémentaire. Programmer ma livraison.
           </div>
       </div>
 
@@ -802,25 +824,20 @@ footer{
   </iframe>
 </section>
 
-<footer style="background-color: #ffffff; padding: 20px 0; text-align: center; font-size: 14px; color: #000000; border-top: 1px solid #ddd;">
-  <p>© 2025 Nena Adom – Tous droits réservés</p>
-  <p>
-    SIRET : 95102803400019 – Site sans collecte de données<br>
-    Hébergement : IONOS – 7 Place de la Gare, 57200 Sarreguemines, France
-  </p>
-  <p>
-    <a href="mailto:contact@aideadomicileparis.fr" style="color: #000000; text-decoration: underline;">contact@aideadomicileparis.fr</a> |
-    <a href="pages/mentions-legales.html" style="color: #000000; text-decoration: underline;">Mentions légales</a> |
-    <a href="pages/faq.html" style="color: #000000; text-decoration: underline;">FAQ</a>
+<footer style="background-color:#ffffff; text-align:center; font-size:14px; color:#000000; border-top:1px solid #ddd; padding:10px 15px; line-height:1.6;">
+  <p style="margin:5px 0;">
+    © 2025 Nena Adom – Tous droits réservés |
+    SIRET : 95102803400019 – Site sans collecte de données |
+    Hébergement : IONOS – 7 Place de la Gare, 57200 Sarreguemines, France |
+    <a href="mailto:contact@aideadomicileparis.fr" style="color:#000000; text-decoration:underline;">contact@aideadomicileparis.fr</a> |
+    <a href="pages/mentions-legales.html" style="color:#000000; text-decoration:underline;">Mentions légales</a> |
+    <a href="pages/faq.html" style="color:#000000; text-decoration:underline;">FAQ</a>
   </p>
 </footer>
-
-
 
 <script>
 // ===== Recherche site : scan de pages + redirection auto =====
 (function(){
-  // Reprend ton tableau existant si présent, sinon fallback :
   const PAGES = (window.pagesToSearch && Array.isArray(window.pagesToSearch) && window.pagesToSearch.length)
     ? window.pagesToSearch
     : [
@@ -865,13 +882,9 @@ footer{
       return;
     }
 
-    // Choix du "meilleur" résultat : plus d'occurrences, puis position la plus tôt
     matches.sort((a,b) => b.count - a.count || a.firstIdx - b.firstIdx);
-
-    // 🔁 Redirection immédiate vers la meilleure page
     window.location.href = matches[0].page.url + "?q=" + encodeURIComponent(keyword);
 
-    // (Optionnel) on affiche aussi la liste complète sous la barre
     if (resultsList){
       resultsList.innerHTML = matches
         .map(m => `<li><a href="${m.page.url}?q=${encodeURIComponent(keyword)}">${m.page.title}</a> — ${m.count} occurrence(s)</li>`)
@@ -879,32 +892,24 @@ footer{
     }
   }
 
-  // Entrée = lancer la recherche (même si aucune suggestion)
   input.addEventListener("keydown", (e)=>{
     if (e.key === "Enter"){ e.preventDefault(); searchSite(); }
   });
 
-  // Expose la fonction si tu l’appelles ailleurs (bouton Rechercher)
   window.searchSite = searchSite;
 })();
 </script>
 
-
-
 <script>
 (function matchHeights(){
-  const MQ_MOBILE = 700; // même seuil que ton CSS
+  const MQ_MOBILE = 700;
   function run(){
     const cards = [...document.querySelectorAll('.services-grid .service-content-box')];
     if (!cards.length) return;
 
-    // remise à zéro
     cards.forEach(c => c.style.minHeight = '');
-
-    // on ne force rien en mobile
     if (window.innerWidth <= MQ_MOBILE) return;
 
-    // prend la + grande hauteur et l’applique à toutes
     const max = Math.max(...cards.map(c => c.offsetHeight));
     cards.forEach(c => c.style.minHeight = Math.ceil(max) + 'px');
   }
@@ -931,11 +936,8 @@ footer{
 @media (max-width:700px){ .ta-wrap{ width:90vw; } }
 </style>
 
-
-
 <script>
-/* === AUTOSUGGEST NENA ADOM (portail, scan pages, sans DB) === */
-/* 0) Sélecteurs */
+/* === AUTOSUGGEST NENA ADOM === */
 const TA_INPUT_ID = 'searchInput';
 const TA_PAGES = [
   { title: "Aides financières", url: "pages/aides.html" },
@@ -945,7 +947,6 @@ const TA_PAGES = [
   { title: "FAQ",               url: "pages/faq.html" }
 ];
 
-/* 1) CSS minimal (au cas où) */
 (function ensureStyles(){
   if (document.getElementById('ta-styles')) return;
   const css = `
@@ -958,7 +959,6 @@ const TA_PAGES = [
   const s = document.createElement('style'); s.id='ta-styles'; s.textContent=css; document.head.appendChild(s);
 })();
 
-/* 2) Construit un index de mots/phrases depuis les pages (cache localStorage) */
 async function TA_buildIndex(){
   const KEY='na_typeahead_index_v2';
   try{ const c = localStorage.getItem(KEY); if (c) return JSON.parse(c); }catch(_){}
@@ -975,9 +975,7 @@ async function TA_buildIndex(){
     nodes.forEach(n=>{
       const text = (n.getAttribute('alt')||n.textContent||'').trim();
       if (!text) return;
-      // garder titres entiers
       if (/^h[1-3]$/i.test(n.tagName) || n.closest('.service-title-box')) add(text);
-      // et quelques tokens
       text.split(/[,;:.!?()\/]|(?:\s+-\s+)|\s+/).forEach(w=>{
         if (/^\d+$/.test(w)) return;
         if (w.length>=4) add(w.toLowerCase());
@@ -996,17 +994,14 @@ async function TA_buildIndex(){
   return list;
 }
 
-/* 3) Init autosuggest autour de #searchInput, sans changer ta recherche */
 (function TA_init(){
   const input = document.getElementById(TA_INPUT_ID);
   if (!input) return;
 
-  // dropdown en "portail" (toujours au-dessus)
   const list = document.createElement('div');
-  list.className = 'ta-portal'; // z-index énorme
+  list.className = 'ta-portal';
   document.body.appendChild(list);
 
-  // positionner sous l'input
   function place(){
     const r = input.getBoundingClientRect();
     list.style.left   = r.left + 'px';
@@ -1082,11 +1077,9 @@ async function TA_buildIndex(){
     if (!choice) return;
     input.value=choice;
     close();
-    // on déclenche TA recherche existante
     if (typeof window.searchSite==='function') window.searchSite();
   }
 
-  // events input
   input.addEventListener('input', e=>{
     const q=e.target.value.trim();
     render(q); open();
@@ -1101,19 +1094,18 @@ async function TA_buildIndex(){
       case 'ArrowUp':   e.preventDefault(); if(!isOpen()) open(); move(-1); break;
       case 'Enter':
         if (isOpen() && currentIndex>=0){ e.preventDefault(); apply(currentIndex); }
-        // sinon, laisse ton listener Enter existant appeler searchSite()
         break;
       case 'Escape': close(); break;
     }
   });
 
-  // charger l’index puis proposer
   TA_buildIndex().then(listIdx=>{
     INDEX = (listIdx && listIdx.length) ? listIdx : [];
     if (document.activeElement===input){ render(input.value.trim()); open(); }
   });
 })();
 </script>
+
 <script>
 (function(){
   const track = document.querySelector('.partners-track');
@@ -1123,7 +1115,6 @@ async function TA_buildIndex(){
   const SPEED = 40; // px/s
   let running = false, rafId = null, lastTs = 0, cycle = 0;
 
-  // ---- helpers
   const imgsOf = (n)=> Array.from(n.querySelectorAll ? n.querySelectorAll('img') : []);
   const originals = ()=> Array.from(track.children).filter(n => !n.dataset.clone);
   const removeClones = ()=> track.querySelectorAll('[data-clone]').forEach(n=>n.remove());
@@ -1154,8 +1145,6 @@ async function TA_buildIndex(){
   function buildEnoughCopies(){
     removeClones();
     const base = originals();
-
-    // verrouille les largeurs pour éviter les décalages tardifs
     base.forEach(n=>{
       n.style.flex = '0 0 auto';
       n.style.width = n.getBoundingClientRect().width + 'px';
@@ -1163,8 +1152,6 @@ async function TA_buildIndex(){
 
     const baseWidth = measureRowWidth(base);
     const vw = track.clientWidth || window.innerWidth;
-
-    // on veut au moins ~2x la largeur écran
     const copiesNeeded = Math.max(1, Math.ceil((vw * 2) / baseWidth));
     const frag = document.createDocumentFragment();
 
@@ -1177,8 +1164,6 @@ async function TA_buildIndex(){
       });
     }
     track.appendChild(frag);
-
-    // reflow + calcule 1 cycle = largeur du bloc original
     void track.offsetWidth;
     cycle = baseWidth;
     track.scrollLeft = track.scrollLeft % cycle;
@@ -1188,10 +1173,8 @@ async function TA_buildIndex(){
     if (!running) return;
     if (!lastTs) lastTs = ts;
     const dt = (ts - lastTs) / 1000; lastTs = ts;
-
     track.scrollLeft += SPEED * dt;
     if (cycle > 0 && track.scrollLeft >= cycle) track.scrollLeft -= cycle;
-
     rafId = requestAnimationFrame(step);
   }
 
@@ -1207,7 +1190,6 @@ async function TA_buildIndex(){
   }
   function stop(){ running = false; if (rafId) cancelAnimationFrame(rafId); rafId = null; }
 
-  // interactions & résilience
   document.addEventListener('visibilitychange', ()=>{ if (document.hidden) stop(); else start(); });
 
   const onViewport = ()=>{ 
@@ -1223,12 +1205,10 @@ async function TA_buildIndex(){
   track.addEventListener('touchstart', ()=> stop(), {passive:true});
   track.addEventListener('touchend', ()=> setTimeout(start, 600), {passive:true});
 
-  // respecte "réduire les animations"
   const prm = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (prm.matches) return;
   if (prm.addEventListener) prm.addEventListener('change', e=> e.matches ? stop() : start());
 
-  // init
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, {once:true});
   else start();
 })();
