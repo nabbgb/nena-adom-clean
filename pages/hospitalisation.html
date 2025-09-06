@@ -4,306 +4,304 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">  
   <title>Aide à domicile</title>
   <link rel="stylesheet" href="../style.css">
-
 </head>
 <style>
   @font-face {
-  font-family: 'Playfair Display';
-  src: url('../fonts/Playfair-Display/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf') format('truetype');
-}
-h2{
-  font-family: 'Playfair Display',sans-serif;
-}
-
-/* ===== CTA bas de page ===== */
-.bottom-cta{
-  background: linear-gradient(180deg,#ffffff 0%, #f9fbff 100%);
-  padding: 40px 16px;
-  margin-top: 60px;
-  border-top: 1px solid #eee;
-}
-.bottom-cta .cta-grid{
-  max-width: 1100px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 24px;
-  align-items: end;
-}
-.cta-card{ text-align:center; }
-.cta-card p{
-  font-family: 'Playfair Display', sans-serif;
-  font-size: 18px;
-  margin: 0 0 12px;
-}
-.cta-call-btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  padding:12px 18px;
-  border-radius: 9999px;
-  text-decoration:none;
-  font-weight:700;
-  box-shadow: 0 6px 16px rgba(0,0,0,.08);
-  transition: transform .2s ease, box-shadow .2s ease, width .35s ease, background-color .2s ease, color .2s ease;
-}
-.cta-call-btn svg{ width:20px; height:20px; flex:0 0 20px; }
-
-/* Bouton 1 (bleu) */
-.cta-btn--blue{ background:#004aad; color:#fff; }
-.cta-btn--blue:hover{ transform:translateY(-2px); box-shadow:0 8px 18px rgba(0,74,173,.25); }
-
-/* Bouton 2 (vert pastel) */
-.cta-btn--mint{ background:#A8E6CF; color:#003a2c; }
-.cta-btn--mint:hover{ transform:translateY(-2px); box-shadow:0 8px 18px rgba(0,0,0,.12); }
-
-/* Bouton 3 (urgence) */
-.emergency-wrap{ text-align:center; }
-.emergency-label{ font-family:'Playfair Display',sans-serif; font-size:18px; margin-bottom:12px; color:#111; }
-.emergency-call{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  background:#E53935; /* rouge urgence */
-  color:#fff;
-  border-radius:9999px;
-  width:56px; height:56px; /* rond par défaut */
-  overflow:hidden; white-space:nowrap;
-  text-decoration:none; font-weight:800;
-  box-shadow:0 6px 16px rgba(229,57,53,.35);
-  transition: width .35s ease, box-shadow .2s ease, transform .2s ease;
-}
-.emergency-call svg{ width:22px; height:22px; flex:0 0 22px; }
-.emergency-call .text{ opacity:0; width:0; overflow:hidden; transition:opacity .2s ease .15s; }
-.emergency-call:hover,.emergency-call:focus-visible{ width:180px; transform:translateY(-2px); box-shadow:0 10px 22px rgba(229,57,53,.5); }
-.emergency-call:hover .text,.emergency-call:focus-visible .text{ opacity:1; width:auto; }
-
-/* Mobile : 3 boutons alignés horizontalement, plus compacts */
-@media (max-width:768px){
-  .bottom-cta{ padding:24px 10px; }
-  .bottom-cta .cta-grid{ grid-template-columns: repeat(3, 1fr); gap:10px; }
-  .cta-card p,.emergency-label{ font-size:13px; }
-  .cta-call-btn{ padding:10px 12px; font-size:14px; gap:8px; }
-  .cta-call-btn svg{ width:18px; height:18px; }
-  .emergency-call{ width:48px; height:48px; }
-  .emergency-call:hover,.emergency-call:focus-visible{ width:140px; }
-}
-
-/* Accessibilité : réduit les animations si demandé */
-@media (prefers-reduced-motion: reduce){
-  .cta-call-btn, .emergency-call{ transition: none; }
-}
-
-/* ===== CTA bas de page — version corrigée ===== */
-.bottom-cta{
-  background: none !important;   /* supprime le fond */
-  border-top: none !important;    /* supprime la ligne */
-  margin-top: 60px;
-}
-
-.bottom-cta .cta-grid{
-  /* occupe toute la largeur disponible */
-  max-width: none;
-  width: 100%;
-  margin: 0;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 colonnes qui se partagent 100% */
-  column-gap: 56px;  /* espace plus large entre les boutons */
-  align-items: end;
-  justify-items: center; /* centre chaque carte dans sa colonne */
-}
-
-.cta-card{ text-align: center; }
-.cta-card p{
-  margin: 0 0 12px;
-  text-align: center !important;
-  font-family: 'Comfortaa', sans-serif;
-}
-
-/* Boutons existants (inchangés) */
-.cta-call-btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  padding:12px 18px;
-  border-radius: 9999px;
-  text-decoration:none;
-  font-weight:700;
-  box-shadow: 0 6px 16px rgba(0,0,0,.08);
-  transition: transform .2s ease, box-shadow .2s ease, width .35s ease, background-color .2s ease, color .2s ease;
-}
-.cta-call-btn svg{ width:20px; height:20px; flex:0 0 20px; }
-.cta-btn--blue{ background:#004aad; color:#fff; }
-.cta-btn--blue:hover{ transform:translateY(-2px); box-shadow:0 8px 18px rgba(0,74,173,.25); }
-.cta-btn--mint{ background:#A8E6CF; color:#003a2c; }
-.cta-btn--mint:hover{ transform:translateY(-2px); box-shadow:0 8px 18px rgba(0,0,0,.12); }
-
-/* Urgence 15 : rond par défaut, s'allonge au survol */
-.emergency-wrap{ text-align:center; }
-.emergency-label{ font-family:'Playfair Display',sans-serif; font-size:18px; margin-bottom:12px; color:#111; }
-.emergency-call{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  background:#E53935;
-  color:#fff;
-  border-radius:9999px;
-  width:56px;
-  height:56px;
-  overflow:hidden;
-  white-space:nowrap;
-  text-decoration:none;
-  font-weight:800;
-  box-shadow:0 6px 16px rgba(229,57,53,.35);
-  transition: width .35s ease, box-shadow .2s ease, transform .2s ease;
-}
-.emergency-call svg{ width:22px; height:22px; flex:0 0 22px; }
-.emergency-call .text{ opacity:0; width:0; overflow:hidden; transition:opacity .2s ease .15s; }
-.emergency-call:hover,.emergency-call:focus-visible{ width:180px; transform:translateY(-2px); box-shadow:0 10px 22px rgba(229,57,53,.5); }
-.emergency-call:hover .text,.emergency-call:focus-visible .text{ opacity:1; width:auto; }
-
-/* ===== Mobile : une colonne, chaque paire "phrase + bouton" l'une sous l'autre ===== */
-@media (max-width:768px){
-  .bottom-cta{ padding: 20px 14px; }
-
-  .bottom-cta .cta-grid{
-    grid-template-columns: 1fr;   /* une seule colonne */
-    row-gap: 18px;                 /* espace entre chaque paire phrase/bouton */
-    justify-items: start;          /* aligne à gauche */
+    font-family: 'Playfair Display';
+    src: url('../fonts/Playfair-Display/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf') format('truetype');
+  }
+  h2{
+    font-family: 'Playfair Display',sans-serif;
   }
 
-
-
-  .cta-card p{
-    margin: 0 0 8px;               /* petite marge entre la phrase et le bouton */
-    font-size: 14px;
-  }
-
-  .cta-call-btn{
-    padding:10px 12px;
-    font-size:14px;
-    gap:8px;
-  }
-  .cta-call-btn svg{ width:18px; height:18px; }
-
-  .emergency-label{ font-size:14px; }
-  .emergency-call{ width:48px; height:48px; }
-  .emergency-call:hover,.emergency-call:focus-visible{ width:140px; }
-
-  .cta-card .cta-call-btn,
-  .cta-card .emergency-call{
-    display: flex;        /* au lieu de inline-flex */
-    margin: 0 auto;       /* centre horizontalement */
-  }
-}
-
-/* Accessibilité */
-@media (prefers-reduced-motion: reduce){
-  .cta-call-btn, .emergency-call{ transition: none; }
-}
-
-@media (max-width:768px){
+  /* ===== CTA bas de page ===== */
   .bottom-cta{
-    padding: 20px 14px;
+    background: linear-gradient(180deg,#ffffff 0%, #f9fbff 100%);
+    padding: 40px 16px;
+    margin-top: 60px;
+    border-top: 1px solid #eee;
   }
-
-  /* Une seule colonne + cartes centrées */
   .bottom-cta .cta-grid{
-    grid-template-columns: 1fr;
-    row-gap: 18px;
-    justify-items: center;          /* <-- centre chaque .cta-card */
-  }
-
-  /* Mise en page interne de la carte : grille verticale */
-  .cta-card{
+    max-width: 1100px;
+    margin: 0 auto;
     display: grid;
-    justify-items: center;          /* centre le bouton par défaut */
+    grid-template-columns: repeat(3,1fr);
+    gap: 24px;
+    align-items: end;
   }
-
-  /* Phrase à gauche, bouton centré */
+  .cta-card{ text-align:center; }
   .cta-card p{
-    margin: 0 0 8px;
-    font-size: 14px;
-    justify-self: start;            /* <-- le texte reste aligné à gauche */
-    text-align: left;
+    font-family: 'Playfair Display', sans-serif;
+    font-size: 18px;
+    margin: 0 0 12px;
   }
-
-  /* Pas besoin de margin:auto : elles sont centrées via justify-items */
-  .cta-card .cta-call-btn,
-  .cta-card .emergency-call{
-    display: inline-flex;           /* garde la taille auto du bouton */
-  }
-
   .cta-call-btn{
-    padding:10px 12px;
-    font-size:14px;
-    gap:8px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:12px 18px;
+    border-radius: 9999px;
+    text-decoration:none;
+    font-weight:700;
+    box-shadow: 0 6px 16px rgba(0,0,0,.08);
+    transition: transform .2s ease, box-shadow .2s ease, width .35s ease, background-color .2s ease, color .2s ease;
   }
-  .cta-call-btn svg{ width:18px; height:18px; }
+  .cta-call-btn svg{ width:20px; height:20px; flex:0 0 20px; }
 
-  .emergency-label{ font-size:14px; }
-  .emergency-call{ width:48px; height:48px; }
-  .emergency-call:hover,
-  .emergency-call:focus-visible{ width:140px; }
-}
-.hospital-three-cols {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 colonnes égales */
-  gap: 30px;                             /* espace entre colonnes */
-  margin-top: 40px;
-}
+  /* Bouton 1 (bleu) */
+  .cta-btn--blue{ background:#004aad; color:#fff; }
+  .cta-btn--blue:hover{ transform:translateY(-2px); box-shadow:0 8px 18px rgba(0,74,173,.25); }
 
-.hospital-three-cols h2 {
-  font-size: 20px;
-  color: #004aad;
-  margin-bottom: 12px;
-  font-family: 'Playfair Display', serif;
-}
+  /* Bouton 2 (vert pastel) */
+  .cta-btn--mint{ background:#A8E6CF; color:#003a2c; }
+  .cta-btn--mint:hover{ transform:translateY(-2px); box-shadow:0 8px 18px rgba(0,0,0,.12); }
 
-.hospital-three-cols p {
-  text-align: justify;
-  line-height: 1.6;
-}
+  /* Bouton 3 (urgence) */
+  .emergency-wrap{ text-align:center; }
+  .emergency-label{ font-family:'Playfair Display',sans-serif; font-size:18px; margin-bottom:12px; color:#111; }
+  .emergency-call{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    background:#E53935; /* rouge urgence */
+    color:#fff;
+    border-radius:9999px;
+    width:56px; height:56px; /* rond par défaut */
+    overflow:hidden; white-space:nowrap;
+    text-decoration:none; font-weight:800;
+    box-shadow:0 6px 16px rgba(229,57,53,.35);
+    transition: width .35s ease, box-shadow .2s ease, transform .2s ease;
+  }
+  .emergency-call svg{ width:22px; height:22px; flex:0 0 22px; }
+  .emergency-call .text{ opacity:0; width:0; overflow:hidden; transition:opacity .2s ease .15s; }
+  .emergency-call:hover,.emergency-call:focus-visible{ width:180px; transform:translateY(-2px); box-shadow:0 10px 22px rgba(229,57,53,.5); }
+  .emergency-call:hover .text,.emergency-call:focus-visible .text{ opacity:1; width:auto; }
 
+  /* Mobile : 3 boutons alignés horizontalement, plus compacts */
+  @media (max-width:768px){
+    .bottom-cta{ padding:24px 10px; }
+    .bottom-cta .cta-grid{ grid-template-columns: repeat(3, 1fr); gap:10px; }
+    .cta-card p,.emergency-label{ font-size:13px; }
+    .cta-call-btn{ padding:10px 12px; font-size:14px; gap:8px; }
+    .cta-call-btn svg{ width:18px; height:18px; }
+    .emergency-call{ width:48px; height:48px; }
+    .emergency-call:hover,.emergency-call:focus-visible{ width:140px; }
+  }
 
-@media (max-width: 768px) {
+  /* Accessibilité : réduit les animations si demandé */
+  @media (prefers-reduced-motion: reduce){
+    .cta-call-btn, .emergency-call{ transition: none; }
+  }
+
+  /* ===== CTA bas de page — version corrigée ===== */
+  .bottom-cta{
+    background: none !important;   /* supprime le fond */
+    border-top: none !important;    /* supprime la ligne */
+    margin-top: 60px;
+  }
+  .bottom-cta .cta-grid{
+    max-width: none;
+    width: 100%;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 56px;
+    align-items: end;
+    justify-items: center;
+  }
+  .cta-card{ text-align: center; }
+  .cta-card p{
+    margin: 0 0 12px;
+    text-align: center !important;
+    font-family: 'Comfortaa', sans-serif;
+  }
+  .cta-call-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:12px 18px;
+    border-radius: 9999px;
+    text-decoration:none;
+    font-weight:700;
+    box-shadow: 0 6px 16px rgba(0,0,0,.08);
+    transition: transform .2s ease, box-shadow .2s ease, width .35s ease, background-color .2s ease, color .2s ease;
+  }
+  .cta-call-btn svg{ width:20px; height:20px; flex:0 0 20px; }
+  .cta-btn--blue{ background:#004aad; color:#fff; }
+  .cta-btn--blue:hover{ transform:translateY(-2px); box-shadow:0 8px 18px rgba(0,74,173,.25); }
+  .cta-btn--mint{ background:#A8E6CF; color:#003a2c; }
+  .cta-btn--mint:hover{ transform:translateY(-2px); box-shadow:0 8px 18px rgba(0,0,0,.12); }
+
+  .emergency-wrap{ text-align:center; }
+  .emergency-label{ font-family:'Playfair Display',sans-serif; font-size:18px; margin-bottom:12px; color:#111; }
+  .emergency-call{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    background:#E53935;
+    color:#fff;
+    border-radius:9999px;
+    width:56px;
+    height:56px;
+    overflow:hidden;
+    white-space:nowrap;
+    text-decoration:none;
+    font-weight:800;
+    box-shadow:0 6px 16px rgba(229,57,53,.35);
+    transition: width .35s ease, box-shadow .2s ease, transform .2s ease;
+  }
+  .emergency-call svg{ width:22px; height:22px; flex:0 0 22px; }
+  .emergency-call .text{ opacity:0; width:0; overflow:hidden; transition:opacity .2s ease .15s; }
+  .emergency-call:hover,.emergency-call:focus-visible{ width:180px; transform:translateY(-2px); box-shadow:0 10px 22px rgba(229,57,53,.5); }
+  .emergency-call:hover .text,.emergency-call:focus-visible .text{ opacity:1; width:auto; }
+
+  @media (max-width:768px){
+    .bottom-cta{ padding: 20px 14px; }
+    .bottom-cta .cta-grid{
+      grid-template-columns: 1fr;
+      row-gap: 18px;
+      justify-items: start;
+    }
+    .cta-card p{ margin: 0 0 8px; font-size: 14px; }
+    .cta-call-btn{ padding:10px 12px; font-size:14px; gap:8px; }
+    .cta-call-btn svg{ width:18px; height:18px; }
+    .emergency-label{ font-size:14px; }
+    .emergency-call{ width:48px; height:48px; }
+    .emergency-call:hover,.emergency-call:focus-visible{ width:140px; }
+    .cta-card .cta-call-btn, .cta-card .emergency-call{ display: flex; margin: 0 auto; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .cta-call-btn, .emergency-call{ transition: none; }
+  }
+  @media (max-width:768px){
+    .bottom-cta{ padding: 20px 14px; }
+    .bottom-cta .cta-grid{
+      grid-template-columns: 1fr;
+      row-gap: 18px;
+      justify-items: center;
+    }
+    .cta-card{ display: grid; justify-items: center; }
+    .cta-card p{ margin: 0 0 8px; font-size: 14px; justify-self: start; text-align: left; }
+    .cta-card .cta-call-btn, .cta-card .emergency-call{ display: inline-flex; }
+    .cta-call-btn{ padding:10px 12px; font-size:14px; gap:8px; }
+    .cta-call-btn svg{ width:18px; height:18px; }
+    .emergency-label{ font-size:14px; }
+    .emergency-call{ width:48px; height:48px; }
+    .emergency-call:hover, .emergency-call:focus-visible{ width:140px; }
+  }
+
+  /* ====== 3 colonnes finales ====== */
   .hospital-three-cols {
-    grid-template-columns: 1fr; /* 1 seule colonne */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 40px;
   }
-}
+  .hospital-three-cols h2 {
+    font-size: 20px;
+    color: #004aad;
+    margin-bottom: 12px;
+    font-family: 'Playfair Display', serif;
+  }
+  .hospital-three-cols p {
+    text-align: justify;
+    line-height: 1.6;
+  }
+  @media (max-width: 768px) {
+    .hospital-three-cols { grid-template-columns: 1fr; }
+  }
 
+  /* ====== Séparateurs style "journal" ====== */
+  .news-sep{
+    border: none;
+    height: 1px;
+    background: #d9d9d9;
+    margin: 36px 0;
+  }
+
+  /* ====== Blocs image + 2 paragraphes (hauteurs alignées) ====== */
+  .news-block{
+    display: grid;
+    grid-template-columns: 1fr 360px; /* texte / image (droite par défaut) */
+    gap: 28px;
+    align-items: stretch; /* force la même hauteur entre colonnes */
+  }
+  .news-block--img-left{
+    grid-template-columns: 360px 1fr; /* image / texte */
+  }
+  .news-block .text{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .news-block h3{
+    font-family:'Playfair Display', serif;
+    font-size: 22px;
+    margin: 0 0 6px;
+    color:#004aad;
+  }
+  .news-block p{
+    margin: 0;
+    text-align: justify;
+    line-height: 1.6;
+  }
+  .news-block .photo{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid #eee;
+    background: #f5f5f5; /* placeholder gris si l'image tarde */
+  }
+  .news-block .photo img{
+    display:block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Remplit et recadre pour coller à la hauteur du texte */
+  }
+
+  @media (max-width: 1100px){
+    .news-block{ grid-template-columns: 1fr 320px; }
+    .news-block--img-left{ grid-template-columns: 320px 1fr; }
+  }
+  @media (max-width: 900px){
+    .news-block, .news-block--img-left{
+      grid-template-columns: 1fr; /* pile */
+    }
+    .news-block .photo{
+      height: 220px; /* hauteur fixe en mobile */
+    }
+  }
 </style>
 <body>
 
   <!-- HEADER MOBILE (affiché uniquement sur mobile) -->
-<header class="mobile-header">
-  <button class="mobile-menu-btn" aria-label="Ouvrir le menu">&#9776;</button>
-  <a href="../index.html" class="mobile-logo">
-    <img src="../images/logo.png" alt="Nena Adom logo">
-  </a>
-  <form class="mobile-search-bar" action="" method="get" style="position:relative;">
-    <input type="text" id="mobileSearchInput" name="q" placeholder="Rechercher..." style="display:none; position:absolute; right:40px; top:50%; transform:translateY(-50%); width:140px; border-radius:20px; border:1px solid #ccc; padding:4px 10px; font-size:15px;">
-    <button type="button" class="mobile-search-btn" aria-label="Recherche" style="background:none; border:none;">
-      <img src="../images/search.png" alt="Recherche" style="width:28px;height:28px;">
-    </button>
-  </form>
-</header>
+  <header class="mobile-header">
+    <button class="mobile-menu-btn" aria-label="Ouvrir le menu">&#9776;</button>
+    <a href="../index.html" class="mobile-logo">
+      <img src="../images/logo.png" alt="Nena Adom logo">
+    </a>
+    <form class="mobile-search-bar" action="" method="get" style="position:relative;">
+      <input type="text" id="mobileSearchInput" name="q" placeholder="Rechercher..." style="display:none; position:absolute; right:40px; top:50%; transform:translateY(-50%); width:140px; border-radius:20px; border:1px solid #ccc; padding:4px 10px; font-size:15px;">
+      <button type="button" class="mobile-search-btn" aria-label="Recherche" style="background:none; border:none;">
+        <img src="../images/search.png" alt="Recherche" style="width:28px;height:28px;">
+      </button>
+    </form>
+  </header>
 
-<!-- MENU LATERAL MOBILE -->
-<nav class="mobile-side-menu" id="mobileSideMenu">
-  <button class="mobile-close-btn" aria-label="Fermer le menu">&times;</button>
-  <ul>
-    <li><a href="services.html">Nos Services</a></li>
-    <li><a href="hospitalisation.html">Mon suivi après une hospitalisation</a></li>
-    <li><a href="pathologie.html">Comprendre ma pathologie</a></li>
-    <li><a href="aides.html">Aides Financières</a></li>
-    <li><a href="faq.html">FAQ</a></li>
-    <li><a href="tel:0605873735" class="mobile-call-link">Contactez-nous</a></li>
-  </ul>
-</nav>
-
+  <!-- MENU LATERAL MOBILE -->
+  <nav class="mobile-side-menu" id="mobileSideMenu">
+    <button class="mobile-close-btn" aria-label="Fermer le menu">&times;</button>
+    <ul>
+      <li><a href="services.html">Nos Services</a></li>
+      <li><a href="hospitalisation.html">Mon suivi après une hospitalisation</a></li>
+      <li><a href="pathologie.html">Comprendre ma pathologie</a></li>
+      <li><a href="aides.html">Aides Financières</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="tel:0605873735" class="mobile-call-link">Contactez-nous</a></li>
+    </ul>
+  </nav>
 
   <header class="site-header">
     <a href="../index.html" class="logo">
@@ -327,233 +325,251 @@ h2{
     </div>
   </header>
 
-<section class="hospital-section">
-  <h1 style="text-align: center;">ACCOMPAGNEMENT SUITE À UNE HOSPITALISATION</h1>
-  <img src="../images/hospitalisation/slogan-hospitalisation.jpg" alt="Accompagnement médical" class="hospital-img">
+  <section class="hospital-section">
+    <h1 style="text-align: center;">ACCOMPAGNEMENT SUITE À UNE HOSPITALISATION</h1>
+    <img src="../images/hospitalisation/slogan-hospitalisation.jpg" alt="Accompagnement médical" class="hospital-img">
 
-  <p>
-    Après un séjour à l’hôpital, le retour à domicile peut s’avérer complexe. Nous assurons une prise en charge rapide et coordonnée, incluant l’organisation des soins nécessaires, l’installation du matériel médical adapté, ainsi qu’un accompagnement personnalisé pour faciliter cette transition essentielle. L’atout de notre accompagnement réside dans l’efficacité de nos services et la communication fluide entre les professionnels de santé et notre équipe, assurant un suivi clair, réactif et de qualité.
-  </p>
+    <p>
+      Après un séjour à l’hôpital, le retour à domicile peut s’avérer complexe. Nous assurons une prise en charge rapide et coordonnée, incluant l’organisation des soins nécessaires, l’installation du matériel médical adapté, ainsi qu’un accompagnement personnalisé pour faciliter cette transition essentielle. L’atout de notre accompagnement réside dans l’efficacité de nos services et la communication fluide entre les professionnels de santé et notre équipe, assurant un suivi clair, réactif et de qualité.
+    </p>
 
-  <div class="hospital-columns">
-    <div class="hospital-text">
-      <img src="../images/hospitalisation/post-hospitalisation.jpg" alt="Soutien post hospitalisation" class="hospital-float">
+    <div class="hospital-columns">
+      <div class="hospital-text">
+        <img src="../images/hospitalisation/post-hospitalisation.jpg" alt="Soutien post hospitalisation" class="hospital-float">
 
-      <h2>ACCOMPAGNEMENT PERSONNALISÉ DÈS LA SORTIE DE L'HÔPITAL</h2>
-      <p>
-        Chez Nena Adom, notre mission commence avant même le retour à domicile. Dès le premier appel, un membre de notre équipe se rend à l’hôpital pour rencontrer le patient et établir un premier lien de confiance. Ce contact humain essentiel permet de rassurer le patient sur la continuité des soins à domicile et facilite la coordination avec l’équipe hospitalière. Cette étape-clé garantit une transition en douceur entre l’hôpital et le lieu de vie. Dès la prise de contact, notre équipe se mobilise immédiatement : un professionnel se rend à l’hôpital pour instaurer un lien de confiance et préparer sereinement le retour à domicile. Cette visite proactive permet de rassurer le patient et sa famille, tout en posant les bases d’un accompagnement individualisé.
-      </p>
-
-      <h2>MISE EN PLACE DU SUIVI MÉDICAL À DOMICILE</h2>
-      <p>
-        Dès la validation de la sortie hospitalière, Nena Adom active une procédure accélérée pour garantir une prise en charge médicale complète à domicile. Nous organisons les soins infirmiers à domicile, coordonnons l’intervention du médecin gériatre pour le suivi du patient, mobilisons les professionnels paramédicaux et assurons la livraison de matériel médical sous 48h : lit médicalisé, fauteuil roulant, déambulateur, chaise percée, perfusion, oxygène ou dispositifs de soins techniques. Nous évaluons également l’environnement du domicile pour garantir accessibilité, sécurité et confort du patient, et recommandons si nécessaire des adaptations adaptées.
-      </p>
-
-      <h2>SUIVI GLOBAL DU PATIENT À DOMICILE</h2>
-      <p>
-        À son retour, le patient est accompagné dans tous les actes de la vie quotidienne : aide au lever et au coucher, toilette, habillage, prise des traitements, surveillance des constantes, préparation et aide à la prise de repas, soutien à l’autonomie et garde de nuit. Grâce à une organisation rigoureuse et humaine et à une équipe pluridisciplinaire composée de médecins gériatres, infirmiers, kinés, ergothérapeutes et diététiciens, nous assurons la continuité des soins post-hospitalisation dans les meilleures conditions.
-      </p>
-
-      <h2>SOINS PALLIATIFS ET ACCOMPAGNEMENT EN FIN DE VIE</h2>
-      <p>
-        Bien plus qu'une simple entreprise d'aide à domicile, Nena Adom se dévoue entièrement à offrir un soutien complet et compatissant aux patients en fin de vie. Nous nous engageons à soulager la souffrance du patient dans le confort de son domicile, avec une équipe médicale composée de médecins gériatres, d’infirmières et d’auxiliaires de vie qualifiées. Ensemble, ils assurent une prise en charge intégrale et personnalisée.
-      </p>
-
-      <h2>NOTRE APPROCHE HOLISTIQUE</h2>
-      <p>
-        Nous comprenons l'importance d'une assistance médicale complète et rapide. Nos médecins gériatres se déplacent à domicile pour diagnostiquer les patients et prescrire les traitements nécessaires. Les infirmières, expérimentées dans les soins de fin de vie, réalisent des procédures délicates telles que perfusions, administration d'oxygène, gestion de la douleur ou accompagnement psychologique. Les auxiliaires de vie complètent cette prise en charge en assurant les gestes du quotidien : toilette, aide au lever et au coucher, garde de nuit. Nous croyons en la dignité et le respect de chaque individu, même dans les moments difficiles, et nous nous efforçons de créer un environnement propice à un départ paisible et entouré.
-      </p>
-
-    <div class="hospital-three-cols">
-      <div>
-        <h2>UN SOUTIEN ÉMOTIONNEL POUR LA FAMILLE</h2>
+        <h2>ACCOMPAGNEMENT PERSONNALISÉ DÈS LA SORTIE DE L'HÔPITAL</h2>
         <p>
-          Au-delà des soins, nous apportons une écoute et un soutien bienveillant aux proches, souvent démunis face à cette étape difficile. Notre objectif est de leur permettre de rester présents et sereins, sans avoir à gérer seuls les aspects médicaux et logistiques.
+          Chez Nena Adom, notre mission commence avant même le retour à domicile. Dès le premier appel, un membre de notre équipe se rend à l’hôpital pour rencontrer le patient et établir un premier lien de confiance. Ce contact humain essentiel permet de rassurer le patient sur la continuité des soins à domicile et facilite la coordination avec l’équipe hospitalière. Cette étape-clé garantit une transition en douceur entre l’hôpital et le lieu de vie. Dès la prise de contact, notre équipe se mobilise immédiatement : un professionnel se rend à l’hôpital pour instaurer un lien de confiance et préparer sereinement le retour à domicile. Cette visite proactive permet de rassurer le patient et sa famille, tout en posant les bases d’un accompagnement individualisé.
         </p>
-      </div>
 
-      <div>
-        <h2>UN ENVIRONNEMENT APAISANT ET RESPECTUEUX</h2>
-        <p>
-          Nous organisons discrètement tout ce qui est nécessaire : matériel adapté, installation du domicile, coordination médicale et suivi régulier. L’objectif est de prévenir les hospitalisations imprévues et de préserver l’intimité et le confort du patient. Une organisation sur mesure avec une présence humaine peut être mise en place selon les besoins, allant jusqu’à 24h/24 et 7j/7 grâce à des relais de jour comme de nuit.
+
+
+        <!-- ====== SÉPARATEUR ====== -->
+        <hr class="news-sep">
+
+        <!-- ====== BLOC 1 : IMAGE À GAUCHE = même hauteur que 2 paragraphes ====== -->
+        <section class="news-block news-block--img-left" aria-label="Encadré témoignage">
+          <div class="photo">
+            <!-- Remplace l'URL ci-dessous par ta photo -->
+            <img src="../images/hospitalisation/suivi-global-patient.jpg" alt="Accompagnement à domicile">
+          </div>
+          <div class="text">
+            <h2>MISE EN PLACE DU SUIVI MÉDICAL À DOMICILE</h2>
+            <p>
+              Dès la validation de la sortie hospitalière, Nena Adom active une procédure accélérée pour garantir une prise en charge médicale complète à domicile. Nous organisons les soins infirmiers à domicile, coordonnons l’intervention du médecin gériatre pour le suivi du patient, mobilisons les professionnels paramédicaux et assurons la livraison de matériel médical sous 48h : lit médicalisé, fauteuil roulant, déambulateur, chaise percée, perfusion, oxygène ou dispositifs de soins techniques. Nous évaluons également l’environnement du domicile pour garantir accessibilité, sécurité et confort du patient, et recommandons si nécessaire des adaptations adaptées.
+            </p>
+
+            <h2>SUIVI GLOBAL DU PATIENT À DOMICILE</h2>
+            <p>
+              À son retour, le patient est accompagné dans tous les actes de la vie quotidienne : aide au lever et au coucher, toilette, habillage, prise des traitements, surveillance des constantes, préparation et aide à la prise de repas, soutien à l’autonomie et garde de nuit. Grâce à une organisation rigoureuse et humaine et à une équipe pluridisciplinaire composée de médecins gériatres, infirmiers, kinés, ergothérapeutes et diététiciens, nous assurons la continuité des soins post-hospitalisation dans les meilleures conditions.
+            </p>
+          </div>
+        </section>
+
+        <!-- ====== SÉPARATEUR ====== -->
+        <hr class="news-sep">
+
+        <!-- ====== BLOC 2 : IMAGE À DROITE = même hauteur que 2 paragraphes ====== -->
+        <section class="news-block" aria-label="Encadré organisation">
+          <div class="text">
+            <h2>SOINS PALLIATIFS ET ACCOMPAGNEMENT EN FIN DE VIE</h2>
+            <p>
+              Bien plus qu'une simple entreprise d'aide à domicile, Nena Adom se dévoue entièrement à offrir un soutien complet et compatissant aux patients en fin de vie. Nous nous engageons à soulager la souffrance du patient dans le confort de son domicile, avec une équipe médicale composée de médecins gériatres, d’infirmières et d’auxiliaires de vie qualifiées. Ensemble, ils assurent une prise en charge intégrale et personnalisée.
+            </p>
+
+            <h2>NOTRE APPROCHE HOLISTIQUE</h2>
+            <p>
+              Nous comprenons l'importance d'une assistance médicale complète et rapide. Nos médecins gériatres se déplacent à domicile pour diagnostiquer les patients et prescrire les traitements nécessaires. Les infirmières, expérimentées dans les soins de fin de vie, réalisent des procédures délicates telles que perfusions, administration d'oxygène, gestion de la douleur ou accompagnement psychologique. Les auxiliaires de vie complètent cette prise en charge en assurant les gestes du quotidien : toilette, aide au lever et au coucher, garde de nuit. Nous croyons en la dignité et le respect de chaque individu, même dans les moments difficiles, et nous nous efforçons de créer un environnement propice à un départ paisible et entouré.
         </p>
+          </div>
+          <div class="photo">
+            <!-- Remplace l'URL ci-dessous par ta photo -->
+            <img src="../images/hospitalisation/accompagnement-fin-de-vie.jpg" alt="Coordination médicale à domicile">
+          </div>
+        </section>
+
+        <!-- ====== SÉPARATEUR ====== -->
+        <hr class="news-sep">
+        
+        <!-- ====== 3 COLONNES FINALES (inchangées) ====== -->
+        <div class="hospital-three-cols">
+          <div>
+            <h2>UN SOUTIEN ÉMOTIONNEL POUR LA FAMILLE</h2>
+            <p>
+              Au-delà des soins, nous apportons une écoute et un soutien bienveillant aux proches, souvent démunis face à cette étape difficile. Notre objectif est de leur permettre de rester présents et sereins, sans avoir à gérer seuls les aspects médicaux et logistiques.
+            </p>
+          </div>
+
+          <div>
+            <h2>UN ENVIRONNEMENT APAISANT ET RESPECTUEUX</h2>
+            <p>
+              Nous organisons discrètement tout ce qui est nécessaire : matériel adapté, installation du domicile, coordination médicale et suivi régulier. L’objectif est de prévenir les hospitalisations imprévues et de préserver l’intimité et le confort du patient. Une organisation sur mesure avec une présence humaine peut être mise en place selon les besoins, allant jusqu’à 24h/24 et 7j/7 grâce à des relais de jour comme de nuit.
+            </p>
+          </div>
+
+          <div>
+            <h2>UN CHOIX DIGNE, CHEZ SOI</h2>
+            <p>
+              Choisir l’accompagnement Nena Adom en fin de vie, c’est offrir à son proche la possibilité de vivre ses derniers instants entouré, respecté et dans un cadre familier. Ce service rare, exigeant et profondément humain fait partie des engagements les plus forts de notre structure.
+            </p>
+          </div>
+        </div>
+
       </div>
+    </div>
 
-      <div>
-        <h2>UN CHOIX DIGNE, CHEZ SOI</h2>
-        <p>
-          Choisir l’accompagnement Nena Adom en fin de vie, c’est offrir à son proche la possibilité de vivre ses derniers instants entouré, respecté et dans un cadre familier. Ce service rare, exigeant et profondément humain fait partie des engagements les plus forts de notre structure.
-        </p>
+    <!-- ===== CTA BAS DE PAGE ===== -->
+    <section class="bottom-cta" aria-label="Appels rapides">
+      <div class="cta-grid">
+
+        <!-- Bouton 1 : Retour à domicile (bleu #004aad) -->
+        <div class="cta-card">
+          <p style="color:#004aad;">
+            Programmez votre retour à domicile &nbsp;
+          </p>
+          <a class="cta-call-btn cta-btn--blue" href="tel:0605873735"
+             aria-label="Appeler Nena Adom pour organiser le retour à domicile">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor"
+                d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1v3.5a1 1 0 01-1 1C11.07 22 2 12.93 2 2.5a1 1 0 011-1H6.5a1 1 0 011 1c0 1.24.2 2.45.57 3.57a1 1 0 01-.24 1.02l-2.2 2.2z"/>
+            </svg>
+            <span>Appelez-nous</span>
+          </a>
+        </div>
+
+        <!-- Bouton 2 : Médecin gériatre (vert pastel) -->
+        <div class="cta-card">
+          <p style="color:#6CC5A9;">
+            Besoin d’un médecin gériatre à domicile&nbsp;?
+          </p>
+          <a class="cta-call-btn cta-btn--mint" href="tel:+33698332521"
+             aria-label="Appeler un médecin gériatre à domicile">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor"
+                d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1v3.5a1 1 0 01-1 1C11.07 22 2 12.93 2 2.5a1 1 0 011-1H6.5a1 1 0 011 1c0 1.24.2 2.45.57 3.57a1 1 0 01-.24 1.02l-2.2 2.2z"/>
+            </svg>
+            <span>Appeler notre médecin</span>
+          </a>
+        </div>
+
+        <!-- Bouton 3 : Urgence 15 (rond -> s'allonge au survol) -->
+        <div class="cta-card emergency-wrap">
+          <p class="emergency-label">Une urgence&nbsp;?</p>
+          <a class="emergency-call" href="tel:15"
+             aria-label="Urgence médicale, appeler le 15">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor"
+                d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1v3.5a1 1 0 01-1 1C11.07 22 2 12.93 2 2.5a1 1 0 011-1H6.5a1 1 0 011 1c0 1.24.2 2.45.57 3.57a1 1 0 01-.24 1.02l-2.2 2.2z"/>
+            </svg>
+            <span class="text">Contactez le 15</span>
+          </a>
+        </div>
+
       </div>
-    </div>
-  </div>
+    </section>
 
-<!-- ===== CTA BAS DE PAGE ===== -->
-<section class="bottom-cta" aria-label="Appels rapides">
-  <div class="cta-grid">
+  </section>
 
-    <!-- Bouton 1 : Retour à domicile (bleu #004aad) -->
-    <div class="cta-card">
-      <p style="color:#004aad;">
-        Programmez votre retour à domicile &nbsp;
-      </p>
-      <a class="cta-call-btn cta-btn--blue" href="tel:0605873735"
-         aria-label="Appeler Nena Adom pour organiser le retour à domicile">
-        <!-- icône téléphone -->
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path fill="currentColor"
-            d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1v3.5a1 1 0 01-1 1C11.07 22 2 12.93 2 2.5a1 1 0 011-1H6.5a1 1 0 011 1c0 1.24.2 2.45.57 3.57a1 1 0 01-.24 1.02l-2.2 2.2z"/>
-        </svg>
-        <span>Appelez-nous</span>
-      </a>
-    </div>
-
-    <!-- Bouton 2 : Médecin gériatre (vert pastel) -->
-    <div class="cta-card">
-      <p style="color:#6CC5A9;">
-        Besoin d’un médecin gériatre à domicile&nbsp;?
-      </p>
-      <a class="cta-call-btn cta-btn--mint" href="tel:+33698332521"
-         aria-label="Appeler un médecin gériatre à domicile">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path fill="currentColor"
-            d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1v3.5a1 1 0 01-1 1C11.07 22 2 12.93 2 2.5a1 1 0 011-1H6.5a1 1 0 011 1c0 1.24.2 2.45.57 3.57a1 1 0 01-.24 1.02l-2.2 2.2z"/>
-        </svg>
-        <span>Appeler notre médecin</span>
-      </a>
-    </div>
-
-    <!-- Bouton 3 : Urgence 15 (rond -> s'allonge au survol) -->
-    <div class="cta-card emergency-wrap">
-      <p class="emergency-label">Une urgence&nbsp;?</p>
-      <a class="emergency-call" href="tel:15"
-         aria-label="Urgence médicale, appeler le 15">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path fill="currentColor"
-            d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1v3.5a1 1 0 01-1 1C11.07 22 2 12.93 2 2.5a1 1 0 011-1H6.5a1 1 0 011 1c0 1.24.2 2.45.57 3.57a1 1 0 01-.24 1.02l-2.2 2.2z"/>
-        </svg>
-        <span class="text">Contactez le 15</span>
-      </a>
-    </div>
-
-  </div>
-</section>
-
-</section>
-
-<script>
-//Pour la barre de recherche
-function highlightTerm(term) {
-  if (!term) return;
-  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
-  let node;
-  const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-  let firstMark = null;
-  while (node = walker.nextNode()) {
-    if (
-      node.parentNode &&
-      !['SCRIPT', 'STYLE', 'NOSCRIPT', 'IFRAME', 'MARK'].includes(node.parentNode.tagName) &&
-      node.nodeValue.match(regex)
-    ) {
-      const span = document.createElement('span');
-      span.innerHTML = node.nodeValue.replace(regex, '<mark>$1</mark>');
-      node.parentNode.replaceChild(span, node);
-      if (!firstMark) {
-        firstMark = span.querySelector('mark');
+  <script>
+  //Pour la barre de recherche
+  function highlightTerm(term) {
+    if (!term) return;
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    let firstMark = null;
+    while (node = walker.nextNode()) {
+      if (
+        node.parentNode &&
+        !['SCRIPT', 'STYLE', 'NOSCRIPT', 'IFRAME', 'MARK'].includes(node.parentNode.tagName) &&
+        node.nodeValue.match(regex)
+      ) {
+        const span = document.createElement('span');
+        span.innerHTML = node.nodeValue.replace(regex, '<mark>$1</mark>');
+        node.parentNode.replaceChild(span, node);
+        if (!firstMark) {
+          firstMark = span.querySelector('mark');
+        }
       }
     }
+    if (firstMark) {
+      firstMark.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(() => {
+        window.scrollBy({ top: 400, left: 0, behavior: "smooth" }); 
+      }, 400);
+    }
   }
-  // Scroll vers la première occurrence surlignée
-  if (firstMark) {
-    firstMark.scrollIntoView({ behavior: "smooth", block: "center" });
-    // Décalage supplémentaire pour éviter le header
-    setTimeout(() => {
-      window.scrollBy({ top: 400, left: 0, behavior: "smooth" }); 
-    }, 400); // délai pour laisser le scrollIntoView s'effectuer
+  function getSearchTerm() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('q');
   }
-}
-
-// Récupère le paramètre 'q' de l'URL
-function getSearchTerm() {
-  const params = new URLSearchParams(window.location.search);
-  return params.get('q');
-}
-
-// Au chargement, surligne si besoin
-document.addEventListener('DOMContentLoaded', function() {
-  const term = getSearchTerm();
-  if (term) {
-    document.getElementById('searchInput').value = term;
-    highlightTerm(term);
-  }
-});
-</script>  
-
-<script>
-  document.querySelector('.mobile-menu-btn').onclick = function() {
-    document.getElementById('mobileSideMenu').classList.add('open');
-  };
-  document.querySelector('.mobile-close-btn').onclick = function() {
-    document.getElementById('mobileSideMenu').classList.remove('open');
-  };
-  // Optionnel : fermer le menu si on clique en dehors
-  document.addEventListener('click', function(e) {
-    const menu = document.getElementById('mobileSideMenu');
-    if (menu.classList.contains('open') && !menu.contains(e.target) && !e.target.classList.contains('mobile-menu-btn')) {
-      menu.classList.remove('open');
+  document.addEventListener('DOMContentLoaded', function() {
+    const term = getSearchTerm();
+    if (term) {
+      document.getElementById('searchInput').value = term;
+      highlightTerm(term);
     }
   });
-</script>
+  </script>  
 
-<script>
-  // Ouvre le menu mobile
-  document.querySelector('.mobile-menu-btn').onclick = function() {
-    document.getElementById('mobileSideMenu').classList.add('open');
-  };
-  // Ferme le menu mobile
-  document.querySelector('.mobile-close-btn').onclick = function() {
-    document.getElementById('mobileSideMenu').classList.remove('open');
-  };
-  // Ferme le menu si on clique en dehors
-  document.addEventListener('click', function(e) {
-    const menu = document.getElementById('mobileSideMenu');
-    if (menu.classList.contains('open') && !menu.contains(e.target) && !e.target.classList.contains('mobile-menu-btn')) {
-      menu.classList.remove('open');
-    }
-  });
+  <script>
+    document.querySelector('.mobile-menu-btn').onclick = function() {
+      document.getElementById('mobileSideMenu').classList.add('open');
+    };
+    document.querySelector('.mobile-close-btn').onclick = function() {
+      document.getElementById('mobileSideMenu').classList.remove('open');
+    };
+    document.addEventListener('click', function(e) {
+      const menu = document.getElementById('mobileSideMenu');
+      if (menu.classList.contains('open') && !menu.contains(e.target) && !e.target.classList.contains('mobile-menu-btn')) {
+        menu.classList.remove('open');
+      }
+    });
+  </script>
 
-  // Affiche le champ de recherche mobile au clic sur la loupe
-  const mobileSearchBtn = document.querySelector('.mobile-search-btn');
-  const mobileSearchInput = document.getElementById('mobileSearchInput');
-  const mobileSearchForm = document.querySelector('.mobile-search-bar');
-  mobileSearchBtn.addEventListener('click', function(e) {
-    e.preventDefault();
-    if (mobileSearchInput.style.display === 'none' || mobileSearchInput.style.display === '') {
-      mobileSearchInput.style.display = 'block';
-      mobileSearchInput.focus();
-    } else if (mobileSearchInput.value.trim() !== '') {
-      mobileSearchForm.submit();
-    }
-  });
-  // Permet la recherche au "Entrée"
-  mobileSearchInput.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
-      mobileSearchForm.submit();
-    }
-  });
-</script>
+  <script>
+    document.querySelector('.mobile-menu-btn').onclick = function() {
+      document.getElementById('mobileSideMenu').classList.add('open');
+    };
+    document.querySelector('.mobile-close-btn').onclick = function() {
+      document.getElementById('mobileSideMenu').classList.remove('open');
+    };
+    document.addEventListener('click', function(e) {
+      const menu = document.getElementById('mobileSideMenu');
+      if (menu.classList.contains('open') && !menu.contains(e.target) && !e.target.classList.contains('mobile-menu-btn')) {
+        menu.classList.remove('open');
+      }
+    });
 
-<footer style="background-color:#ffffff; text-align:center; font-size:14px; color:#000000; border-top:1px solid #ddd; padding:10px 15px; line-height:1.6;">
-  <p style="margin:5px 0;">
-    © 2025 Nena Adom – Tous droits réservés |
-    SIRET : 95102803400019 – Site sans collecte de données |
-    Hébergement : IONOS – 7 Place de la Gare, 57200 Sarreguemines, France |
-    <a href="mailto:contact@aideadomicileparis.fr" style="color:#000000; text-decoration:underline;">contact@aideadomicileparis.fr</a> |
-    <a href="pages/mentions-legales.html" style="color:#000000; text-decoration:underline;">Mentions légales</a> |
-    <a href="pages/faq.html" style="color:#000000; text-decoration:underline;">FAQ</a>
-  </p>
-</footer>
+    const mobileSearchBtn = document.querySelector('.mobile-search-btn');
+    const mobileSearchInput = document.getElementById('mobileSearchInput');
+    const mobileSearchForm = document.querySelector('.mobile-search-bar');
+    mobileSearchBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (mobileSearchInput.style.display === 'none' || mobileSearchInput.style.display === '') {
+        mobileSearchInput.style.display = 'block';
+        mobileSearchInput.focus();
+      } else if (mobileSearchInput.value.trim() !== '') {
+        mobileSearchForm.submit();
+      }
+    });
+    mobileSearchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        mobileSearchForm.submit();
+      }
+    });
+  </script>
 
+  <footer style="background-color:#ffffff; text-align:center; font-size:14px; color:#000000; border-top:1px solid #ddd; padding:10px 15px; line-height:1.6;">
+    <p style="margin:5px 0;">
+      © 2025 Nena Adom – Tous droits réservés |
+      SIRET : 95102803400019 – Site sans collecte de données |
+      Hébergement : IONOS – 7 Place de la Gare, 57200 Sarreguemines, France |
+      <a href="mailto:contact@aideadomicileparis.fr" style="color:#000000; text-decoration:underline;">contact@aideadomicileparis.fr</a> |
+      <a href="pages/mentions-legales.html" style="color:#000000; text-decoration:underline;">Mentions légales</a> |
+      <a href="pages/faq.html" style="color:#000000; text-decoration:underline;">FAQ</a>
+    </p>
+  </footer>
 
 </body>
 </html>
