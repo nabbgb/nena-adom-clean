@@ -1777,7 +1777,7 @@ header h2 {
     height: 40px;
   }
   footer {
-    font-size: 0.95em;
+    font-size: 0.70em !important;
     padding: 12px 0;
   }
   .phone-call-button {

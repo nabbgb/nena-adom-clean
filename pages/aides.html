@@ -45,7 +45,6 @@
     margin:0;
   }
   }
-
 /* ===========================
    CTA CALL
    =========================== */
@@ -88,7 +87,7 @@
 /* Responsive */
 @media (max-width: 600px) {
   .cta-call {
-    padding: 25px 15px;
+    padding: 15px 10px;
   }
   .cta-call h2 {
     font-size: 1.6em;
@@ -136,6 +135,34 @@
     font-size: 1.1em;
     justify-content: center;
   }
+}
+
+/* --- Fix mobile Aides: overflow + centrage CTA --- */
+
+/* Box-sizing pour éviter les surprises de largeur */
+*, *::before, *::after { box-sizing: border-box; }
+
+@media (max-width: 768px){
+  /* Empêche tout scroll horizontal */
+  html, body { max-width: 100%; overflow-x: hidden; }
+
+  /* Médias responsives (schéma, images, iframe éventuels) */
+  img, picture, video, iframe { max-width: 100%; height: auto; display: block; }
+  .intro-illustration-wrapper,
+  .intro-image-aides { width: 100%; overflow: hidden; }
+  .intro-image-aides img { width: 100%; height: auto; }
+
+  /* Summary du sommaire: évite qu'il élargisse la page */
+  #toc summary { display: flex; align-items: center; gap: 8px; }
+  #close-toc { margin-left: auto; } /* la croix va à droite sans pousser la ligne */
+
+  /* Casse proprement les longs mots/liens si besoin */
+  .faq-container, .faq-answer, .cta-call p { overflow-wrap: anywhere; word-break: break-word; }
+
+  /* CTA bien centrés et jamais trop larges */
+  .cta-call { padding-left: 16px; padding-right: 16px; text-align: center; }
+  .cta-call-btn,
+  .cta-whatsapp-btn { width: 100%; max-width: 320px; }
 }
 
 </style>
